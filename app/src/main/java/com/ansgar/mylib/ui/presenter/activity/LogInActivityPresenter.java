@@ -27,7 +27,7 @@ public class LogInActivityPresenter extends BasePresenter {
 
         //TODO
 //        UserResponse userResponse = new UserResponse(1, "Kirila", "Menski", "default");
-        User user = new User(1, "Kirila", "Menski", "default");
+        User user = new User(1, "Kirila", "Menski", "default", "test@test.test", "1");
         MyLibPreference.saveUserId(user.getId());
         mUserDao.addUser(user);
 

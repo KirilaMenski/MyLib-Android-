@@ -24,6 +24,10 @@ public class User implements Serializable {
     private String mLastName;
     @DatabaseField(columnDefinition = "cover")
     private String mCover;
+    @DatabaseField(columnDefinition = "email")
+    private String mEmail;
+    @DatabaseField(columnDefinition = "password")
+    private String mPassword;
     @ForeignCollectionField
     ForeignCollection<Author> mAuthors;
     @ForeignCollectionField
@@ -35,11 +39,13 @@ public class User implements Serializable {
 
     }
 
-    public User(long id, String firstName, String lastName, String cover) {
+    public User(long id, String firstName, String lastName, String cover, String email, String password) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
         mCover = cover;
+        mEmail = email;
+        mPassword = password;
     }
 
     public long getId() {
@@ -107,4 +113,19 @@ public class User implements Serializable {
         mCover = cover;
     }
 
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
+    }
 }
