@@ -100,4 +100,5 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:5.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'de.hdodenhof:circleimageview:1.2.1'
 }
