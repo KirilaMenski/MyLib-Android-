@@ -2,4 +2,6 @@
     <string name="app_name">MyLib</string>
     <string name="users">Users</string>
     <string name="my_lib">My Library</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
 </resources>
