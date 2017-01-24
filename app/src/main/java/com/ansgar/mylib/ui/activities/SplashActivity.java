@@ -6,7 +6,8 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.activity.SplashActivityPresenter;
-import com.ansgar.mylib.ui.view.SplashActivityView;
+import com.ansgar.mylib.ui.view.activity.SplashActivityView;
+import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.concurrent.TimeUnit;
 
@@ -47,8 +48,12 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
     private Observer<String> observer = new Observer<String>() {
         @Override
         public void onCompleted() {
-//            startActivity(MainActivity.newIntent(SplashActivity.this));
-            startActivity(SignInActivity.newIntent(SplashActivity.this));
+
+            if (MyLibPreference.getUserId() == -1) {
+                startActivity(LogInActivity.newIntent(SplashActivity.this));
+            } else {
+                startActivity(MainActivity.newIntent(SplashActivity.this, MyLibPreference.getUserId()));
+            }
             finish();
         }
 

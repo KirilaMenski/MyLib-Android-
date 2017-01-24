@@ -1,4 +1,4 @@
-package com.ansgar.mylib.ui.view;
+package com.ansgar.mylib.ui.view.activity;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
 

@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
+import com.ansgar.mylib.api.UserResponse;
+import com.ansgar.mylib.ui.pager.MyLibraryPager;
 import com.ansgar.mylib.util.FragmentUtil;
 
 import butterknife.BindView;
@@ -24,6 +26,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
 
     private static final int LAYOUT = R.layout.activity_main;
+    public static final String EXTRA_USER = "com.ansgar.mylib.ui.activities.user_id";
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -37,8 +40,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
 
     ActionBarDrawerToggle mToggle;
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context, long id) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(EXTRA_USER, id);
         return intent;
     }
 
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         mToggle.syncState();
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryPager.newInstance(), false);
     }
 
     @Override

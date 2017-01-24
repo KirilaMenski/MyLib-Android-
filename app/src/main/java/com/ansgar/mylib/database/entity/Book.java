@@ -16,7 +16,7 @@ import java.util.List;
 @DatabaseTable(tableName = "books")
 public class Book implements Serializable {
 
-    @DatabaseField(columnDefinition = "id")
+    @DatabaseField(generatedId = true, columnDefinition = "id")
     private long mId;
     @DatabaseField(columnDefinition = "title")
     private String mTitle;
@@ -30,9 +30,16 @@ public class Book implements Serializable {
     private int mYear;
     @DatabaseField(columnDefinition = "resource_path")
     private String mResPath;
+    @DatabaseField(columnDefinition = "in_list")
+    private boolean mInList;
+    @DatabaseField(columnDefinition = "was_read")
+    private boolean mWasRead;
     @DatabaseField(columnName = "author_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references authors(id) on delete cascade")
     private Author mAuthor;
+    @DatabaseField(columnName = "user_id", foreign = true,
+            foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
+    private User mUser;
     @ForeignCollectionField
     private ForeignCollection<Citation> mCitations;
 
@@ -41,7 +48,8 @@ public class Book implements Serializable {
 
     }
 
-    public Book(long id, String title, String description, String genre, String cover, int year, String resPath, Author author) {
+    public Book(long id, String title, String description, String genre, String cover, int year, String resPath,
+                boolean inList, boolean wasRead, Author author, User user) {
         mId = id;
         mTitle = title;
         mDescription = description;
@@ -49,7 +57,10 @@ public class Book implements Serializable {
         mCover = cover;
         mYear = year;
         mAuthor = author;
+        mInList = inList;
+        mWasRead = wasRead;
         mResPath = resPath;
+        mUser = user;
     }
 
     public long getId() {
@@ -123,6 +134,30 @@ public class Book implements Serializable {
 
     public void setResPath(String resPath) {
         mResPath = resPath;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
+    }
+
+    public boolean isInList() {
+        return mInList;
+    }
+
+    public void setInList(boolean inList) {
+        mInList = inList;
+    }
+
+    public boolean isWasRead() {
+        return mWasRead;
+    }
+
+    public void setWasRead(boolean wasRead) {
+        mWasRead = wasRead;
     }
 }
 

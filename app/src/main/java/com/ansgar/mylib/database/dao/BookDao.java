@@ -20,6 +20,8 @@ public interface BookDao {
 
     List<Book> getByGenre(String genre);
 
+    List<Book> getBooksFromReadingList(boolean inList);
+
     Book getBookById(long id);
 
 }

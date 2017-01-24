@@ -13,39 +13,33 @@ import java.util.List;
  * Created by kirill on 24.1.17.
  */
 
+@DatabaseTable(tableName = "users")
+public class User implements Serializable {
 
-@DatabaseTable(tableName = "authors")
-public class Author implements Serializable {
-
-    @DatabaseField(generatedId = true, columnName = "id")
+    @DatabaseField(generatedId = true, columnDefinition = "id")
     private long mId;
-    @DatabaseField(columnName = "cover")
-    private String mCover;
-    @DatabaseField(columnName = "first_name")
+    @DatabaseField(columnDefinition = "first_name")
     private String mFirstName;
-    @DatabaseField(columnName = "last_name")
+    @DatabaseField(columnDefinition = "last_name")
     private String mLastName;
-    @DatabaseField(columnName = "biography")
-    private String mBiography;
-    @DatabaseField(columnName = "date")
-    private String mDate;
-    @DatabaseField(columnName = "user_id", foreign = true,
-            foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
-    private User mUser;
+    @DatabaseField(columnDefinition = "cover")
+    private String mCover;
     @ForeignCollectionField
-    private ForeignCollection<Book> mBooks;
+    ForeignCollection<Author> mAuthors;
+    @ForeignCollectionField
+    ForeignCollection<Book> mBooks;
+    @ForeignCollectionField
+    ForeignCollection<Citation> mCitations;
 
-    public Author() {
+    public User() {
 
     }
 
-    public Author(long id, String firstName, String lastName, String biography, String date, User user) {
+    public User(long id, String firstName, String lastName, String cover) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
-        mBiography = biography;
-        mDate = date;
-        mUser = user;
+        mCover = cover;
     }
 
     public long getId() {
@@ -56,16 +50,37 @@ public class Author implements Serializable {
         mId = id;
     }
 
-    public List<Book> getAuthorBooks() {
+    public List<Author> getAuthors() {
+        List<Author> authors = new ArrayList<>();
+        if (mAuthors == null) {
+            return authors;
+        }
+        for (Author author : mAuthors) {
+            authors.add(author);
+        }
+        return authors;
+    }
+
+    public List<Book> getBooks() {
         List<Book> books = new ArrayList<>();
         if (mBooks == null) {
             return books;
         }
-
         for (Book book : mBooks) {
             books.add(book);
         }
         return books;
+    }
+
+    public List<Citation> getCitations() {
+        List<Citation> citations = new ArrayList<>();
+        if (mCitations == null) {
+            return citations;
+        }
+        for (Citation citation : mCitations) {
+            citations.add(citation);
+        }
+        return citations;
     }
 
     public String getFirstName() {
@@ -84,30 +99,6 @@ public class Author implements Serializable {
         mLastName = lastName;
     }
 
-    public String getBiography() {
-        return mBiography;
-    }
-
-    public void setBiography(String biography) {
-        mBiography = biography;
-    }
-
-    public String getDate() {
-        return mDate;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
-    }
-
     public String getCover() {
         return mCover;
     }
@@ -115,4 +106,5 @@ public class Author implements Serializable {
     public void setCover(String cover) {
         mCover = cover;
     }
+
 }

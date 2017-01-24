@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.ansgar.mylib.util.MyLibPreference;
+
 /**
  * Created by kirill on 24.1.17.
  */
@@ -15,7 +17,7 @@ public class MyLibApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         sContext = this;
-//        MyLibPreferences.init(sContext);
+        MyLibPreference.init(sContext);
     }
 
     @Override

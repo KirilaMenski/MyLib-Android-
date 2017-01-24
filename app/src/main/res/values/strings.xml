@@ -4,4 +4,15 @@
     <string name="my_lib">My Library</string>
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="restore_pass">Restore password</string>
+    <string name="registration">Registration</string>
+    <string name="login">Login</string>
+    <string name="synchronize">Synchronize\n data</string>
+    <string name="add_data">Add %s</string>
+    <string name="books_count">Books: %d</string>
+    <string name="books">Books</string>
+    <string name="authors">Authors</string>
+    <string name="my_list">My list</string>
 </resources>

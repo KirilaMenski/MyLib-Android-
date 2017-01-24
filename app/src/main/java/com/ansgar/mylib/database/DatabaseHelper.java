@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.database.entity.Citation;
+import com.ansgar.mylib.database.entity.User;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -22,6 +23,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "MyLib.db";
     private static final int DATABASE_VERSION = 1;
 
+    private Dao<User, Integer> mUsersDao = null;
     private Dao<Author, Integer> mAuthorsDao = null;
     private Dao<Book, Integer> mBooksDao = null;
     private Dao<Citation, Integer> mCitationsDao = null;
@@ -33,6 +35,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
+            TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Author.class);
             TableUtils.createTable(connectionSource, Book.class);
             TableUtils.createTable(connectionSource, Citation.class);
@@ -52,6 +55,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 
+    }
+
+    public Dao<User, Integer> getUsersDao() {
+        if (mUsersDao == null) {
+            try {
+                mUsersDao = getDao(User.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return mUsersDao;
     }
 
     public Dao<Author, Integer> getAuthorsDao() {

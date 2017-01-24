@@ -1,17 +1,17 @@
-package com.ansgar.mylib.ui.presenter.activity;
+package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.view.SignInActivityView;
+import com.ansgar.mylib.ui.view.fragment.MyLibraryPagerView;
 
 /**
  * Created by kirill on 24.1.17.
  */
-public class SignInActivityPresenter extends BasePresenter{
+public class MyLibraryPagerPresenter extends BasePresenter {
 
-    private SignInActivityView mView;
+    private MyLibraryPagerView mView;
 
-    public SignInActivityPresenter(SignInActivityView view){
+    public MyLibraryPagerPresenter(MyLibraryPagerView view) {
         super(view.getContext());
         mView = view;
     }

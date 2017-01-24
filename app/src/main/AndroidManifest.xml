@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity
-            android:name=".ui.activities.SignInActivity"
+            android:name=".ui.activities.LogInActivity"
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
     </application>

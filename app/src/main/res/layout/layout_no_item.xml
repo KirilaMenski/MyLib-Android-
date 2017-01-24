@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/layout_no_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/synchronize_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/m_dimen"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/xw_dimen"
+                android:layout_height="@dimen/xw_dimen"
+                android:src="@drawable/ic_synchronize"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/synchronize_data"
+                android:gravity="center"
+                android:text="@string/synchronize"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/add_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/synchronize_data"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/xw_dimen"
+                android:layout_height="@dimen/xw_dimen"
+                android:src="@drawable/ic_add_data"/>
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_data"
+                android:gravity="center"
+                android:text="@string/add_data"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

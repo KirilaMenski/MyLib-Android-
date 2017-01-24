@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:padding="@dimen/m_dimen">
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_xsmall"
+        tools:text="1. Harry Potter"/>
+
+    <ImageView
+        android:id="@+id/status_icon"
+        android:layout_width="@dimen/x_dimen"
+        android:layout_height="@dimen/x_dimen"
+        android:src="@drawable/ic_status_true"/>
+
+</LinearLayout>

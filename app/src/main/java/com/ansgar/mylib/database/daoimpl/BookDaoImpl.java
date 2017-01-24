@@ -6,6 +6,7 @@ import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -88,6 +89,20 @@ public class BookDaoImpl implements BookDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<Book> getBooksFromReadingList(boolean inList) {
+        List<Book> books = new ArrayList<>();
+        long userId = MyLibPreference.getUserId();
+        try {
+            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("in_list", inList).eq("user_id", userId);
+            books.addAll(queryBuilder.query());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
     }
 
     @Override
