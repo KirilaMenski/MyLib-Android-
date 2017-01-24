@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="edit_color">#bebebe</color>
+    <color name="edit_background">#fafafa</color>
+    <color name="toolbar">#1d3037</color>
+    <color name="purchase_item_color">#6c7589</color>
+    <color name="search_hint_color">#9b9ba0</color>
+    <color name="pager_background_color">#eeeff0</color>
+    <color name="count_color">#009ada</color>
+    <color name="share_edit">#0072a2</color>
+    <color name="count_color_pressed">#82daff</color>
+    <color name="no_items_background_color">#902a2a2b</color>
+    <color name="white_transp">#50FFFFFF</color>
+    <color name="shares">#6c7589</color>
+    <color name="color_enabled_indicator">#d5d7db</color>
+    <color name="share_detail_back">#eeeff0</color>
+    <color name="share_detail_add_back">#f3f3f3</color>
+</resources>

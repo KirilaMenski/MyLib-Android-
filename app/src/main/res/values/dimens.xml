@@ -1,0 +1,88 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_tiny">12sp</dimen>
+    <dimen name="text_size_xsmall">14sp</dimen>
+    <dimen name="text_size_xxsmall">15sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_small_plus">18sp</dimen>
+    <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_large_p">24sp</dimen>
+    <dimen name="text_size_large_xp">26sp</dimen>
+    <dimen name="text_size_plarge">28sp</dimen>
+    <dimen name="text_size_xplarge">30sp</dimen>
+    <dimen name="text_size_xlarge">32sp</dimen>
+    <dimen name="text_size_xxlarge">36sp</dimen>
+    <dimen name="text_size_xxxlarge">40sp</dimen>
+
+    <!-- View Sizes -->
+    <dimen name="z_size">0dp</dimen>
+    <dimen name="o_size">1dp</dimen>
+    <dimen name="s_size">2dp</dimen>
+    <dimen name="t_size">3dp</dimen>
+    <dimen name="k_size">4dp</dimen>
+    <dimen name="l_size">5dp</dimen>
+    <dimen name="m_size">10dp</dimen>
+    <dimen name="xm_size">12dp</dimen>
+    <dimen name="h_size">15dp</dimen>
+    <dimen name="x_size">20dp</dimen>
+    <dimen name="xh_size">25dp</dimen>
+    <dimen name="xxh_size">30dp</dimen>
+    <dimen name="xxhh_size">31dp</dimen>
+    <dimen name="xxxh_size">35dp</dimen>
+    <dimen name="xd_size">40dp</dimen>
+    <dimen name="xld_size">45dp</dimen>
+    <dimen name="xxld_size">50dp</dimen>
+    <dimen name="xxlld_size">52dp</dimen>
+    <dimen name="xxxld_size">55dp</dimen>
+    <dimen name="xxd_size">60dp</dimen>
+    <dimen name="xxxdd_size">65dp</dimen>
+    <dimen name="xxdd_size">70dp</dimen>
+    <dimen name="xxddd_size">75dp</dimen>
+    <dimen name="xxxd_size">80dp</dimen>
+    <dimen name="xll_size">90dp</dimen>
+    <dimen name="xl_size">100dp</dimen>
+    <dimen name="xxl_size">110dp</dimen>
+    <dimen name="bx_size">115dp</dimen>
+    <dimen name="b_size">120dp</dimen>
+    <dimen name="xb_size">140dp</dimen>
+    <dimen name="xxb_size">160dp</dimen>
+    <dimen name="xxbb_size">170dp</dimen>
+    <dimen name="xxxb_size">180dp</dimen>
+    <dimen name="xxxxb_size">200dp</dimen>
+    <dimen name="xxxxbb_size">260dp</dimen>
+    <dimen name="xxxxxxb_size">280dp</dimen>
+    <dimen name="xxxxxxxb_size">400dp</dimen>
+
+    <!-- Dimention -->
+    <dimen name="z_dimen">0dp</dimen>
+    <dimen name="o_dimen">1dp</dimen>
+    <dimen name="s_dimen">2dp</dimen>
+    <dimen name="t_dimen">3dp</dimen>
+    <dimen name="k_dimen">4dp</dimen>
+    <dimen name="l_dimen">5dp</dimen>
+    <dimen name="lx_dimen">6dp</dimen>
+    <dimen name="xl_dimen">7dp</dimen>
+    <dimen name="m_dimen">10dp</dimen>
+    <dimen name="xm_dimen">12dp</dimen>
+    <dimen name="h_dimen">15dp</dimen>
+    <dimen name="hh_dimen">17dp</dimen>
+    <dimen name="hhx_dimen">19dp</dimen>
+    <dimen name="x_dimen">20dp</dimen>
+    <dimen name="xx_dimen">23dp</dimen>
+    <dimen name="d_dimen">25dp</dimen>
+    <dimen name="b_dimen">30dp</dimen>
+    <dimen name="p_dimen">35dp</dimen>
+    <dimen name="w_dimen">40dp</dimen>
+    <dimen name="wx_dimen">50dp</dimen>
+    <dimen name="wwx_dimen">52dp</dimen>
+    <dimen name="xw_dimen">60dp</dimen>
+    <dimen name="xww_dimen">80dp</dimen>
+    <dimen name="xxww_dimen">90dp</dimen>
+    <dimen name="xxw_dimen">100dp</dimen>
+
+</resources>
