@@ -2,16 +2,16 @@ package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.view.fragment.MyLibraryPagerView;
+import com.ansgar.mylib.ui.view.fragment.MyLibraryFragmentView;
 
 /**
  * Created by kirill on 24.1.17.
  */
-public class MyLibraryPagerPresenter extends BasePresenter {
+public class MyLibraryFragmentPresenter extends BasePresenter {
 
-    private MyLibraryPagerView mView;
+    private MyLibraryFragmentView mView;
 
-    public MyLibraryPagerPresenter(MyLibraryPagerView view) {
+    public MyLibraryFragmentPresenter(MyLibraryFragmentView view) {
         super(view.getContext());
         mView = view;
     }

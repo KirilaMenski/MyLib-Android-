@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.adapter.ReadingListAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -33,6 +35,8 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private ReadingListFragmentPresenter mPresenter;
     private ReadingListAdapter mAdapter;
 
+    @BindView(R.id.type)
+    TextView mDataType;
     @BindView(R.id.recycler_reading_list)
     RecyclerView mReadingListRec;
     @BindView(R.id.layout_no_item)
@@ -60,7 +64,8 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setTitle(R.string.my_list);
+        mDataType.setText(getContext().getResources().getString(R.string.add_data,
+                getContext().getResources().getString(R.string.book).toLowerCase()));
     }
 
     @Override

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:hint="@string/hint_email"
             android:imeOptions="actionSearch"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColor="@android:color/black"
             android:textColorHint="@color/search_hint_color"

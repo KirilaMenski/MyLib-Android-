@@ -16,23 +16,23 @@ import java.util.List;
 @DatabaseTable(tableName = "books")
 public class Book implements Serializable {
 
-    @DatabaseField(generatedId = true, columnDefinition = "id")
+    @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
-    @DatabaseField(columnDefinition = "title")
+    @DatabaseField(columnName = "title")
     private String mTitle;
-    @DatabaseField(columnDefinition = "description")
+    @DatabaseField(columnName = "description")
     private String mDescription;
-    @DatabaseField(columnDefinition = "genre")
+    @DatabaseField(columnName = "genre")
     private String mGenre;
-    @DatabaseField(columnDefinition = "cover")
+    @DatabaseField(columnName = "cover")
     private String mCover;
-    @DatabaseField(columnDefinition = "year")
+    @DatabaseField(columnName = "year")
     private int mYear;
-    @DatabaseField(columnDefinition = "resource_path")
+    @DatabaseField(columnName = "resource_path")
     private String mResPath;
-    @DatabaseField(columnDefinition = "in_list")
+    @DatabaseField(columnName = "in_list")
     private boolean mInList;
-    @DatabaseField(columnDefinition = "was_read")
+    @DatabaseField(columnName = "was_read")
     private boolean mWasRead;
     @DatabaseField(columnName = "author_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references authors(id) on delete cascade")

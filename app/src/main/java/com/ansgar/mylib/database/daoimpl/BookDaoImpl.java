@@ -97,7 +97,7 @@ public class BookDaoImpl implements BookDao {
         long userId = MyLibPreference.getUserId();
         try {
             QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
-            queryBuilder.where().eq("in_list", inList).eq("user_id", userId);
+            queryBuilder.where().le("in_list", inList).and().eq("user_id", userId);
             books.addAll(queryBuilder.query());
         } catch (SQLException e) {
             e.printStackTrace();

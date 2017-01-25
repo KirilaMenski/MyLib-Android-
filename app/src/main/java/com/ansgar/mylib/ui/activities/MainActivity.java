@@ -7,26 +7,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.api.UserResponse;
-import com.ansgar.mylib.ui.pager.MyLibraryPager;
+import com.ansgar.mylib.ui.base.BaseActivity;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.pager.MyLibraryFragment;
+import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
+import com.ansgar.mylib.ui.view.activity.MainActivityView;
 import com.ansgar.mylib.util.FragmentUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener {
 
     private static final int LAYOUT = R.layout.activity_main;
     public static final String EXTRA_USER = "com.ansgar.mylib.ui.activities.user_id";
+
+    private MainActivityPresenter mPresenter;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -60,7 +63,17 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
         mToggle.syncState();
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryPager.newInstance(), false);
+        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return mPresenter;
+    }
+
+    @Override
+    protected void createPresenter() {
+        mPresenter = new MainActivityPresenter(this);
     }
 
     @Override
@@ -85,5 +98,9 @@ public class MainActivity extends AppCompatActivity implements FragmentManager.O
                 }
             });
         }
+    }
+
+    public void setScreenTitle(String title){
+        mScreenTitle.setText(title);
     }
 }

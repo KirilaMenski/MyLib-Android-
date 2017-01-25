@@ -12,9 +12,9 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "citations")
 public class Citation implements Serializable {
 
-    @DatabaseField(generatedId = true, columnDefinition = "id")
+    @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
-    @DatabaseField(columnDefinition = "citation")
+    @DatabaseField(columnName = "citation")
     private String mCitation;
     @DatabaseField(columnName = "user_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")

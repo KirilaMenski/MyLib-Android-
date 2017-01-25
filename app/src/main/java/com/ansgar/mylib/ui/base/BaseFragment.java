@@ -40,7 +40,6 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentView 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        initializeViews();
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -86,10 +85,6 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentView 
     }
 
     public abstract BasePresenter getPresenter();
-
-    public void initializeViews() {
-
-    }
 
     protected abstract void createPresenter();
 

@@ -70,7 +70,7 @@ public class LogInActivity extends BaseActivity implements LogInActivityView {
     @OnClick(R.id.registration)
     public void registrationPressed() {
         RegistrationDialog dialog = RegistrationDialog.newInstance();
-        dialog.show(getSupportFragmentManager(), getResources().getString(R.string.registration));
+        dialog.show(getSupportFragmentManager(), "registrationDialog");
     }
 
     @Override

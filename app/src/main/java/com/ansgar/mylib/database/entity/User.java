@@ -16,17 +16,17 @@ import java.util.List;
 @DatabaseTable(tableName = "users")
 public class User implements Serializable {
 
-    @DatabaseField(generatedId = true, columnDefinition = "id")
+    @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
-    @DatabaseField(columnDefinition = "first_name")
+    @DatabaseField(columnName = "first_name")
     private String mFirstName;
-    @DatabaseField(columnDefinition = "last_name")
+    @DatabaseField(columnName = "last_name")
     private String mLastName;
-    @DatabaseField(columnDefinition = "cover")
+    @DatabaseField(columnName = "cover")
     private String mCover;
-    @DatabaseField(columnDefinition = "email")
+    @DatabaseField(columnName = "email")
     private String mEmail;
-    @DatabaseField(columnDefinition = "password")
+    @DatabaseField(columnName = "password")
     private String mPassword;
     @ForeignCollectionField
     ForeignCollection<Author> mAuthors;

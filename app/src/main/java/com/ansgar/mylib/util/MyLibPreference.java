@@ -61,8 +61,8 @@ public class MyLibPreference {
         ed.commit();
     }
 
-    public static int getUserId() {
-        return mPreference.getInt(CURRENT_USER, DEFAULT_USER);
+    public static long getUserId() {
+        return mPreference.getLong(CURRENT_USER, DEFAULT_USER);
     }
 
     public static void clearData() {

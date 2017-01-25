@@ -73,11 +73,11 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
 
     @Override
     public BasePresenter getPresenter() {
-        return null;
+        return mPresenter;
     }
 
     @Override
     protected void createPresenter() {
-
+        mPresenter = new RegistrationDialogPresenter(this);
     }
 }
