@@ -66,12 +66,12 @@
 
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/biography"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/author_icon"
         android:paddingLeft="@dimen/m_dimen"
-        android:text="@string/description"
+        android:text="@string/biography"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_xsmall"/>
 
@@ -79,11 +79,11 @@
         android:id="@+id/author_biography"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/description"
+        android:layout_below="@+id/biography"
         android:layout_marginTop="@dimen/m_dimen"
         android:background="@drawable/background_edit"
         android:gravity="top"
-        android:hint="@string/hint_author_last_name"
+        android:hint="@string/biography"
         android:inputType="textMultiLine"
         android:lines="10"
         android:paddingBottom="@dimen/x_dimen"

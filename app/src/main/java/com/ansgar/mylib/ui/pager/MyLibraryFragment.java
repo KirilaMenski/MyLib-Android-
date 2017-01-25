@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import butterknife.ButterKnife;
 public class MyLibraryFragment extends BaseFragment implements MyLibraryFragmentView {
 
     private static final int LAYOUT = R.layout.pager_my_library;
-    private static final String POSITION = "position";
 
     private MyLibraryFragmentPresenter mPresenter;
 
@@ -42,14 +40,6 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     public static MyLibraryFragment newInstance() {
         MyLibraryFragment pager = new MyLibraryFragment();
         return pager;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        if (savedInstanceState != null) {
-//            mPosition = savedInstanceState.getInt(POSITION);
-//        }
     }
 
     @Nullable
@@ -65,7 +55,6 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
         super.onStart();
         mMyLibPager.setAdapter(getAdapter());
         mMyLibPager.addOnPageChangeListener(getPageChangeListener());
-        Log.i("!!!!!", "" + mPosition);
         mMyLibPager.setCurrentItem(mPosition);
     }
 
@@ -111,12 +100,6 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
             }
         };
     }
-
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putInt(POSITION, mPosition);
-//    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

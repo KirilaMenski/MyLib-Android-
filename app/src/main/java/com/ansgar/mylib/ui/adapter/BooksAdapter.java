@@ -2,6 +2,7 @@ package com.ansgar.mylib.ui.adapter;
 
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,12 +78,22 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         }
 
         private void setBookCover(String path) {
-            Uri uri = Uri.parse(path);
-            Picasso.with(mFragmentActivity.get())
-                    .load(uri)
-                    .fit()
-                    .centerCrop()
-                    .into(mBookCover);
+            try {
+                Uri uri = Uri.parse(path);
+                Picasso.with(mFragmentActivity.get())
+                        .load(uri)
+                        .fit()
+                        .centerCrop()
+                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
+                        .into(mBookCover);
+            } catch (Exception e) {
+                Picasso.with(mFragmentActivity.get())
+                        .load(path)
+                        .fit()
+                        .centerCrop()
+                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
+                        .into(mBookCover);
+            }
         }
     }
 }

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/m_dimen">
+
+
+    <ImageView
+        android:id="@+id/book_cover"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxxb_size"/>
+
+    <LinearLayout
+        android:id="@+id/inf_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/book_cover"
+        android:orientation="vertical"
+        android:padding="@dimen/m_dimen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/author_name"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit"
+                android:hint="@string/hint_author_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"
+                android:theme="@style/Theme.App.Search"/>
+
+            <ImageView
+                android:id="@+id/select_author"
+                android:layout_width="@dimen/x_size"
+                android:layout_height="@dimen/x_size"
+                android:src="@drawable/ic_add_data"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/book_res_path"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/xxh_size"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:text="@string/select_from_sd"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"/>
+
+        <EditText
+            android:id="@+id/book_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxh_size"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:background="@drawable/background_edit"
+            android:hint="@string/hint_book_title"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"
+            android:theme="@style/Theme.App.Search"/>
+
+        <EditText
+            android:id="@+id/book_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxh_size"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:background="@drawable/background_edit"
+            android:hint="@string/hint_book_published"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"
+            android:theme="@style/Theme.App.Search"/>
+
+        <EditText
+            android:id="@+id/book_genre"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xxh_size"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:background="@drawable/background_edit"
+            android:hint="@string/hint_book_genre"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"
+            android:theme="@style/Theme.App.Search"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/book_series"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_weight="1"
+                android:background="@drawable/background_edit"
+                android:hint="@string/hint_book_series"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"
+                android:theme="@style/Theme.App.Search"/>
+
+            <TextView
+                android:id="@+id/book_series_numb"
+                android:layout_width="@dimen/xxh_size"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/zero"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inf_ll"
+        android:paddingLeft="@dimen/m_dimen"
+        android:text="@string/description"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_xsmall"/>
+
+    <EditText
+        android:id="@+id/book_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:background="@drawable/background_edit"
+        android:gravity="top"
+        android:hint="@string/description"
+        android:inputType="textMultiLine"
+        android:lines="6"
+        android:paddingBottom="@dimen/x_dimen"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:paddingTop="@dimen/x_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <TextView
+        android:id="@+id/add_book"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_below="@+id/book_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:background="@drawable/add_btn_background"
+        android:gravity="center"
+        android:text="@string/add"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_xsmall"/>
+
+
+</RelativeLayout>

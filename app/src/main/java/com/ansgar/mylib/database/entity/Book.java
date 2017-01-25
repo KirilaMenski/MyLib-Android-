@@ -26,14 +26,18 @@ public class Book implements Serializable {
     private String mGenre;
     @DatabaseField(columnName = "cover")
     private String mCover;
+    @DatabaseField(columnName = "series")
+    private String mSeries;
+    @DatabaseField(columnName = "num_series")
+    private int mNumSeries;
     @DatabaseField(columnName = "year")
     private int mYear;
     @DatabaseField(columnName = "resource_path")
     private String mResPath;
-    @DatabaseField(columnName = "in_list")
-    private boolean mInList;
+    @DatabaseField(columnName = "in_list", defaultValue = "0")
+    private int mInList;
     @DatabaseField(columnName = "was_read")
-    private boolean mWasRead;
+    private int mWasRead;
     @DatabaseField(columnName = "author_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references authors(id) on delete cascade")
     private Author mAuthor;
@@ -48,13 +52,15 @@ public class Book implements Serializable {
 
     }
 
-    public Book(long id, String title, String description, String genre, String cover, int year, String resPath,
-                boolean inList, boolean wasRead, Author author, User user) {
+    public Book(long id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
+                int inList, int wasRead, Author author, User user) {
         mId = id;
         mTitle = title;
         mDescription = description;
         mGenre = genre;
         mCover = cover;
+        mSeries = series;
+        mNumSeries = numSeries;
         mYear = year;
         mAuthor = author;
         mInList = inList;
@@ -144,20 +150,36 @@ public class Book implements Serializable {
         mUser = user;
     }
 
-    public boolean isInList() {
+    public int getInList() {
         return mInList;
     }
 
-    public void setInList(boolean inList) {
+    public void setInList(int inList) {
         mInList = inList;
     }
 
-    public boolean isWasRead() {
+    public int getWasRead() {
         return mWasRead;
     }
 
-    public void setWasRead(boolean wasRead) {
+    public void setWasRead(int wasRead) {
         mWasRead = wasRead;
+    }
+
+    public String getSeries() {
+        return mSeries;
+    }
+
+    public void setSeries(String series) {
+        mSeries = series;
+    }
+
+    public int getNumSeries() {
+        return mNumSeries;
+    }
+
+    public void setNumSeries(int numSeries) {
+        mNumSeries = numSeries;
     }
 }
 

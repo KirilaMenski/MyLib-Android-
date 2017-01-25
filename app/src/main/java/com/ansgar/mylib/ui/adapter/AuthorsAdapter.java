@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.ui.listener.AuthorSelectedListener;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -31,11 +32,14 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     private List<Author> mAuthors;
     private List<Author> mAuthorsCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
+    private boolean mCreateBook;
+    private WeakReference<AuthorSelectedListener> mListener;
 
-    public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity) {
+    public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook) {
         mAuthors = authors;
         mAuthorsCopy = authors;
         mFragmentActivity = new WeakReference<>(fragmentActivity);
+        mCreateBook = isCreateBook;
     }
 
     @Override
@@ -47,12 +51,17 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
 
     @Override
     public void onBindViewHolder(AuthorsHolder holder, int position) {
-        Author author = mAuthors.get(position);
+        final Author author = mAuthors.get(position);
         holder.bindViews(author);
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO
+                if (mCreateBook) {
+                    mListener.get().authorSelected(author);
+                } else {
+
+                }
             }
         });
     }
@@ -65,6 +74,10 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    public void setListener(AuthorSelectedListener listener) {
+        mListener = new WeakReference<>(listener);
     }
 
     public class AuthorsHolder extends RecyclerView.ViewHolder {
@@ -101,7 +114,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                         .centerCrop()
                         .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
                         .into(mAuthorIcon);
-            } catch (Exception e){
+            } catch (Exception e) {
                 Picasso.with(mFragmentActivity.get())
                         .load(path)
                         .fit()

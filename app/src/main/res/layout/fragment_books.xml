@@ -4,7 +4,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/m_dimen">
 
     <include
         layout="@layout/layout_no_item"
@@ -14,11 +15,22 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_books"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_books">
     </android.support.v7.widget.RecyclerView>
+
+
+    <ImageView
+        android:id="@+id/add_book_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/m_dimen"
+        android:src="@drawable/ic_add_data"/>
 
 </RelativeLayout>

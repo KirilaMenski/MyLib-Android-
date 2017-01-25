@@ -16,10 +16,10 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.dialog.AddAuthorDialog;
 import com.ansgar.mylib.ui.listener.AddAuthorDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
+import com.ansgar.mylib.util.FragmentUtil;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import butterknife.OnClick;
  * Created by kirill on 24.1.17.
  */
 
-public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView, AddAuthorDialogListener {
+public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView {
 
     private static final int LAYOUT = R.layout.fragment_author;
 
@@ -75,9 +75,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @OnClick(R.id.add_data)
     public void addAuthorPressed() {
-        AddAuthorDialog dialog = AddAuthorDialog.newInstance();
-        dialog.setListener(this);
-        dialog.show(getFragmentManager(), "add_author_dialog");
+        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddAuthorFragment.newInstance(), true, R.anim.right_out, R.anim.left_out);
     }
 
     @Override
@@ -97,15 +95,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @Override
     public void setAuthorAdapter(List<Author> authors) {
-        mAdapter = new AuthorsAdapter(authors, getActivity());
+        mAdapter = new AuthorsAdapter(authors, getActivity(), false);
         mAuthorsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mAuthorsRecycler.setAdapter(mAdapter);
         mAuthorsRecycler.getAdapter().notifyDataSetChanged();
-    }
-
-    @Override
-    public void authorAdded() {
-        mPresenter.loadAuthors();
     }
 
 }

@@ -72,7 +72,7 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
         public void bindViews(int position, Book book) {
             mBookTitle.setText(position + ". " + book.getTitle());
             mStatus.setImageDrawable(ContextCompat.getDrawable(mFragmentActivity.get(),
-                    book.isWasRead() ? R.drawable.ic_status_true : R.drawable.ic_status_false));
+                    book.getWasRead() == 1 ? R.drawable.ic_status_true : R.drawable.ic_status_false));
         }
 
     }

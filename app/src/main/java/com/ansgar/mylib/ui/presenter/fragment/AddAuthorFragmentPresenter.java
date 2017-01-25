@@ -1,4 +1,6 @@
-package com.ansgar.mylib.ui.presenter.dialog;
+package com.ansgar.mylib.ui.presenter.fragment;
+
+import android.support.v4.app.FragmentActivity;
 
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.UserDao;
@@ -9,24 +11,25 @@ import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.listener.AddAuthorDialogListener;
-import com.ansgar.mylib.ui.view.dialog.AddAuthorDialogView;
+import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
+import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
 /**
  * Created by kirill on 25.1.17.
  */
-public class AddAuthorDialogPresenter extends BasePresenter {
+public class AddAuthorFragmentPresenter extends BasePresenter {
 
-    private AddAuthorDialogView mView;
+    private AddAuthorFragmentView mView;
     private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();
     private UserDao mUserDao = UserDaoImpl.getInstance();
 
-    public AddAuthorDialogPresenter(AddAuthorDialogView view) {
+    public AddAuthorFragmentPresenter(AddAuthorFragmentView view) {
         super(view.getContext());
         mView = view;
     }
 
-    public void addAuthor(AddAuthorDialogListener listener, String authorIconPath, String firstName, String lastName, String date, String biography) {
+    public void addAuthor(String authorIconPath, String firstName, String lastName, String date, String biography) {
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Author author = new Author();
         author.setCover(authorIconPath);
@@ -36,7 +39,7 @@ public class AddAuthorDialogPresenter extends BasePresenter {
         author.setBiography(biography);
         author.setUser(user);
         mAuthorDao.addAuthor(author);
-        listener.authorAdded();
+        FragmentUtil.clearBackStack((FragmentActivity) mView.getActivity(), 1);
     }
 
     @Override

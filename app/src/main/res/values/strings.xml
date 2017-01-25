@@ -22,4 +22,13 @@
     <string name="hint_author_date">Date</string>
     <string name="add">Add</string>
     <string name="book">book</string>
+    <string name="hint_book_title">Book title</string>
+    <string name="hint_book_published">Published</string>
+    <string name="hint_book_genre">Genre</string>
+    <string name="choose_author">Choose author</string>
+    <string name="select_from_sd">Select from sd</string>
+    <string name="biography">Biography</string>
+    <string name="zero">0</string>
+    <string name="hint_author_name">Author name</string>
+    <string name="hint_book_series">Series</string>
 </resources>
