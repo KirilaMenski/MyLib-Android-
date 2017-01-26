@@ -15,7 +15,9 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.SelectAuthorDialog;
+import com.ansgar.mylib.ui.dialog.SelectDialog;
 import com.ansgar.mylib.ui.listener.AuthorSelectedDialogListener;
+import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 
@@ -27,7 +29,7 @@ import butterknife.OnClick;
  * Created by kirill on 25.1.17.
  */
 
-public class AddBookFragment extends BaseFragment implements AddBookFragmentView, AuthorSelectedDialogListener {
+public class AddBookFragment extends BaseFragment implements AddBookFragmentView, AuthorSelectedDialogListener, SelectDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_add_book;
 
@@ -35,6 +37,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     private String mCoverBookPath;
     private Author mAuthor;
+    private String mType;
 
     @BindView(R.id.book_cover)
     ImageView mCoverBook;
@@ -49,7 +52,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.book_date)
     EditText mBookPublished;
     @BindView(R.id.book_genre)
-    EditText mGenre;
+    TextView mGenre;
     @BindView(R.id.book_series)
     EditText mSeries;
     @BindView(R.id.book_series_numb)
@@ -77,6 +80,22 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         SelectAuthorDialog dialog = SelectAuthorDialog.newInstance();
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "selectAuthorDialog");
+    }
+
+    @OnClick(R.id.book_genre)
+    public void selectGenre() {
+        mType = SelectDialog.GENRE_TYPE;
+        SelectDialog dialog = SelectDialog.newInstance(mType);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "selectDialogGenre");
+    }
+
+    @OnClick(R.id.book_series_numb)
+    public void selectSeriesNimb() {
+        mType = SelectDialog.INT_TYPE;
+        SelectDialog dialog = SelectDialog.newInstance(mType);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "selectDialogNumb");
     }
 
     @OnClick(R.id.add_book)
@@ -108,5 +127,15 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public void authorSelected(Author author) {
         mAuthor = author;
         mAuthorName.setText(mAuthor.getFirstName() + " " + mAuthor.getLastName());
+    }
+
+    @Override
+    public void itemSelected(String value, boolean other) {
+        if (mType.equals(SelectDialog.GENRE_TYPE)) {
+            mGenre.setText(value);
+        }
+        if (mType.equals(SelectDialog.INT_TYPE)) {
+            mSeriesNum.setText(value);
+        }
     }
 }

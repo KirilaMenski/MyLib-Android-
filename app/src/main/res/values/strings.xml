@@ -31,4 +31,12 @@
     <string name="zero">0</string>
     <string name="hint_author_name">Author name</string>
     <string name="hint_book_series">Series</string>
+    <string-array name="genre_list">
+        <item>Fantasy</item>
+        <item>Science fiction</item>
+        <item>Detective</item>
+        <item>History</item>
+        <item>Novel</item>
+        <item>Other</item>
+    </string-array>
 </resources>

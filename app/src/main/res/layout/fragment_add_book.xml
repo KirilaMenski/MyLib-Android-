@@ -93,7 +93,7 @@
             android:textSize="@dimen/text_size_xsmall"
             android:theme="@style/Theme.App.Search"/>
 
-        <EditText
+        <TextView
             android:id="@+id/book_genre"
             android:layout_width="match_parent"
             android:layout_height="@dimen/xxh_size"
@@ -101,6 +101,7 @@
             android:background="@drawable/background_edit"
             android:hint="@string/hint_book_genre"
             android:inputType="text"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:paddingLeft="@dimen/m_dimen"
             android:paddingRight="@dimen/m_dimen"

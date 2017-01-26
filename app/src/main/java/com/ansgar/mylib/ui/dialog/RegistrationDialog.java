@@ -30,10 +30,10 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
 
     private static final int LAYOUT = R.layout.dialog_registration;
 
-    RegistrationDialogPresenter mPresenter;
+    private RegistrationDialogPresenter mPresenter;
 
-    Dialog mDialog;
-    WeakReference<RegistrationDialogListener> mListener;
+    private Dialog mDialog;
+    private WeakReference<RegistrationDialogListener> mListener;
 
     EditText mEmail;
     EditText mPassword;
