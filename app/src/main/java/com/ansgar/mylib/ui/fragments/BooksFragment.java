@@ -33,7 +33,7 @@ import butterknife.OnClick;
 
 public class BooksFragment extends BaseFragment implements BooksFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_books;
+    private final int LAYOUT = R.layout.fragment_books;
 
     private BooksFragmentPresenter mPresenter;
     private BooksAdapter mAdapter;
@@ -51,6 +51,8 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
 
     public static BooksFragment newInstance() {
         BooksFragment fragment = new BooksFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -65,6 +67,11 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         mPresenter.loadBooks();
     }
 
@@ -92,7 +99,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new BooksAdapter(books, getActivity());
+        mAdapter = new BooksAdapter(books, getActivity(), false);
         mBooksRecycler.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mBooksRecycler.setAdapter(mAdapter);
         mBooksRecycler.getAdapter().notifyDataSetChanged();

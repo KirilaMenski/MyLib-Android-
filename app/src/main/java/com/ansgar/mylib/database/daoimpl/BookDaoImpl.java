@@ -106,6 +106,19 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+    public List<Book> getBooksByReadValue(int read) {
+        List<Book> books = new ArrayList<>();
+        try {
+            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("was_read", read).and().eq("in_list", read);
+            books.addAll(queryBuilder.query());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
+
+    @Override
     public Book getBookById(long id) {
         try {
             QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();

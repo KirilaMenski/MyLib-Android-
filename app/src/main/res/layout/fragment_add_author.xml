@@ -1,112 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="@dimen/m_dimen">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:padding="@dimen/m_dimen"
+            android:scrollbars="vertical">
 
-
-    <ImageView
-        android:id="@+id/author_icon"
-        android:layout_width="@dimen/b_size"
-        android:layout_height="@dimen/xxxb_size"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/xxxb_size"
-        android:layout_toRightOf="@+id/author_icon"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="@dimen/m_dimen">
 
-        <EditText
-            android:id="@+id/author_first_name"
+
+        <ImageView
+            android:id="@+id/author_icon"
+            android:layout_width="@dimen/b_size"
+            android:layout_height="@dimen/xxxb_size"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/xxh_size"
-            android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:hint="@string/hint_author_first_name"
-            android:inputType="text"
-            android:maxLines="1"
+            android:layout_height="@dimen/xxxb_size"
+            android:layout_toRightOf="@+id/author_icon"
+            android:orientation="vertical"
+            android:padding="@dimen/m_dimen">
+
+            <EditText
+                android:id="@+id/author_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:background="@drawable/background_edit"
+                android:gravity="center"
+                android:hint="@string/hint_author_first_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"
+                android:theme="@style/Theme.App.Search"/>
+
+            <EditText
+                android:id="@+id/author_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_marginTop="@dimen/m_dimen"
+                android:background="@drawable/background_edit"
+                android:gravity="center"
+                android:hint="@string/hint_author_last_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"
+                android:theme="@style/Theme.App.Search"/>
+
+            <EditText
+                android:id="@+id/author_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_marginTop="@dimen/m_dimen"
+                android:background="@drawable/background_edit"
+                android:gravity="center"
+                android:hint="@string/hint_author_date"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"
+                android:theme="@style/Theme.App.Search"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/biography"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/author_icon"
+            android:paddingLeft="@dimen/m_dimen"
+            android:text="@string/biography"
             android:textColor="@android:color/black"
-            android:textColorHint="@color/search_hint_color"
-            android:textSize="@dimen/text_size_xsmall"
-            android:theme="@style/Theme.App.Search"/>
+            android:textSize="@dimen/text_size_xsmall"/>
 
         <EditText
-            android:id="@+id/author_last_name"
+            android:id="@+id/author_biography"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/xxh_size"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/biography"
             android:layout_marginTop="@dimen/m_dimen"
             android:background="@drawable/background_edit"
-            android:gravity="center"
-            android:hint="@string/hint_author_last_name"
-            android:inputType="text"
-            android:maxLines="1"
+            android:gravity="top"
+            android:hint="@string/biography"
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:paddingBottom="@dimen/x_dimen"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:paddingTop="@dimen/x_dimen"
             android:textColor="@android:color/black"
             android:textColorHint="@color/search_hint_color"
             android:textSize="@dimen/text_size_xsmall"
             android:theme="@style/Theme.App.Search"/>
 
-        <EditText
-            android:id="@+id/author_date"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/add_author"
+            android:layout_width="@dimen/b_size"
             android:layout_height="@dimen/xxh_size"
+            android:layout_below="@+id/author_biography"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/m_dimen"
-            android:background="@drawable/background_edit"
+            android:background="@drawable/add_btn_background"
             android:gravity="center"
-            android:hint="@string/hint_author_date"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@android:color/black"
-            android:textColorHint="@color/search_hint_color"
-            android:textSize="@dimen/text_size_xsmall"
-            android:theme="@style/Theme.App.Search"/>
-
-    </LinearLayout>
+            android:text="@string/add"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_xsmall"/>
 
 
-    <TextView
-        android:id="@+id/biography"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/author_icon"
-        android:paddingLeft="@dimen/m_dimen"
-        android:text="@string/biography"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_size_xsmall"/>
-
-    <EditText
-        android:id="@+id/author_biography"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/biography"
-        android:layout_marginTop="@dimen/m_dimen"
-        android:background="@drawable/background_edit"
-        android:gravity="top"
-        android:hint="@string/biography"
-        android:inputType="textMultiLine"
-        android:lines="10"
-        android:paddingBottom="@dimen/x_dimen"
-        android:paddingLeft="@dimen/m_dimen"
-        android:paddingRight="@dimen/m_dimen"
-        android:paddingTop="@dimen/x_dimen"
-        android:textColor="@android:color/black"
-        android:textColorHint="@color/search_hint_color"
-        android:textSize="@dimen/text_size_xsmall"
-        android:theme="@style/Theme.App.Search"/>
-
-    <TextView
-        android:id="@+id/add_author"
-        android:layout_width="@dimen/b_size"
-        android:layout_height="@dimen/xxh_size"
-        android:layout_below="@+id/author_biography"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/m_dimen"
-        android:background="@drawable/add_btn_background"
-        android:gravity="center"
-        android:text="@string/add"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_size_xsmall"/>
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

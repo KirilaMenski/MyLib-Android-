@@ -7,28 +7,34 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.adapter.ReadingListAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
+import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.ReadingListFragmentPresenter;
+import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.ReadingListFragmentView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kirill on 24.1.17.
  */
 
-public class ReadingListFragment extends BaseFragment implements ReadingListFragmentView {
+public class ReadingListFragment extends BaseFragment implements ReadingListFragmentView, EntitySelectedDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_reading_list;
 
@@ -37,10 +43,14 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @BindView(R.id.type)
     TextView mDataType;
-    @BindView(R.id.recycler_reading_list)
-    RecyclerView mReadingListRec;
+    @BindView(R.id.add_data)
+    LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
     RelativeLayout mNoItemLayout;
+    @BindView(R.id.recycler_reading_list)
+    RecyclerView mReadingListRec;
+    @BindView(R.id.add_book_img)
+    ImageView mAddBook;
 
     public static ReadingListFragment newInstance() {
         ReadingListFragment fragment = new ReadingListFragment();
@@ -59,6 +69,13 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     public void onStart() {
         super.onStart();
         mPresenter.loadList(true);
+    }
+
+    @OnClick({R.id.add_data, R.id.add_book_img})
+    public void addAuthorPressed() {
+        SelectEntityDialog dialog = SelectEntityDialog.newInstance(SelectEntityDialogPresenter.BOOKS);
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "selectBooksDialog");
     }
 
     @Override
@@ -88,5 +105,15 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void authorSelected(Author author) {
+
+    }
+
+    @Override
+    public void bookSelected(Book book) {
+        mPresenter.addBookToList(book);
     }
 }

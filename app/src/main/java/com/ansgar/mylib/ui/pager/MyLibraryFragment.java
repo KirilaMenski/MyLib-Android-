@@ -116,4 +116,5 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     protected void createPresenter() {
         mPresenter = new MyLibraryFragmentPresenter(this);
     }
+
 }

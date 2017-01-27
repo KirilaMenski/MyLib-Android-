@@ -5,6 +5,7 @@ import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.view.fragment.ReadingListFragmentView;
 
 import java.util.List;
@@ -32,6 +33,12 @@ public class ReadingListFragmentPresenter extends BasePresenter {
             mView.setAdapter(books);
         }
 
+    }
+
+    public void addBookToList(Book book) {
+        book.setInList(1);
+        mBookDao.updateBook(book);
+        loadList(true);
     }
 
     @Override

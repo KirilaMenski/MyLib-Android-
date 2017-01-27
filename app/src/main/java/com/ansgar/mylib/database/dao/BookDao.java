@@ -22,6 +22,8 @@ public interface BookDao {
 
     List<Book> getBooksFromReadingList(boolean inList);
 
+    List<Book> getBooksByReadValue(int read);
+
     Book getBookById(long id);
 
 }

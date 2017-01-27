@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.ui.listener.AuthorSelectedListener;
+import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -33,7 +33,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     private List<Author> mAuthorsCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
     private boolean mCreateBook;
-    private WeakReference<AuthorSelectedListener> mListener;
+    private WeakReference<EntitySelectedListener> mListener;
 
     public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook) {
         mAuthors = authors;
@@ -76,7 +76,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         return position;
     }
 
-    public void setListener(AuthorSelectedListener listener) {
+    public void setListener(EntitySelectedListener listener) {
         mListener = new WeakReference<>(listener);
     }
 

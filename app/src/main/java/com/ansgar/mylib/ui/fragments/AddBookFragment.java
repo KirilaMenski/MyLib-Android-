@@ -12,13 +12,15 @@ import android.widget.Toast;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.dialog.SelectAuthorDialog;
+import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
 import com.ansgar.mylib.ui.dialog.SelectDialog;
-import com.ansgar.mylib.ui.listener.AuthorSelectedDialogListener;
+import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
 import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
+import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 
 import butterknife.BindView;
@@ -29,7 +31,7 @@ import butterknife.OnClick;
  * Created by kirill on 25.1.17.
  */
 
-public class AddBookFragment extends BaseFragment implements AddBookFragmentView, AuthorSelectedDialogListener, SelectDialogListener {
+public class AddBookFragment extends BaseFragment implements AddBookFragmentView, EntitySelectedDialogListener, SelectDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_add_book;
 
@@ -38,6 +40,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     private String mCoverBookPath;
     private Author mAuthor;
     private String mType;
+    private boolean mOtherGenre;
 
     @BindView(R.id.book_cover)
     ImageView mCoverBook;
@@ -53,6 +56,8 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     EditText mBookPublished;
     @BindView(R.id.book_genre)
     TextView mGenre;
+    @BindView(R.id.book_genre_edit)
+    EditText mGenreOther;
     @BindView(R.id.book_series)
     EditText mSeries;
     @BindView(R.id.book_series_numb)
@@ -77,7 +82,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     @OnClick(R.id.select_author)
     public void selectAuthor() {
-        SelectAuthorDialog dialog = SelectAuthorDialog.newInstance();
+        SelectEntityDialog dialog = SelectEntityDialog.newInstance(SelectEntityDialogPresenter.AUTHORS);
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "selectAuthorDialog");
     }
@@ -106,10 +111,15 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
             return;
         }
 
+        int yearPubl = 0;
+        if (mBookPublished.length() != 0) Integer.valueOf(mBookPublished.getText().toString().trim());
+
         mPresenter.addBook(mCoverBookPath, mAuthor, mBookResPath.getText().toString().trim(),
-                mBookTitle.getText().toString().trim(), mGenre.getText().toString().trim(), mSeries.getText().toString().trim(),
-                Integer.valueOf(mSeriesNum.getText().toString()),
-                Integer.valueOf(mBookPublished.getText().toString()),
+                mBookTitle.getText().toString().trim(),
+                mOtherGenre ? mGenreOther.getText().toString().trim() : mGenre.getText().toString().trim(),
+                mSeries.getText().toString().trim(),
+                Integer.valueOf(mSeriesNum.getText().toString().trim()),
+                yearPubl,
                 mDescription.getText().toString());
     }
 
@@ -130,12 +140,26 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     }
 
     @Override
+    public void bookSelected(Book book) {
+
+    }
+
+    @Override
     public void itemSelected(String value, boolean other) {
         if (mType.equals(SelectDialog.GENRE_TYPE)) {
-            mGenre.setText(value);
+            if (!other) mGenre.setText(value);
+            setGenreEditVisibility(other);
         }
         if (mType.equals(SelectDialog.INT_TYPE)) {
             mSeriesNum.setText(value);
         }
+        mOtherGenre = other;
+    }
+
+    @Override
+    public void setGenreEditVisibility(boolean vis) {
+        mGenreOther.setVisibility(vis ? View.VISIBLE : View.GONE);
+        mGenreOther.setFocusable(vis);
+        mGenreOther.setFocusableInTouchMode(vis);
     }
 }

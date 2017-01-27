@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +17,6 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.listener.AddAuthorDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
@@ -44,8 +44,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
     RelativeLayout mNoItemLayout;
-    @BindView(R.id.recycler_authors)
+    @BindView(R.id.recycler_select_object)
     RecyclerView mAuthorsRecycler;
+    @BindView(R.id.add_author_img)
+    ImageView mAddAuthorImg;
 
     public static AuthorsFragment newInstance() {
         AuthorsFragment authorsFragment = new AuthorsFragment();
@@ -73,7 +75,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
                 getContext().getResources().getString(R.string.author).toLowerCase()));
     }
 
-    @OnClick(R.id.add_data)
+    @OnClick({R.id.add_data, R.id.add_author_img})
     public void addAuthorPressed() {
         FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddAuthorFragment.newInstance(), true, R.anim.right_out, R.anim.left_out);
     }

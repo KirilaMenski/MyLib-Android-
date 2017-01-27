@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
+import android.util.Log;
+
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
@@ -36,6 +38,9 @@ public class AuthorsFragmentPresenter extends BasePresenter {
         } else {
             mView.setLayoutVisibility(false);
             mView.setAuthorAdapter(authors);
+        }
+        for(int i = 0; i < user.getBooks().size(); i++){
+            Log.i("!!!!!!!!!!", "title: " + user.getBooks().get(i).getTitle());
         }
     }
 

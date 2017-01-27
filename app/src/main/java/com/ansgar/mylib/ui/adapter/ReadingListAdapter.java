@@ -16,6 +16,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by kirill on 24.1.17.
@@ -67,6 +68,7 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
 
         public ReadingListHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void bindViews(int position, Book book) {

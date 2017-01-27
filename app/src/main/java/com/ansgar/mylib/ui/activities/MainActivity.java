@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         }
     }
 
-    public void setScreenTitle(String title){
+    public void setScreenTitle(String title) {
         mScreenTitle.setText(title);
     }
 }
