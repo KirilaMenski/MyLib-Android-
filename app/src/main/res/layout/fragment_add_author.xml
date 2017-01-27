@@ -105,7 +105,7 @@
             android:theme="@style/Theme.App.Search"/>
 
         <TextView
-            android:id="@+id/add_author"
+            android:id="@+id/handle_author"
             android:layout_width="@dimen/b_size"
             android:layout_height="@dimen/xxh_size"
             android:layout_below="@+id/author_biography"

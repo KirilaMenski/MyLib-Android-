@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.ui.fragments.AuthorDetailsFragment;
 import com.ansgar.mylib.ui.listener.EntitySelectedListener;
+import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -60,7 +62,9 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                 if (mCreateBook) {
                     mListener.get().authorSelected(author);
                 } else {
-
+                    FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
+                            R.id.main_fragment_container, AuthorDetailsFragment.newInstance(author),
+                            true, R.anim.right_out, R.anim.left_out);
                 }
             }
         });

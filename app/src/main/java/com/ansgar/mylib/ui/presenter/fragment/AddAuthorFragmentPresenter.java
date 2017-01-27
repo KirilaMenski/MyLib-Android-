@@ -20,25 +20,46 @@ import com.ansgar.mylib.util.MyLibPreference;
  */
 public class AddAuthorFragmentPresenter extends BasePresenter {
 
+    public static final String EDIT = "edit";
+    public static final String ADD = "add";
+
     private AddAuthorFragmentView mView;
     private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();
     private UserDao mUserDao = UserDaoImpl.getInstance();
+    private Author mAuthor;
 
     public AddAuthorFragmentPresenter(AddAuthorFragmentView view) {
         super(view.getContext());
         mView = view;
     }
 
-    public void addAuthor(String authorIconPath, String firstName, String lastName, String date, String biography) {
+    public void initializeView(Author author) {
+        mAuthor = author;
+        mView.setScreenTitle(author.getFirstName() + "\n" + author.getLastName());
+        mView.setAuthorImage(author.getCover());
+        mView.setAuthorBiography(author.getBiography());
+        mView.setAuthorFirstName(author.getFirstName());
+        mView.setAuthorLastName(author.getLastName());
+        mView.setAuthorDate(author.getDate());
+    }
+
+    public void handleAuthor(boolean isEdit, String authorIconPath, String firstName, String lastName, String date, String biography) {
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Author author = new Author();
+        if (mAuthor != null) {
+            author = mAuthor;
+        }
         author.setCover(authorIconPath);
         author.setFirstName(firstName);
         author.setLastName(lastName);
         author.setDate(date);
         author.setBiography(biography);
         author.setUser(user);
-        mAuthorDao.addAuthor(author);
+        if (isEdit) {
+            mAuthorDao.updateAuthor(author);
+        } else {
+            mAuthorDao.addAuthor(author);
+        }
         FragmentUtil.clearBackStack((FragmentActivity) mView.getActivity(), 1);
     }
 
@@ -46,4 +67,5 @@ public class AddAuthorFragmentPresenter extends BasePresenter {
     public BaseContextView getView() {
         return mView;
     }
+
 }

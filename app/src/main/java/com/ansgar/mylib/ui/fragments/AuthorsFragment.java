@@ -77,7 +77,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @OnClick({R.id.add_data, R.id.add_author_img})
     public void addAuthorPressed() {
-        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddAuthorFragment.newInstance(), true, R.anim.right_out, R.anim.left_out);
+        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddAuthorFragment.newInstance(null), true, R.anim.right_out, R.anim.left_out);
     }
 
     @Override

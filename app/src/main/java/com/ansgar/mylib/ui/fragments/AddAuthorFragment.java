@@ -1,12 +1,9 @@
 package com.ansgar.mylib.ui.fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.KeyEvent;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.base.BaseDialog;
+import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.listener.AddAuthorDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
-
-import java.lang.ref.WeakReference;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,10 +31,12 @@ import butterknife.OnClick;
 public class AddAuthorFragment extends BaseFragment implements AddAuthorFragmentView {
 
     private static final int LAYOUT = R.layout.fragment_add_author;
+    private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
 
     private AddAuthorFragmentPresenter mPresenter;
 
     private String mAuthorIconPath;
+    private boolean mEdit;
 
     @BindView(R.id.author_icon)
     ImageView mAuthorIcon;
@@ -50,11 +48,14 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     EditText mDate;
     @BindView(R.id.author_biography)
     EditText mBiography;
-    @BindView(R.id.add_author)
+    @BindView(R.id.handle_author)
     TextView mAdd;
 
-    public static AddAuthorFragment newInstance() {
+    public static AddAuthorFragment newInstance(Author author) {
         AddAuthorFragment fragment = new AddAuthorFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_AUTHOR, author);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -63,12 +64,18 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
         ButterKnife.bind(this, view);
+        Author author = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
+        if(author != null) {
+            mPresenter.initializeView(author);
+            mAdd.setText(getString(R.string.edit));
+            mEdit = true;
+        }
         return view;
     }
 
-    @OnClick(R.id.add_author)
-    public void addAuthor() {
-        mPresenter.addAuthor(mAuthorIconPath, mFisrtName.getText().toString(),
+    @OnClick(R.id.handle_author)
+    public void handleAuthor() {
+        mPresenter.handleAuthor(mEdit, mAuthorIconPath, mFisrtName.getText().toString(),
                 mLastName.getText().toString(), mDate.getText().toString(), mBiography.getText().toString());
     }
 
@@ -82,4 +89,39 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
         mPresenter = new AddAuthorFragmentPresenter(this);
     }
 
+    @Override
+    public void setScreenTitle(String title) {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setScreenTitle(title);
+    }
+
+    @Override
+    public void setAuthorImage(String img) {
+        Picasso.with(getContext())
+                .load(img)
+                .fit()
+                .centerCrop()
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
+                .into(mAuthorIcon);
+    }
+
+    @Override
+    public void setAuthorFirstName(String firstName) {
+        mFisrtName.setText(firstName);
+    }
+
+    @Override
+    public void setAuthorLastName(String lastName) {
+        mLastName.setText(lastName);
+    }
+
+    @Override
+    public void setAuthorBiography(String biography) {
+        mBiography.setText(biography);
+    }
+
+    @Override
+    public void setAuthorDate(String date) {
+        mDate.setText(date);
+    }
 }
