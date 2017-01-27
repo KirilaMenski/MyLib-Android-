@@ -1,5 +1,8 @@
 package com.ansgar.mylib.ui.fragments;
 
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -97,6 +100,8 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
 
     @Override
     public void setAuthorImage(String img) {
+        byte[] b = new byte[1];
+        Drawable image = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
         Picasso.with(getContext())
                 .load(img)
                 .fit()
