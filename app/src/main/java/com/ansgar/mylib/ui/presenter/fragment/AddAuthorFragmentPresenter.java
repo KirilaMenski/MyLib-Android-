@@ -10,7 +10,6 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.listener.AddAuthorDialogListener;
 import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
@@ -19,9 +18,6 @@ import com.ansgar.mylib.util.MyLibPreference;
  * Created by kirill on 25.1.17.
  */
 public class AddAuthorFragmentPresenter extends BasePresenter {
-
-    public static final String EDIT = "edit";
-    public static final String ADD = "add";
 
     private AddAuthorFragmentView mView;
     private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();

@@ -23,7 +23,6 @@ import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorDetailsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorDetailsFragmentView;
-import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
