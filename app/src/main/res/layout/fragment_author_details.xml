@@ -6,7 +6,6 @@
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:orientation="vertical"
-            android:padding="@dimen/m_dimen"
             android:scrollbars="vertical">
 
     <RelativeLayout
@@ -43,23 +42,5 @@
                 tools:textSize="@dimen/text_size_xsmall"/>
 
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/author_detail_ll"
-            android:layout_marginTop="@dimen/m_dimen">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_books"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:orientation="vertical"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_books">
-            </android.support.v7.widget.RecyclerView>
-
-        </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

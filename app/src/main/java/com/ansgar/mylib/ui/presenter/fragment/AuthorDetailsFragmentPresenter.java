@@ -1,7 +1,5 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
@@ -11,6 +9,8 @@ import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.AddAuthorFragment;
 import com.ansgar.mylib.ui.view.fragment.AuthorDetailsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
+
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by kirill on 27.1.17.
@@ -32,7 +32,6 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
         mView.setAuthorName(author.getFirstName() + " " + author.getLastName());
         mView.setAuthorBiography(author.getBiography());
         mView.setAuthorImage(author.getCover());
-        mView.setAuthorBooksAdapter(author.getAuthorBooks());
     }
 
     @Override

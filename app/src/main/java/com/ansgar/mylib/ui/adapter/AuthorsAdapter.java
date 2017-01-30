@@ -14,6 +14,7 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.fragments.AuthorDetailsFragment;
 import com.ansgar.mylib.ui.listener.EntitySelectedListener;
+import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
@@ -63,7 +64,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                     mListener.get().authorSelected(author);
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
-                            R.id.main_fragment_container, AuthorDetailsFragment.newInstance(author),
+                            R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
                             true, R.anim.right_out, R.anim.left_out);
                 }
             }
