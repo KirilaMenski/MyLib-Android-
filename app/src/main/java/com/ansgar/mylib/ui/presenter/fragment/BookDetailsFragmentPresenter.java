@@ -1,29 +1,25 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import com.ansgar.mylib.database.dao.CitationDao;
-import com.ansgar.mylib.database.dao.UserDao;
-import com.ansgar.mylib.database.daoimpl.CitationDaoImpl;
-import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
+import android.support.v4.app.FragmentActivity;
+
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.dao.BookDao;
+import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.database.entity.Citation;
-import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.listener.CitationAdapterListener;
+import com.ansgar.mylib.ui.fragments.AddBookFragment;
 import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
-import com.ansgar.mylib.util.MyLibPreference;
-
-import java.util.List;
+import com.ansgar.mylib.util.FragmentUtil;
 
 /**
  * Created by kirill on 30.1.17.
  */
-public class BookDetailsFragmentPresenter extends BasePresenter implements CitationAdapterListener {
+public class BookDetailsFragmentPresenter extends BasePresenter {
 
     private BookDetailsFragmentView mView;
     private Book mBook;
-    private UserDao mUserDao = UserDaoImpl.getInstance();
-    private CitationDao mCitationDao = CitationDaoImpl.getInstance();
+    private BookDao mBookDao = BookDaoImpl.getInstance();
 
     public BookDetailsFragmentPresenter(BookDetailsFragmentView view) {
         super(view.getContext());
@@ -41,34 +37,19 @@ public class BookDetailsFragmentPresenter extends BasePresenter implements Citat
         mView.setSeries(book.getSeries() + "-" + book.getNumSeries());
     }
 
-    public void loadCitation() {
-        List<Citation> citations = mBook.getBookCitations();
-        mView.setAdapter(citations);
+    public void updateBook() {
+        FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
+                R.id.main_fragment_container, AddBookFragment.newInstance(mBook),
+                true, R.anim.right_out, R.anim.left_out);
     }
 
-    public void addNewCitation(String text) {
-        Citation citation = new Citation();
-        User user = mUserDao.getUserById(MyLibPreference.getUserId());
-        citation.setBook(mBook);
-        citation.setUser(user);
-        citation.setCitation(text);
-        mCitationDao.addCitation(citation);
-        loadCitation();
+    public void deleteBook() {
+        mBookDao.deleteBook(mBook);
+        FragmentUtil.clearBackStack((FragmentActivity) mView.getActivity(), 1);
     }
 
     @Override
     public BaseContextView getView() {
         return mView;
-    }
-
-    @Override
-    public void updateCitation(Citation citation) {
-
-    }
-
-    @Override
-    public void deleteCitation(Citation citation) {
-        mCitationDao.deleteCitation(citation);
-        loadCitation();
     }
 }

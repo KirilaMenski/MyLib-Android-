@@ -9,4 +9,21 @@ public interface AddBookFragmentView extends BaseContextView {
 
     void setGenreEditVisibility(boolean vis);
 
+    void setCoverBook(String cover);
+
+    void setAuthorName(String authorName);
+
+    void setBookResPath(String path);
+
+    void setBookTitle(String title);
+
+    void setBookPublished(String published);
+
+    void setBookGenre(String genre);
+
+    void setSeries(String series);
+
+    void setNumbSeries(String numbSeries);
+
+    void setDescription(String description);
 }

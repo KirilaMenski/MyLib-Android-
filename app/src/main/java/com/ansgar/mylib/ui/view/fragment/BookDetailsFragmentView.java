@@ -24,8 +24,4 @@ public interface BookDetailsFragmentView extends BaseContextView {
 
     void setDescription(String description);
 
-    void setAdapter(List<Citation> citations);
-
-    void notifyAdapter();
-
 }

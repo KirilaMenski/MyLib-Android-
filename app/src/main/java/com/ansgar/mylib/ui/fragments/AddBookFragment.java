@@ -2,6 +2,7 @@ package com.ansgar.mylib.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +36,7 @@ import butterknife.OnClick;
 public class AddBookFragment extends BaseFragment implements AddBookFragmentView, EntitySelectedDialogListener, SelectDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_add_book;
+    private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private AddBookFragmentPresenter mPresenter;
 
@@ -41,6 +44,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     private Author mAuthor;
     private String mType;
     private boolean mOtherGenre;
+    private boolean mIsEdit;
 
     @BindView(R.id.book_cover)
     ImageView mCoverBook;
@@ -67,8 +71,11 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.add_book)
     TextView mAdd;
 
-    public static AddBookFragment newInstance() {
+    public static AddBookFragment newInstance(Book book) {
         AddBookFragment fragment = new AddBookFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_BOOK, book);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -77,6 +84,11 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
+        Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
+        if (book != null) {
+            mPresenter.initializeView(book);
+            mIsEdit = true;
+        }
         return view;
     }
 
@@ -112,9 +124,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         }
 
         int yearPubl = 0;
-        if (mBookPublished.length() != 0) Integer.valueOf(mBookPublished.getText().toString().trim());
+        if (mBookPublished.length() != 0)
+            Integer.valueOf(mBookPublished.getText().toString().trim());
 
-        mPresenter.addBook(mCoverBookPath, mAuthor, mBookResPath.getText().toString().trim(),
+        mPresenter.addBook(mIsEdit, mCoverBookPath, mAuthor, mBookResPath.getText().toString().trim(),
                 mBookTitle.getText().toString().trim(),
                 mOtherGenre ? mGenreOther.getText().toString().trim() : mGenre.getText().toString().trim(),
                 mSeries.getText().toString().trim(),
@@ -161,5 +174,55 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         mGenreOther.setVisibility(vis ? View.VISIBLE : View.GONE);
         mGenreOther.setFocusable(vis);
         mGenreOther.setFocusableInTouchMode(vis);
+    }
+
+    @Override
+    public void setCoverBook(String cover) {
+        Picasso.with(getContext())
+                .load(cover)
+                .fit()
+                .centerCrop()
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
+                .into(mCoverBook);
+    }
+
+    @Override
+    public void setAuthorName(String authorName) {
+        mAuthorName.setText(authorName);
+    }
+
+    @Override
+    public void setBookResPath(String path) {
+        mBookResPath.setText(path);
+    }
+
+    @Override
+    public void setBookTitle(String title) {
+        mBookTitle.setText(title);
+    }
+
+    @Override
+    public void setBookPublished(String published) {
+        mBookPublished.setText(published);
+    }
+
+    @Override
+    public void setBookGenre(String genre) {
+        mGenre.setText(genre);
+    }
+
+    @Override
+    public void setSeries(String series) {
+        mSeries.setText(series);
+    }
+
+    @Override
+    public void setNumbSeries(String numbSeries) {
+        mSeriesNum.setText(numbSeries);
+    }
+
+    @Override
+    public void setDescription(String description) {
+        mDescription.setText(description);
     }
 }

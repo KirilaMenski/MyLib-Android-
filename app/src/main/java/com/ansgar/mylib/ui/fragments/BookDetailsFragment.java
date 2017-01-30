@@ -3,30 +3,25 @@ package com.ansgar.mylib.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.database.entity.Citation;
-import com.ansgar.mylib.ui.adapter.CitationAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.BookDetailsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by kirill on 30.1.17.
@@ -38,8 +33,6 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private BookDetailsFragmentPresenter mPresenter;
-    private CitationAdapter mAdapter;
-    private boolean mCitEditVis;
 
     @BindView(R.id.book_cover)
     ImageView mBookCover;
@@ -55,12 +48,6 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     TextView mBookSeries;
     @BindView(R.id.description)
     TextView mBookDescription;
-    @BindView(R.id.add_citation)
-    TextView mAddCitation;
-    @BindView(R.id.citation)
-    EditText mNewCitation;
-    @BindView(R.id.recycler_citation)
-    RecyclerView mCitationRec;
 
     public static BookDetailsFragment newInstance(Book book) {
         BookDetailsFragment fragment = new BookDetailsFragment();
@@ -68,6 +55,12 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
         args.putSerializable(EXTRA_BOOK, book);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -81,22 +74,26 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mPresenter.loadCitation();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.book_menu, menu);
     }
 
-    @OnClick(R.id.add_citation)
-    public void addCitation(){
-        if (mCitEditVis){
-            mNewCitation.setVisibility(View.GONE);
-            mNewCitation.setText("");
-            mCitEditVis = false;
-            mPresenter.addNewCitation(mNewCitation.getText().toString());
-        } else {
-            mNewCitation.setVisibility(View.VISIBLE);
-            mCitEditVis = true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.edit_book:
+                mPresenter.updateBook();
+                break;
+            case R.id.delete_book:
+                mPresenter.deleteBook();
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -147,18 +144,5 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     @Override
     public void setDescription(String description) {
         mBookDescription.setText(description);
-    }
-
-    @Override
-    public void setAdapter(List<Citation> citations) {
-        mAdapter = new CitationAdapter(citations, getActivity(), mPresenter);
-        mCitationRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCitationRec.setAdapter(mAdapter);
-        mCitationRec.getAdapter().notifyDataSetChanged();
-    }
-
-    @Override
-    public void notifyAdapter() {
-        mCitationRec.getAdapter().notifyDataSetChanged();
     }
 }

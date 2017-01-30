@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/citation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:background="@drawable/background_edit"
+        android:gravity="top"
+        android:hint="@string/description"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:paddingBottom="@dimen/x_dimen"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:paddingTop="@dimen/x_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/add_citation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:padding="@dimen/m_dimen"
+        android:gravity="right"
+        android:textColor="@android:color/black"
+        android:text="@string/add_citation"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_citation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_citation">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

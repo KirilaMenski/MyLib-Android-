@@ -46,7 +46,7 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
     @Override
     public void onBindViewHolder(CitationHolder holder, int position) {
         final Citation citation = mCitations.get(position);
-        holder.bindView(citation);
+        holder.bindView(citation, position + 1);
         holder.mDeleteCitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +68,8 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
         ImageView mDeleteCitation;
         @BindView(R.id.citation)
         TextView mCitation;
+        @BindView(R.id.citation_date)
+        TextView mCitationDate;
         @BindView(R.id.citation_item)
         SwipeLayout mSwipeLayout;
 
@@ -76,8 +78,9 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(Citation citation) {
+        public void bindView(Citation citation, int position) {
             mCitation.setText(citation.getCitation());
+            mCitationDate.setText(citation.getDate());
             mLiked.setVisibility(citation.getLiked() == 1 ? View.VISIBLE : View.GONE);
             mSwipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         }

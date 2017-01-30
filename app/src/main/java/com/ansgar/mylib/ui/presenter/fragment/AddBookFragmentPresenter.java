@@ -23,18 +23,35 @@ public class AddBookFragmentPresenter extends BasePresenter {
     private AddBookFragmentView mView;
     private BookDao mBookDao = BookDaoImpl.getInstance();
     private UserDao mUserDao = UserDaoImpl.getInstance();
+    private Book mBook;
 
     public AddBookFragmentPresenter(AddBookFragmentView view) {
         super(view.getContext());
         mView = view;
     }
 
-    public void addBook(String coverBookPath, Author author, String bookResPath,
+    public void initializeView(Book book) {
+        mBook = book;
+        mView.setCoverBook(book.getCover());
+        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
+        mView.setBookResPath(book.getResPath());
+        mView.setBookTitle(book.getTitle());
+        mView.setBookPublished(String.valueOf(book.getYear()));
+        mView.setBookGenre(book.getGenre());
+        mView.setSeries(book.getSeries());
+        mView.setNumbSeries(String.valueOf(book.getNumSeries()));
+        mView.setDescription(book.getDescription());
+    }
+
+    public void addBook(boolean isEdit, String coverBookPath, Author author, String bookResPath,
                         String bookTitle, String genre, String series, int seriesNum,
                         int year, String description) {
 
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Book book = new Book();
+        if (mBook != null) {
+            book = mBook;
+        }
         book.setCover(coverBookPath);
         book.setAuthor(author);
         book.setResPath(bookResPath);
@@ -45,7 +62,11 @@ public class AddBookFragmentPresenter extends BasePresenter {
         book.setYear(year);
         book.setDescription(description);
         book.setUser(user);
-        mBookDao.addBook(book);
+        if (isEdit) {
+            mBookDao.updateBook(book);
+        } else {
+            mBookDao.addBook(book);
+        }
         FragmentUtil.clearBackStack((FragmentActivity) mView.getActivity(), 1);
     }
 

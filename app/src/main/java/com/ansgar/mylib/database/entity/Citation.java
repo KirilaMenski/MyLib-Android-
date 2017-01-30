@@ -18,6 +18,8 @@ public class Citation implements Serializable {
     private String mCitation;
     @DatabaseField(columnName = "liked")
     private int mLiked;
+    @DatabaseField(columnName = "date")
+    private String mDate;
     @DatabaseField(columnName = "user_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
     private User mUser;
@@ -29,10 +31,11 @@ public class Citation implements Serializable {
 
     }
 
-    public Citation(long id, String citation, int liked, Book book, User user) {
+    public Citation(long id, String citation, int liked, String date, Book book, User user) {
         mId = id;
         mCitation = citation;
         mLiked = liked;
+        mDate = date;
         mUser = user;
         mBook = book;
     }
@@ -75,5 +78,13 @@ public class Citation implements Serializable {
 
     public void setBook(Book book) {
         mBook = book;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
     }
 }
