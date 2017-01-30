@@ -64,7 +64,7 @@
                 android:background="@drawable/background_edit"
                 android:gravity="center"
                 android:hint="@string/hint_author_date"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 android:textColor="@android:color/black"
                 android:textColorHint="@color/search_hint_color"

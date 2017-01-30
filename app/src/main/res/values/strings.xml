@@ -34,6 +34,7 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="menu">Menu</string>
+    <string name="add_citation">Add citation</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

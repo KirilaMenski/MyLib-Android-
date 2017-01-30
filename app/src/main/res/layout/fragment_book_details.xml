@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:padding="@dimen/m_dimen"
+            android:scrollbars="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="@dimen/b_size"
+            android:layout_height="@dimen/xxxb_size"/>
+
+        <LinearLayout
+            android:id="@+id/inf_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/book_cover"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/m_dimen"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen">
+
+            <TextView
+                android:id="@+id/author_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"/>
+
+            <TextView
+                android:id="@+id/book_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_marginTop="@dimen/m_dimen"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"/>
+
+            <TextView
+                android:id="@+id/book_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_marginTop="@dimen/m_dimen"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"/>
+
+            <TextView
+                android:id="@+id/book_genre"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:layout_marginTop="@dimen/m_dimen"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/search_hint_color"
+                android:textSize="@dimen/text_size_xsmall"/>
+
+            <TextView
+                android:id="@+id/book_series"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/xxh_size"
+                android:paddingLeft="@dimen/m_dimen"
+                android:paddingRight="@dimen/m_dimen"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_xsmall"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inf_ll"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:paddingLeft="@dimen/m_dimen"
+            android:text="@string/description"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_xsmall"/>
+
+        <TextView
+            android:id="@+id/book_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:paddingBottom="@dimen/x_dimen"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:paddingTop="@dimen/x_dimen"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"/>
+
+        <EditText
+            android:id="@+id/citation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:background="@drawable/background_edit"
+            android:gravity="top"
+            android:hint="@string/description"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:paddingBottom="@dimen/x_dimen"
+            android:paddingLeft="@dimen/m_dimen"
+            android:paddingRight="@dimen/m_dimen"
+            android:paddingTop="@dimen/x_dimen"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"
+            android:theme="@style/Theme.App.Search"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/add_citation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/citation"
+            android:layout_marginTop="@dimen/m_dimen"
+            android:padding="@dimen/m_dimen"
+            android:gravity="right"
+            android:textColor="@android:color/black"
+            android:text="@string/add_citation"
+            android:textColorHint="@color/search_hint_color"
+            android:textSize="@dimen/text_size_xsmall"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_citation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_citation"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/m_dimen"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_citation">
+        </android.support.v7.widget.RecyclerView>
+
+    </RelativeLayout>
+</ScrollView>
