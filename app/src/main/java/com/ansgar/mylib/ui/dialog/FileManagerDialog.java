@@ -2,7 +2,6 @@ package com.ansgar.mylib.ui.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
@@ -22,11 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ansgar.mylib.database.dao.BookDao;
-import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
-import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.fbreader.Description;
-import com.ansgar.mylib.fbreader.DescriptionImpl;
 import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 
 import java.io.File;
@@ -40,7 +34,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by kirill on 31.1.17.

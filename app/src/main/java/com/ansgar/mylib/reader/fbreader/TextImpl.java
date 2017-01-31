@@ -1,4 +1,4 @@
-package com.ansgar.mylib.fbreader;
+package com.ansgar.mylib.reader.fbreader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
