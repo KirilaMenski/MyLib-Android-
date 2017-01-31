@@ -41,6 +41,8 @@
     <string name="incorrect_value">Incorrect value</string>
     <string name="hint_confirm_password">Confirm password</string>
     <string name="incorrect_password">Incorrect password</string>
+    <string name="search">Search</string>
+    <string name="sort">Sorting</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

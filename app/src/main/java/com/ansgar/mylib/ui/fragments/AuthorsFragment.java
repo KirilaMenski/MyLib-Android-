@@ -1,17 +1,5 @@
 package com.ansgar.mylib.ui.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
@@ -23,6 +11,20 @@ import com.ansgar.mylib.util.FragmentUtil;
 
 import java.util.List;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,6 +56,12 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         return authorsFragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +74,23 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     public void onStart() {
         super.onStart();
         mPresenter.loadAuthors();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.search:
+                break;
+            case R.id.sort:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

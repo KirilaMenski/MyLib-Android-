@@ -1,18 +1,5 @@
 package com.ansgar.mylib.ui.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -21,7 +8,21 @@ import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.squareup.picasso.Picasso;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,6 +33,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     private MainActivityPresenter mPresenter;
 
+    @BindView(R.id.profile_image)
+    ImageView mAvatar;
+    @BindView(R.id.user_name)
+    TextView mUserName;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.drawer_layout)
@@ -64,10 +69,11 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+        mPresenter.initializeView();
     }
 
     @OnClick(R.id.tv_logout)
-    public void logout(){
+    public void logout() {
         MyLibPreference.clearData();
         startActivity(LogInActivity.newIntent(getContext()));
         finish();
@@ -109,5 +115,20 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     public void setScreenTitle(String title) {
         mScreenTitle.setText(title);
+    }
+
+    @Override
+    public void setUserName(String name) {
+        mUserName.setText(name);
+    }
+
+    @Override
+    public void setUserAvatar(String avatar) {
+        Picasso.with(this)
+                .load(avatar)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.ic_images_200dp)
+                .into(mAvatar);
     }
 }

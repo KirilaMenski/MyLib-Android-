@@ -7,6 +7,8 @@ import com.ansgar.mylib.ui.base.BaseContextView;
  */
 public interface MainActivityView extends BaseContextView {
 
+    void setUserName(String name);
 
+    void setUserAvatar(String avatar);
 
 }
