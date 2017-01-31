@@ -54,7 +54,7 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
             if (MyLibPreference.getUserId() == -1) {
                 startActivity(LogInActivity.newIntent(SplashActivity.this));
             } else {
-                startActivity(MainActivity.newIntent(SplashActivity.this, MyLibPreference.getUserId()));
+                startActivity(MainActivity.newIntent(SplashActivity.this));
             }
             finish();
         }

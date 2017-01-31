@@ -29,7 +29,6 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener {
 
     private static final int LAYOUT = R.layout.activity_main;
-    public static final String EXTRA_USER = "com.ansgar.mylib.ui.activities.user_id";
 
     private MainActivityPresenter mPresenter;
 
@@ -45,9 +44,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     ActionBarDrawerToggle mToggle;
 
-    public static Intent newIntent(Context context, long id) {
+    public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(EXTRA_USER, id);
         return intent;
     }
 

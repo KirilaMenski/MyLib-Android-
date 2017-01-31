@@ -44,7 +44,7 @@ public class RegistrationDialogPresenter extends BasePresenter {
             user.setPassword(password);
             mUserDao.addUser(user);
             MyLibPreference.saveUserId(user.getId());
-            mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext(), user.getId()));
+            mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext()));
             mView.getActivity().finish();
         } else {
             mView.setConfirmPass("");

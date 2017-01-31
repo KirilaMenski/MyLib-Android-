@@ -32,7 +32,7 @@ public class LogInActivityPresenter extends BasePresenter {
         User user = mUserDao.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             MyLibPreference.saveUserId(user.getId());
-            mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext(), user.getId()));
+            mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext()));
             mView.getActivity().finish();
         } else {
             Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.incorrect_value), Toast.LENGTH_SHORT).show();
