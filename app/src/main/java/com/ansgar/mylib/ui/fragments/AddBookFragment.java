@@ -201,6 +201,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public void setCoverBook(String cover) {
         mCoverBookBytes = cover;
         final Bitmap drawable = BitmapCover.getBitmapCover(cover);
+        //It's show time
 //        Target target = new Target() {
 //            @Override
 //            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
