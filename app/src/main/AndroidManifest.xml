@@ -26,7 +26,7 @@
         <activity
             android:name=".ui.activities.LogInActivity"
             android:theme="@style/AppTheme.ActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
     </application>
 
 </manifest>

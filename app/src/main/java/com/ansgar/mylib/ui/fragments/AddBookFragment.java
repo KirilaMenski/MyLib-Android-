@@ -36,6 +36,7 @@ import butterknife.OnClick;
 public class AddBookFragment extends BaseFragment implements AddBookFragmentView, EntitySelectedDialogListener, SelectDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_add_book;
+    private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private AddBookFragmentPresenter mPresenter;
@@ -71,9 +72,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.add_book)
     TextView mAdd;
 
-    public static AddBookFragment newInstance(Book book) {
+    public static AddBookFragment newInstance(Author author, Book book) {
         AddBookFragment fragment = new AddBookFragment();
         Bundle args = new Bundle();
+        args.putSerializable(EXTRA_AUTHOR, author);
         args.putSerializable(EXTRA_BOOK, book);
         fragment.setArguments(args);
         return fragment;
@@ -84,12 +86,23 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
+        mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
         Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
         if (book != null) {
             mPresenter.initializeView(book);
             mIsEdit = true;
         }
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mAuthor != null) {
+            mSelectAuthor.setVisibility(View.GONE);
+            mAuthorName.setText(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
+            mAuthorName.setEnabled(false);
+        }
     }
 
     @OnClick(R.id.select_author)

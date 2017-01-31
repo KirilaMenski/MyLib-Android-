@@ -36,6 +36,9 @@
     <string name="menu">Menu</string>
     <string name="add_citation">Add citation</string>
     <string name="empty_value">Empty value</string>
+    <string name="add_book">Add book</string>
+    <string name="logout">Logout</string>
+    <string name="incorrect_value">Incorrect value</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

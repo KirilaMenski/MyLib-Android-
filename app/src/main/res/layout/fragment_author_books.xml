@@ -6,6 +6,18 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/add_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/m_dimen"
+        android:padding="@dimen/m_dimen"
+        android:gravity="right"
+        android:textColor="@android:color/black"
+        android:text="@string/add_book"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_books"
         android:layout_width="match_parent"

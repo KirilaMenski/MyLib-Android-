@@ -20,9 +20,11 @@ import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
 import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.MyLibPreference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener {
 
@@ -64,6 +66,13 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+    }
+
+    @OnClick(R.id.tv_logout)
+    public void logout(){
+        MyLibPreference.clearData();
+        startActivity(LogInActivity.newIntent(getContext()));
+        finish();
     }
 
     @Override

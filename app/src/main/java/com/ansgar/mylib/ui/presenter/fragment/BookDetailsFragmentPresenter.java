@@ -39,7 +39,7 @@ public class BookDetailsFragmentPresenter extends BasePresenter {
 
     public void updateBook() {
         FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                R.id.main_fragment_container, AddBookFragment.newInstance(mBook),
+                R.id.main_fragment_container, AddBookFragment.newInstance(mBook.getAuthor(), mBook),
                 true, R.anim.right_out, R.anim.left_out);
     }
 

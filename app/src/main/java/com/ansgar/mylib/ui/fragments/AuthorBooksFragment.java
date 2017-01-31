@@ -18,8 +18,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kirila on 30.1.17.
@@ -32,6 +37,8 @@ public class AuthorBooksFragment extends BaseFragment implements AuthorBooksFrag
     private AuthorBooksFragmentPresenter mPresenter;
     private BooksAdapter mBooksAdapter;
 
+    @BindView(R.id.add_book)
+    TextView mAddBook;
     @BindView(R.id.recycler_books)
     RecyclerView mAuthorBooksRec;
 
@@ -57,6 +64,11 @@ public class AuthorBooksFragment extends BaseFragment implements AuthorBooksFrag
     public void onStart() {
         super.onStart();
         mPresenter.loadAuthorBooks();
+    }
+
+    @OnClick(R.id.add_book)
+    public void addCitation(){
+        mPresenter.openAddBookFragment();
     }
 
     @Override

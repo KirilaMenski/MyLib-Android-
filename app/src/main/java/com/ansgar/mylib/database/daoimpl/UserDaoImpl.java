@@ -77,4 +77,18 @@ public class UserDaoImpl implements UserDao {
         }
         return null;
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        try {
+            QueryBuilder<User, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("email", email);
+            List<User> users = queryBuilder.query();
+            return (users.size() > 0) ? users.get(0) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

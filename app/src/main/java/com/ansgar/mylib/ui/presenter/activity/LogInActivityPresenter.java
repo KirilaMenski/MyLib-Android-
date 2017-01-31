@@ -1,5 +1,8 @@
 package com.ansgar.mylib.ui.presenter.activity;
 
+import android.widget.Toast;
+
+import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.User;
@@ -27,12 +30,14 @@ public class LogInActivityPresenter extends BasePresenter {
 
         //TODO
 //        UserResponse userResponse = new UserResponse(1, "Kirila", "Menski", "default");
-        User user = new User(1, "Kirila", "Menski", "default", "test@test.test", "1");
-        MyLibPreference.saveUserId(user.getId());
-        mUserDao.addUser(user);
-
-        mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext(), user.getId()));
-        mView.getActivity().finish();
+        User user = mUserDao.getUserByEmail(email);
+        if (user != null && user.getPassword().equals(password)) {
+            MyLibPreference.saveUserId(user.getId());
+            mView.getActivity().startActivity(MainActivity.newIntent(mView.getContext(), user.getId()));
+            mView.getActivity().finish();
+        } else {
+            Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.incorrect_value), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
