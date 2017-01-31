@@ -12,13 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.listener.RegistrationDialogListener;
 import com.ansgar.mylib.ui.base.BaseDialog;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.dialog.RegistrationDialogPresenter;
 import com.ansgar.mylib.ui.view.dialog.RegistrationDialogView;
-
-import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +32,6 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
     private RegistrationDialogPresenter mPresenter;
 
     private Dialog mDialog;
-    private WeakReference<RegistrationDialogListener> mListener;
 
     @BindView(R.id.first_name)
     EditText mFirstName;
@@ -78,10 +74,6 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
     public void sendData() {
         mPresenter.sendForm(mFirstName.getText().toString(), mLastName.getText().toString(),
                 mEmail.getText().toString().trim(), mPassword.getText().toString().trim(), mConfirmPassword.getText().toString());
-    }
-
-    public void setListener(RegistrationDialogListener listener) {
-        mListener = new WeakReference<>(listener);
     }
 
     @Override
