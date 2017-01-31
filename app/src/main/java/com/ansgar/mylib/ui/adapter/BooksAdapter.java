@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.adapter;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -91,26 +92,11 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         }
 
         public void bindViews(Book book) {
-            setBookCover(book.getCover());
+            setBookCover(book.getBitmap());
         }
 
-        private void setBookCover(String path) {
-            try {
-                Uri uri = Uri.parse(path);
-                Picasso.with(mFragmentActivity.get())
-                        .load(uri)
-                        .fit()
-                        .centerCrop()
-                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
-                        .into(mBookCover);
-            } catch (Exception e) {
-                Picasso.with(mFragmentActivity.get())
-                        .load(path)
-                        .fit()
-                        .centerCrop()
-                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
-                        .into(mBookCover);
-            }
+        private void setBookCover(Bitmap bitmap) {
+            mBookCover.setImageBitmap(bitmap);
         }
     }
 }

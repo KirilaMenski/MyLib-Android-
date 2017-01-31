@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.view.fragment;
 
+import android.graphics.Bitmap;
+
 import com.ansgar.mylib.ui.base.BaseContextView;
 
 /**
@@ -7,9 +9,11 @@ import com.ansgar.mylib.ui.base.BaseContextView;
  */
 public interface AddBookFragmentView extends BaseContextView {
 
+    void setCoverBytes(String coverBytes);
+
     void setGenreEditVisibility(boolean vis);
 
-    void setCoverBook(String cover);
+    void setCoverBook(Bitmap cover);
 
     void setAuthorName(String authorName);
 

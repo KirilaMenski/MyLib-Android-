@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.view.fragment;
 
+import android.graphics.Bitmap;
+
 import com.ansgar.mylib.database.entity.Citation;
 import com.ansgar.mylib.ui.base.BaseContextView;
 
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public interface BookDetailsFragmentView extends BaseContextView {
 
-    void setBookCover(String cover);
+    void setBookCover(Bitmap cover);
 
     void setAuthorName(String authorName);
 

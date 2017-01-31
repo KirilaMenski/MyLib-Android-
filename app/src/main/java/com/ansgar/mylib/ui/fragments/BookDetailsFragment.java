@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -81,7 +82,7 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.edit_book:
                 mPresenter.updateBook();
                 break;
@@ -107,13 +108,8 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     }
 
     @Override
-    public void setBookCover(String cover) {
-        Picasso.with(getContext())
-                .load(cover)
-                .fit()
-                .centerCrop()
-                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
-                .into(mBookCover);
+    public void setBookCover(Bitmap cover) {
+        mBookCover.setImageBitmap(cover);
     }
 
     @Override

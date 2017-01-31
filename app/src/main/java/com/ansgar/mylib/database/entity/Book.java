@@ -1,5 +1,8 @@
 package com.ansgar.mylib.database.entity;
 
+import android.graphics.Bitmap;
+
+import com.ansgar.mylib.util.BitmapCover;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -115,6 +118,10 @@ public class Book implements Serializable {
 
     public String getCover() {
         return mCover;
+    }
+
+    public Bitmap getBitmap(){
+        return BitmapCover.getBitmapCover(mCover);
     }
 
     public void setCover(String cover) {

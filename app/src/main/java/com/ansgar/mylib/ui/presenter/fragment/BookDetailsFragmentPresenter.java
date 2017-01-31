@@ -29,7 +29,7 @@ public class BookDetailsFragmentPresenter extends BasePresenter {
     public void initializeView(Book book) {
         mBook = book;
         mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
-        mView.setBookCover(book.getCover());
+        mView.setBookCover(book.getBitmap());
         mView.setBookDate(String.valueOf(book.getYear()));
         mView.setDescription(book.getDescription());
         mView.setBookTitle(book.getTitle());

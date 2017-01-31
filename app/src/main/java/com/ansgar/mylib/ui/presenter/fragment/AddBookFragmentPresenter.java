@@ -15,6 +15,7 @@ import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
+import com.ansgar.mylib.util.BitmapCover;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
@@ -38,7 +39,8 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
 
     public void initializeView(Book book) {
         mBook = book;
-        mView.setCoverBook(book.getCover());
+        mView.setCoverBytes(book.getCover());
+        mView.setCoverBook(book.getBitmap());
         mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
         mView.setBookResPath(book.getResPath());
         mView.setBookTitle(book.getTitle());
@@ -84,7 +86,8 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
     @Override
     public void fileSelected(InputStream inputStream, String path) {
         Description description = new DescriptionImpl(inputStream);
-        mView.setCoverBook(description.getCover().get(0));
+        mView.setCoverBytes(description.getCover().get(0));
+        mView.setCoverBook(BitmapCover.getBitmapCover(description.getCover().get(0)));
 //        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName()); // TODO ???
         mView.setBookResPath(path);
         mView.setBookTitle(description.getTitle());
