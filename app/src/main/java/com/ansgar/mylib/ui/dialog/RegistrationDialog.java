@@ -20,7 +20,9 @@ import com.ansgar.mylib.ui.view.dialog.RegistrationDialogView;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kirill on 24.1.17.
@@ -35,8 +37,17 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
     private Dialog mDialog;
     private WeakReference<RegistrationDialogListener> mListener;
 
+    @BindView(R.id.first_name)
+    EditText mFirstName;
+    @BindView(R.id.last_name)
+    EditText mLastName;
+    @BindView(R.id.email)
     EditText mEmail;
+    @BindView(R.id.password)
     EditText mPassword;
+    @BindView(R.id.confirm_password)
+    EditText mConfirmPassword;
+    @BindView(R.id.registration)
     TextView mRegistration;
 
     public static final RegistrationDialog newInstance() {
@@ -63,9 +74,10 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
         return mDialog;
     }
 
-    //    @OnClick()
+    @OnClick(R.id.registration)
     public void sendData() {
-        mPresenter.sendForm(mEmail.getText().toString().trim(), mPassword.getText().toString().trim());
+        mPresenter.sendForm(mFirstName.getText().toString(), mLastName.getText().toString(),
+                mEmail.getText().toString().trim(), mPassword.getText().toString().trim(), mConfirmPassword.getText().toString());
     }
 
     public void setListener(RegistrationDialogListener listener) {
@@ -80,5 +92,15 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
     @Override
     protected void createPresenter() {
         mPresenter = new RegistrationDialogPresenter(this);
+    }
+
+    @Override
+    public void setPass(String text) {
+        mPassword.setText(text);
+    }
+
+    @Override
+    public void setConfirmPass(String text) {
+        mConfirmPassword.setText(text);
     }
 }

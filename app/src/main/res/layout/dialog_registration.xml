@@ -1,7 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:padding="@dimen/x_dimen">
+
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_marginBottom="@dimen/l_dimen"
+        android:background="@drawable/background_edit"
+        android:hint="@string/hint_first_name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_marginBottom="@dimen/l_dimen"
+        android:background="@drawable/background_edit"
+        android:hint="@string/hint_last_name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_marginBottom="@dimen/l_dimen"
+        android:background="@drawable/background_edit"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_marginBottom="@dimen/l_dimen"
+        android:background="@drawable/background_edit"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <EditText
+        android:id="@+id/confirm_password"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:background="@drawable/background_edit"
+        android:hint="@string/hint_confirm_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/m_dimen"
+        android:paddingRight="@dimen/m_dimen"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <TextView
+        android:id="@+id/registration"
+        android:layout_width="@dimen/b_size"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_margin="@dimen/l_dimen"
+        android:background="@drawable/login_background"
+        android:gravity="center"
+        android:text="@string/registration"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_xsmall"/>
+
 
 </LinearLayout>

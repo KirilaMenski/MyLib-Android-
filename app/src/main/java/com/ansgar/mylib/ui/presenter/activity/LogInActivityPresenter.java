@@ -11,6 +11,7 @@ import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.view.activity.LogInActivityView;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.ansgar.mylib.util.RegularExtentionUtil;
 
 /**
  * Created by kirill on 24.1.17.
@@ -26,10 +27,8 @@ public class LogInActivityPresenter extends BasePresenter {
     }
 
     public void login(String email, String password) {
-        if (email.length() == 0 || password.length() == 0) return;
+        if (email.isEmpty() || password.isEmpty() || !RegularExtentionUtil.checkEmail(email)) return;
 
-        //TODO
-//        UserResponse userResponse = new UserResponse(1, "Kirila", "Menski", "default");
         User user = mUserDao.getUserByEmail(email);
         if (user != null && user.getPassword().equals(password)) {
             MyLibPreference.saveUserId(user.getId());
