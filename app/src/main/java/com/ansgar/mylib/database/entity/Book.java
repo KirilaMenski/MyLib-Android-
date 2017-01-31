@@ -34,8 +34,10 @@ public class Book implements Serializable {
     private int mYear;
     @DatabaseField(columnName = "resource_path")
     private String mResPath;
-    @DatabaseField(columnName = "in_list", defaultValue = "0")
+    @DatabaseField(columnName = "in_list")
     private int mInList;
+    @DatabaseField(columnName = "rating")
+    private int mRating;
     @DatabaseField(columnName = "was_read")
     private int mWasRead;
     @DatabaseField(columnName = "author_id", foreign = true,
@@ -53,7 +55,7 @@ public class Book implements Serializable {
     }
 
     public Book(long id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
-                int inList, int wasRead, Author author, User user) {
+                int inList, int rating, int wasRead, Author author, User user) {
         mId = id;
         mTitle = title;
         mDescription = description;
@@ -64,6 +66,7 @@ public class Book implements Serializable {
         mYear = year;
         mAuthor = author;
         mInList = inList;
+        mRating = rating;
         mWasRead = wasRead;
         mResPath = resPath;
         mUser = user;
@@ -176,6 +179,14 @@ public class Book implements Serializable {
 
     public int getNumSeries() {
         return mNumSeries;
+    }
+
+    public int getRating() {
+        return mRating;
+    }
+
+    public void setRating(int rating) {
+        mRating = rating;
     }
 
     public void setNumSeries(int numSeries) {

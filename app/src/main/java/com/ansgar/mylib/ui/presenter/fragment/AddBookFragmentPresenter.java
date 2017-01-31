@@ -9,16 +9,22 @@ import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.database.entity.User;
+import com.ansgar.mylib.fbreader.Description;
+import com.ansgar.mylib.fbreader.DescriptionImpl;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * Created by kirill on 25.1.17.
  */
-public class AddBookFragmentPresenter extends BasePresenter {
+public class AddBookFragmentPresenter extends BasePresenter implements FileManagerDialogListener {
 
     private AddBookFragmentView mView;
     private BookDao mBookDao = BookDaoImpl.getInstance();
@@ -73,5 +79,24 @@ public class AddBookFragmentPresenter extends BasePresenter {
     @Override
     public BaseContextView getView() {
         return mView;
+    }
+
+    @Override
+    public void fileSelected(InputStream inputStream, String path) {
+        Description description = new DescriptionImpl(inputStream);
+        mView.setCoverBook(description.getCover().get(0));
+//        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName()); // TODO ???
+        mView.setBookResPath(path);
+        mView.setBookTitle(description.getTitle());
+//        mView.setBookPublished(String.valueOf(description.get));
+        mView.setBookGenre(description.getGenre());
+        mView.setSeries(description.getSeries());
+        mView.setNumbSeries(String.valueOf(description.getNumOfSer()));
+        List<String> annotation = description.getAnnotation();
+        StringBuilder strDescription = new StringBuilder(" ");
+        for (int i = 0; i < annotation.size(); i++) {
+            strDescription.append(annotation.get(i));
+        }
+        mView.setDescription(strDescription.toString());
     }
 }

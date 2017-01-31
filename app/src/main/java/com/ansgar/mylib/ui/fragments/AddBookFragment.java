@@ -1,8 +1,8 @@
 package com.ansgar.mylib.ui.fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.FileManagerDialog;
 import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
 import com.ansgar.mylib.ui.dialog.SelectDialog;
 import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
@@ -23,7 +24,7 @@ import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
-import com.squareup.picasso.Picasso;
+import com.ansgar.mylib.util.BitmapCover;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +42,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     private AddBookFragmentPresenter mPresenter;
 
-    private String mCoverBookPath;
+    private String mCoverBookBytes;
     private Author mAuthor;
     private String mType;
     private boolean mOtherGenre;
@@ -112,6 +113,13 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         dialog.show(getFragmentManager(), "selectAuthorDialog");
     }
 
+    @OnClick(R.id.book_res_path)
+    public void selectFile() {
+        FileManagerDialog dialog = new FileManagerDialog(getActivity()).setFilter(".*\\.txt");
+        dialog.setListener(mPresenter);
+        dialog.show();
+    }
+
     @OnClick(R.id.book_genre)
     public void selectGenre() {
         mType = SelectDialog.GENRE_TYPE;
@@ -140,7 +148,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         if (mBookPublished.length() != 0)
             Integer.valueOf(mBookPublished.getText().toString().trim());
 
-        mPresenter.addBook(mIsEdit, mCoverBookPath, mAuthor, mBookResPath.getText().toString().trim(),
+        mPresenter.addBook(mIsEdit, mCoverBookBytes, mAuthor, mBookResPath.getText().toString().trim(),
                 mBookTitle.getText().toString().trim(),
                 mOtherGenre ? mGenreOther.getText().toString().trim() : mGenre.getText().toString().trim(),
                 mSeries.getText().toString().trim(),
@@ -191,12 +199,30 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     @Override
     public void setCoverBook(String cover) {
-        Picasso.with(getContext())
-                .load(cover)
-                .fit()
-                .centerCrop()
-                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
-                .into(mCoverBook);
+        mCoverBookBytes = cover;
+        final Bitmap drawable = BitmapCover.getBitmapCover(cover);
+//        Target target = new Target() {
+//            @Override
+//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                mCoverBook.setImageBitmap(drawable);
+//            }
+//
+//            @Override
+//            public void onBitmapFailed(Drawable errorDrawable) {
+//            }
+//
+//            @Override
+//            public void onPrepareLoad(Drawable placeHolderDrawable) {
+//            }
+//        };
+//        Picasso.with(getContext())
+//                .load(cover)
+////                .fit()
+////                .centerCrop()
+//                .error(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
+//                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
+//                .into(target);
+        mCoverBook.setImageBitmap(drawable);
     }
 
     @Override
