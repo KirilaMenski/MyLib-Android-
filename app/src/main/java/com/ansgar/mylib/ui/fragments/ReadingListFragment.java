@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -119,7 +120,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
     }
 
     @Override

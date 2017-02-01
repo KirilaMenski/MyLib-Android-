@@ -30,14 +30,17 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTy
     private List<String> mTypes;
     private WeakReference<SortTypeAdapterListener> mListener;
     private WeakReference<FragmentActivity> mFragmentActivity;
+    private int mSortPos = 1;
 
     public SortTypeAdapter(String type, SortTypeAdapterListener listener, FragmentActivity fragmentActivity) {
         mListener = new WeakReference<>(listener);
         mFragmentActivity = new WeakReference<>(fragmentActivity);
         if(type.equals(MyLibPreference.SORT_TYPE_AUTHOR)){
+            mSortPos = MyLibPreference.getAuthorSortType();
            mTypes = Arrays.asList(mFragmentActivity.get().getResources().getStringArray(R.array.author_sort_types));
         }
         if(type.equals(MyLibPreference.SORT_TYPE_BOOK)){
+            mSortPos = MyLibPreference.getBookSortType();
             mTypes = Arrays.asList(mFragmentActivity.get().getResources().getStringArray(R.array.book_sort_types));
         }
     }
@@ -52,7 +55,7 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTy
     @Override
     public void onBindViewHolder(SortTypeHolder holder, final int position) {
         final String type = mTypes.get(position);
-        holder.bindHolder(type);
+        holder.bindHolder(type, position == mSortPos);
         holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,8 +83,9 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTy
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindHolder(String type) {
+        public void bindHolder(String type, boolean selected) {
             mSortType.setText(type);
+            if(selected) mSelectedSortType.setVisibility(View.VISIBLE);
         }
 
     }

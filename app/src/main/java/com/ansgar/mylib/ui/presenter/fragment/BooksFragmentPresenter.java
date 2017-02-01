@@ -93,6 +93,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
 
     @Override
     public void sortTypePosition(int pos) {
+        MyLibPreference.saveBookSortType(pos);
         loadBooks(mAuthor, pos);
     }
 }

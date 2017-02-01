@@ -72,6 +72,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
 
     @Override
     public void sortTypePosition(int pos) {
+        MyLibPreference.saveAuthorSortType(pos);
         loadAuthors(pos);
     }
 }

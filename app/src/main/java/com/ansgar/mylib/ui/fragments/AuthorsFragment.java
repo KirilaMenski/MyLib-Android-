@@ -82,7 +82,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.loadAuthors(1);
+        mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
     }
 
     @Override

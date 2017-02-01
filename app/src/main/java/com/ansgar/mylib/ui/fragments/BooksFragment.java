@@ -90,7 +90,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.loadBooks(mAuthor, 1);
+        mPresenter.loadBooks(mAuthor, MyLibPreference.getBookSortType());
     }
 
     @Override

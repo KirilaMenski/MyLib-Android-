@@ -13,7 +13,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MyLibPreference {
 
-    public static final String LAST_ADDED = "Last added";
+    private static final int LAST_ADDED = 1;
     public static final String SORT_TYPE_AUTHOR = "AUTHOR";
     public static final String SORT_TYPE_BOOK = "BOOK";
 
@@ -69,36 +69,36 @@ public class MyLibPreference {
         return mPreference.getLong(CURRENT_USER, DEFAULT_USER);
     }
 
-    public static void saveAuthorSortType(String type) {
+    public static void saveAuthorSortType(int type) {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putString(SORT_TYPE_AUTHOR, type);
+        ed.putInt(SORT_TYPE_AUTHOR, type);
         ed.commit();
     }
 
     public static void removeAuthorSortType() {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putString(SORT_TYPE_AUTHOR, LAST_ADDED);
+        ed.putInt(SORT_TYPE_AUTHOR, LAST_ADDED);
         ed.commit();
     }
 
-    public static String getAuthorSortType() {
-        return mPreference.getString(SORT_TYPE_AUTHOR, LAST_ADDED);
+    public static int getAuthorSortType() {
+        return mPreference.getInt(SORT_TYPE_AUTHOR, LAST_ADDED);
     }
 
-    public static void saveBookSortType(String type) {
+    public static void saveBookSortType(int type) {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putString(SORT_TYPE_AUTHOR, type);
+        ed.putInt(SORT_TYPE_BOOK, type);
         ed.commit();
     }
 
     public static void removeBookSortType() {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putString(SORT_TYPE_AUTHOR, LAST_ADDED);
+        ed.putInt(SORT_TYPE_BOOK, LAST_ADDED);
         ed.commit();
     }
 
-    public static String getBookSortType() {
-        return mPreference.getString(SORT_TYPE_AUTHOR, LAST_ADDED);
+    public static int getBookSortType() {
+        return mPreference.getInt(SORT_TYPE_BOOK, LAST_ADDED);
     }
 
     public static void clearData() {
