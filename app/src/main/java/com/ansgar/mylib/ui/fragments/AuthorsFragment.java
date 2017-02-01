@@ -5,9 +5,11 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.SortDialog;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.loadAuthors();
+        mPresenter.loadAuthors(1);
     }
 
     @Override
@@ -99,6 +101,9 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
                 addAuthor();
                 break;
             case R.id.sort:
+                SortDialog dialog = SortDialog.newInstance(MyLibPreference.SORT_TYPE_AUTHOR);
+                dialog.setListener(mPresenter);
+                dialog.show(getFragmentManager(), "sortTypeAuthorDialog");
                 break;
         }
         return super.onOptionsItemSelected(item);

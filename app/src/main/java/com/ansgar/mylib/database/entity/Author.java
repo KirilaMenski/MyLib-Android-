@@ -7,6 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 
 
 @DatabaseTable(tableName = "authors")
-public class Author implements Serializable {
+public class Author implements Serializable, Comparator<Author> {
 
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
@@ -114,5 +115,10 @@ public class Author implements Serializable {
 
     public void setCover(String cover) {
         mCover = cover;
+    }
+
+    @Override
+    public int compare(Author o1, Author o2) {
+        return (int) (o2.getId() - o1.getId());
     }
 }

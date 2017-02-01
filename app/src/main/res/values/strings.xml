@@ -52,4 +52,15 @@
         <item>Novel</item>
         <item>Other</item>
     </string-array>
+    <string-array name="author_sort_types">
+        <item>Alphabetical</item>
+        <item>Last added</item>
+        <item>Book counts</item>
+    </string-array>
+    <string-array name="book_sort_types">
+        <item>Alphabetical</item>
+        <item>Last added</item>
+        <item>Rating</item>
+        <item>Date</item>
+    </string-array>
 </resources>

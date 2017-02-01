@@ -13,6 +13,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MyLibPreference {
 
+    public static final String LAST_ADDED = "Last added";
+    public static final String SORT_TYPE_AUTHOR = "AUTHOR";
+    public static final String SORT_TYPE_BOOK = "BOOK";
+
     public static final String BEL_LANG = "Беларуская";
     public static final String RUS_LANG = "Русский";
     public static final String ENG_LANG = "English";
@@ -65,8 +69,42 @@ public class MyLibPreference {
         return mPreference.getLong(CURRENT_USER, DEFAULT_USER);
     }
 
+    public static void saveAuthorSortType(String type) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(SORT_TYPE_AUTHOR, type);
+        ed.commit();
+    }
+
+    public static void removeAuthorSortType() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(SORT_TYPE_AUTHOR, LAST_ADDED);
+        ed.commit();
+    }
+
+    public static String getAuthorSortType() {
+        return mPreference.getString(SORT_TYPE_AUTHOR, LAST_ADDED);
+    }
+
+    public static void saveBookSortType(String type) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(SORT_TYPE_AUTHOR, type);
+        ed.commit();
+    }
+
+    public static void removeBookSortType() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(SORT_TYPE_AUTHOR, LAST_ADDED);
+        ed.commit();
+    }
+
+    public static String getBookSortType() {
+        return mPreference.getString(SORT_TYPE_AUTHOR, LAST_ADDED);
+    }
+
     public static void clearData() {
         removeUserId();
+        removeAuthorSortType();
+        removeBookSortType();
     }
 
 }
