@@ -21,13 +21,4 @@
         tools:listitem="@layout/item_author">
     </android.support.v7.widget.RecyclerView>
 
-    <ImageView
-        android:id="@+id/add_author_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/m_dimen"
-        android:src="@drawable/ic_add_data"/>
-
 </RelativeLayout>

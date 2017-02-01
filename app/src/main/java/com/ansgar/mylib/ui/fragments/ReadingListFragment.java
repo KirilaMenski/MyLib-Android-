@@ -24,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,8 +50,6 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     RelativeLayout mNoItemLayout;
     @BindView(R.id.recycler_reading_list)
     RecyclerView mReadingListRec;
-    @BindView(R.id.add_book_img)
-    ImageView mAddBook;
 
     public static ReadingListFragment newInstance() {
         ReadingListFragment fragment = new ReadingListFragment();
@@ -90,14 +87,17 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
         switch (item.getItemId()) {
             case R.id.search:
                 break;
+            case R.id.add:
+                addBookToList();
+                break;
             case R.id.sort:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.add_data, R.id.add_book_img})
-    public void addAuthorPressed() {
+    @OnClick(R.id.add_data)
+    public void addBookToList() {
         SelectEntityDialog dialog = SelectEntityDialog.newInstance(SelectEntityDialogPresenter.BOOKS);
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "selectBooksDialog");

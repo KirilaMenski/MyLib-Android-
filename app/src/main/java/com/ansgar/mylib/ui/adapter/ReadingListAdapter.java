@@ -7,10 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.ui.fragments.AddBookFragment;
+import com.ansgar.mylib.ui.fragments.BookDetailsFragment;
+import com.ansgar.mylib.ui.pager.BookCitationsPager;
+import com.ansgar.mylib.util.FragmentUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -45,8 +50,15 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
 
     @Override
     public void onBindViewHolder(ReadingListHolder holder, int position) {
-        Book book = mBooks.get(position);
+        final Book book = mBooks.get(position);
         holder.bindViews(position + 1, book);
+        holder.mInfLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.replaceAnimFragment(mFragmentActivity.get(), R.id.main_fragment_container,
+                        BookCitationsPager.newInstance(book), true, R.anim.right_out, R.anim.left_out);
+            }
+        });
     }
 
     @Override
@@ -65,6 +77,10 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
         ImageView mStatus;
         @BindView(R.id.book_title)
         TextView mBookTitle;
+        @BindView(R.id.inf)
+        TextView mBookInf;
+        @BindView(R.id.book_ll)
+        LinearLayout mInfLl;
 
         public ReadingListHolder(View itemView) {
             super(itemView);
@@ -73,6 +89,7 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
 
         public void bindViews(int position, Book book) {
             mBookTitle.setText(position + ". " + book.getTitle());
+            mBookInf.setText(book.getAuthor().getFirstName() + " " + book.getAuthor().getLastName());
             mStatus.setImageDrawable(ContextCompat.getDrawable(mFragmentActivity.get(),
                     book.getWasRead() == 1 ? R.drawable.ic_status_true : R.drawable.ic_status_false));
         }

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,8 +41,6 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     private BooksFragmentPresenter mPresenter;
     private BooksAdapter mAdapter;
 
-    @BindView(R.id.add_book_img)
-    ImageView mAddBook;
     @BindView(R.id.type)
     TextView mDataType;
     @BindView(R.id.add_data)
@@ -89,6 +88,9 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
         switch (item.getItemId()) {
             case R.id.search:
                 break;
+            case R.id.add:
+                addBook();
+                break;
             case R.id.sort:
                 break;
         }
@@ -102,9 +104,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
                 getContext().getResources().getString(R.string.book).toLowerCase()));
     }
 
-    @OnClick({R.id.add_data, R.id.add_book_img})
-    public void addAuthorPressed() {
-        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddBookFragment.newInstance(null, null), true, R.anim.right_out, R.anim.left_out);
+    @OnClick(R.id.add_data)
+    public void addBook() {
+        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container,
+                AddBookFragment.newInstance(null, null), true, R.anim.right_out, R.anim.left_out);
     }
 
     @Override

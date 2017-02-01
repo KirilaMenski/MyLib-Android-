@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,8 +49,6 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     RelativeLayout mNoItemLayout;
     @BindView(R.id.recycler_select_object)
     RecyclerView mAuthorsRecycler;
-    @BindView(R.id.add_author_img)
-    ImageView mAddAuthorImg;
 
     public static AuthorsFragment newInstance() {
         AuthorsFragment authorsFragment = new AuthorsFragment();
@@ -87,6 +86,9 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         switch (item.getItemId()) {
             case R.id.search:
                 break;
+            case R.id.add:
+               addAuthor();
+                break;
             case R.id.sort:
                 break;
         }
@@ -100,9 +102,11 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
                 getContext().getResources().getString(R.string.author).toLowerCase()));
     }
 
-    @OnClick({R.id.add_data, R.id.add_author_img})
-    public void addAuthorPressed() {
-        FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container, AddAuthorFragment.newInstance(null), true, R.anim.right_out, R.anim.left_out);
+    @OnClick(R.id.add_data)
+    public void addAuthor() {
+        FragmentUtil.replaceAnimFragment(getActivity(),
+                R.id.main_fragment_container, AddAuthorFragment.newInstance(null),
+                true, R.anim.right_out, R.anim.left_out);
     }
 
     @Override

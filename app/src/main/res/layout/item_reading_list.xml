@@ -7,19 +7,41 @@
               android:orientation="horizontal"
               android:padding="@dimen/m_dimen">
 
-    <TextView
-        android:id="@+id/book_title"
+    <LinearLayout
+        android:id="@+id/book_ll"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/text_size_xsmall"
-        tools:text="1. Harry Potter"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/book_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/m_dimen"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_xsmall"
+            tools:text="1. Harry Potter"/>
+
+        <TextView
+            android:id="@+id/inf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/m_dimen"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_xsmall"
+            tools:text="1. Harry Potter"/>
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/status_icon"
-        android:layout_width="@dimen/x_dimen"
-        android:layout_height="@dimen/x_dimen"
+        android:layout_width="@dimen/b_dimen"
+        android:layout_height="@dimen/b_dimen"
         android:src="@drawable/ic_status_true"/>
 
 </LinearLayout>

@@ -41,7 +41,7 @@
             <TextView
                 android:id="@+id/book_title"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/xxh_size"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/m_dimen"
                 android:paddingLeft="@dimen/m_dimen"
                 android:paddingRight="@dimen/m_dimen"
@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/book_date"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/xxh_size"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/m_dimen"
                 android:paddingLeft="@dimen/m_dimen"
                 android:paddingRight="@dimen/m_dimen"
@@ -62,7 +62,7 @@
             <TextView
                 android:id="@+id/book_genre"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/xxh_size"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/m_dimen"
                 android:gravity="center_vertical"
                 android:inputType="text"
@@ -75,7 +75,7 @@
             <TextView
                 android:id="@+id/book_series"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/xxh_size"
+                android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/m_dimen"
                 android:paddingRight="@dimen/m_dimen"
                 android:textColor="@android:color/black"
