@@ -10,6 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  */
 
 @DatabaseTable(tableName = "books")
-public class Book implements Serializable {
+public class Book implements Serializable, Comparator<Book> {
 
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
@@ -198,6 +199,11 @@ public class Book implements Serializable {
 
     public void setNumSeries(int numSeries) {
         mNumSeries = numSeries;
+    }
+
+    @Override
+    public int compare(Book o1, Book o2) {
+        return (int)(o2.getId() - o1.getId());
     }
 }
 

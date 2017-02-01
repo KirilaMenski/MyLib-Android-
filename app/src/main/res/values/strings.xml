@@ -61,6 +61,7 @@
         <item>Alphabetical</item>
         <item>Last added</item>
         <item>Rating</item>
+        <item>Genre</item>
         <item>Date</item>
     </string-array>
 </resources>
