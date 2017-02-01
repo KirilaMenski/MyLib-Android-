@@ -4,6 +4,7 @@ import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
@@ -27,10 +28,11 @@ public class BooksFragmentPresenter extends BasePresenter {
         mView = view;
     }
 
-    public void loadBooks() {
+    public void loadBooks(Author author) {
         long userId = MyLibPreference.getUserId();
         User user = mUserDao.getUserById(userId);
-        List<Book> books = user.getBooks();
+        List<Book> books;
+        books = (author == null) ? user.getBooks() : author.getAuthorBooks();
         if (books.size() == 0) {
             mView.setLayoutVisibility(true);
         } else {

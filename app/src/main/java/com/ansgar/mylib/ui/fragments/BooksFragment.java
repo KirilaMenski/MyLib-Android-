@@ -1,6 +1,7 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.adapter.BooksAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
@@ -21,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Created by kirill on 24.1.17.
@@ -37,10 +40,19 @@ import butterknife.OnClick;
 public class BooksFragment extends BaseFragment implements BooksFragmentView {
 
     private final int LAYOUT = R.layout.fragment_books;
+    private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
 
     private BooksFragmentPresenter mPresenter;
     private BooksAdapter mAdapter;
 
+    private Author mAuthor;
+
+    @BindView(R.id.ll_search)
+    LinearLayout mSearchLayout;
+    @BindView(R.id.search)
+    EditText mSearchEt;
+    @BindView(R.id.cancel)
+    TextView mCancelSearch;
     @BindView(R.id.type)
     TextView mDataType;
     @BindView(R.id.add_data)
@@ -50,9 +62,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @BindView(R.id.recycler_books)
     RecyclerView mBooksRecycler;
 
-    public static BooksFragment newInstance() {
+    public static BooksFragment newInstance(Author author) {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
+        args.putSerializable(EXTRA_AUTHOR, author);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,13 +81,14 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
+        mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.loadBooks();
+        mPresenter.loadBooks(mAuthor);
     }
 
     @Override
@@ -87,6 +101,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
+                setSearchVisibility(true);
                 break;
             case R.id.add:
                 addBook();
@@ -110,6 +125,16 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
                 AddBookFragment.newInstance(null, null), true, R.anim.right_out, R.anim.left_out);
     }
 
+    @OnClick(R.id.cancel)
+    public void cancelSearch() {
+        setSearchVisibility(false);
+    }
+
+    @OnTextChanged(R.id.search)
+    public void onTextChanged() {
+        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
+    }
+
     @Override
     public BasePresenter getPresenter() {
         return mPresenter;
@@ -131,5 +156,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setSearchVisibility(boolean vis) {
+        mSearchLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 }

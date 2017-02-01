@@ -8,4 +8,6 @@ public interface NoItemLayoutView {
 
     void setLayoutVisibility(boolean vis);
 
+    void setSearchVisibility(boolean vis);
+
 }

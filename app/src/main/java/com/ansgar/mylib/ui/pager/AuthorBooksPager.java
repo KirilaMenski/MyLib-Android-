@@ -4,8 +4,8 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.fragments.AuthorBooksFragment;
 import com.ansgar.mylib.ui.fragments.AuthorDetailsFragment;
+import com.ansgar.mylib.ui.fragments.BooksFragment;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorBooksPagerPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorBooksPagerView;
 
@@ -86,7 +86,7 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) return AuthorDetailsFragment.newInstance(mAuthor);
-                if (position == 1) return AuthorBooksFragment.newInstance(mAuthor);
+                if (position == 1) return BooksFragment.newInstance(mAuthor);
                 return null;
             }
 

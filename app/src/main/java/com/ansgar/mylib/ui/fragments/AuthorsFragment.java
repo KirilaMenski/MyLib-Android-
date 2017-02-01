@@ -21,7 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +29,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Created by kirill on 24.1.17.
@@ -36,11 +37,18 @@ import butterknife.OnClick;
 
 public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_author;
+    private static final int LAYOUT = R.layout.fragment_authors;
 
     private AuthorsFragmentPresenter mPresenter;
     private AuthorsAdapter mAdapter;
 
+
+    @BindView(R.id.ll_search)
+    LinearLayout mSearchLayout;
+    @BindView(R.id.search)
+    EditText mSearchEt;
+    @BindView(R.id.cancel)
+    TextView mCancelSearch;
     @BindView(R.id.type)
     TextView mDataType;
     @BindView(R.id.add_data)
@@ -85,9 +93,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
+                setSearchVisibility(true);
                 break;
             case R.id.add:
-               addAuthor();
+                addAuthor();
                 break;
             case R.id.sort:
                 break;
@@ -109,6 +118,16 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
                 true, R.anim.right_out, R.anim.left_out);
     }
 
+    @OnClick(R.id.cancel)
+    public void cancelSearch(){
+        setSearchVisibility(false);
+    }
+
+    @OnTextChanged(R.id.search)
+    public void onTextChanged() {
+        mAdapter.getFilter().filter(mSearchEt.getText().toString());
+    }
+
     @Override
     public BasePresenter getPresenter() {
         return mPresenter;
@@ -122,6 +141,11 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setSearchVisibility(boolean vis) {
+        mSearchLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
     @Override

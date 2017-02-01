@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +31,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by kirill on 24.1.17.
  */
-public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsHolder> {
+public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsHolder> implements Filterable {
 
     private static final int LAYOUT = R.layout.item_author;
 
@@ -83,6 +86,43 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
 
     public void setListener(EntitySelectedListener listener) {
         mListener = new WeakReference<>(listener);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<Author> filteredResult = null;
+                if (charSequence.length() == 0) {
+                    filteredResult = mAuthorsCopy;
+                } else {
+                    filteredResult = getFilteredResults(charSequence.toString().toLowerCase());
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResult;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mAuthors = (List<Author>) filterResults.values;
+                AuthorsAdapter.this.notifyDataSetChanged();
+            }
+        };
+    }
+
+    private List<Author> getFilteredResults(String constraint) {
+        List<Author> authors = new ArrayList<>();
+        for (Author author : mAuthorsCopy) {
+            if (author.getFirstName().toLowerCase().contains(constraint)
+                    || author.getLastName().toLowerCase().contains(constraint)
+                    || (author.getFirstName().toLowerCase() + " " + author.getLastName()).contains(constraint)) {
+                authors.add(author);
+            }
+        }
+        return authors;
     }
 
     public class AuthorsHolder extends RecyclerView.ViewHolder {

@@ -24,12 +24,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Created by kirill on 24.1.17.
@@ -42,6 +44,12 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private ReadingListFragmentPresenter mPresenter;
     private ReadingListAdapter mAdapter;
 
+    @BindView(R.id.ll_search)
+    LinearLayout mSearchLayout;
+    @BindView(R.id.search)
+    EditText mSearchEt;
+    @BindView(R.id.cancel)
+    TextView mCancelSearch;
     @BindView(R.id.type)
     TextView mDataType;
     @BindView(R.id.add_data)
@@ -86,6 +94,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search:
+                setSearchVisibility(true);
                 break;
             case R.id.add:
                 addBookToList();
@@ -101,6 +110,16 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
         SelectEntityDialog dialog = SelectEntityDialog.newInstance(SelectEntityDialogPresenter.BOOKS);
         dialog.setListener(this);
         dialog.show(getFragmentManager(), "selectBooksDialog");
+    }
+
+    @OnClick(R.id.cancel)
+    public void cancelSearch() {
+        setSearchVisibility(false);
+    }
+
+    @OnTextChanged(R.id.search)
+    public void onTextChanged() {
+        mAdapter.getFilter().filter(mSearchEt.getText().toString());
     }
 
     @Override
@@ -130,6 +149,11 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setSearchVisibility(boolean vis) {
+        mSearchLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
     @Override

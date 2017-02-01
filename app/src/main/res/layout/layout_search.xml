@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_search"
+    android:orientation="horizontal"
+    android:padding="@dimen/l_dimen">
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/xxh_size"
+        android:layout_marginRight="@dimen/m_dimen"
+        android:layout_weight="1"
+        android:background="@drawable/background_edit"
+        android:gravity="center"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/search_hint_color"
+        android:textSize="@dimen/text_size_xsmall"
+        android:theme="@style/Theme.App.Search"/>
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/xxh_size"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_xsmall"/>
+
+</LinearLayout>

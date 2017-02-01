@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.ansgar.mylib.ui.pager.BookCitationsPager;
 import com.ansgar.mylib.util.FragmentUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by kirill on 24.1.17.
  */
 
-public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.ReadingListHolder> {
+public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.ReadingListHolder> implements Filterable{
 
     private static final int LAYOUT = R.layout.item_reading_list;
 
@@ -69,6 +72,41 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                List<Book> filteredResult = null;
+                if (charSequence.length() == 0) {
+                    filteredResult = mBooksCopy;
+                } else {
+                    filteredResult = getFilteredResults(charSequence.toString().toLowerCase());
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResult;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mBooks = (List<Book>) filterResults.values;
+                ReadingListAdapter.this.notifyDataSetChanged();
+            }
+        };
+    }
+
+    private List<Book> getFilteredResults(String constraint) {
+        List<Book> books = new ArrayList<>();
+        for (Book book : mBooks) {
+            if (book.getTitle().toLowerCase().contains(constraint)) {
+                books.add(book);
+            }
+        }
+        return books;
     }
 
     public class ReadingListHolder extends RecyclerView.ViewHolder {

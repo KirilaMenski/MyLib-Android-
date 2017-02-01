@@ -7,6 +7,11 @@
                 android:orientation="vertical">
 
     <include
+        layout="@layout/layout_search"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <include
         layout="@layout/layout_no_item"
         android:translationZ="@dimen/m_dimen"
         android:visibility="gone"
@@ -16,6 +21,7 @@
         android:id="@+id/recycler_select_object"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_search"
         android:orientation="vertical"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:listitem="@layout/item_author">
