@@ -109,12 +109,12 @@ public class MyLibPreference {
     }
 
     public static String getCurrentLang() {
-        return mPreference.getString(CURRENT_LANG, RUS_LANG);
+        return mPreference.getString(CURRENT_LANG, ENG_LANG);
     }
 
     public static void removeCurrentLang() {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putString(CURRENT_LANG, RUS_LANG);
+        ed.putString(CURRENT_LANG, ENG_LANG);
         ed.commit();
     }
 
