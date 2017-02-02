@@ -134,6 +134,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @OnClick(R.id.cancel)
     public void cancelSearch() {
         setSearchVisibility(false);
+        hideKeyBoard();
     }
 
     @OnTextChanged(R.id.search)

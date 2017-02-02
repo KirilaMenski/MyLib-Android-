@@ -116,6 +116,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @OnClick(R.id.cancel)
     public void cancelSearch() {
         setSearchVisibility(false);
+        hideKeyBoard();
     }
 
     @OnTextChanged(R.id.search)

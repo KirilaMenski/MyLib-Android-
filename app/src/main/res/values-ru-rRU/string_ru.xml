@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">MyLib</string>
+    <string name="users">Пользователи</string>
+    <string name="my_lib">Моя библиотека</string>
+    <string name="navigation_drawer_open">Одкрыть</string>
+    <string name="navigation_drawer_close">Закрыть</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Пароль</string>
+    <string name="restore_pass">Восстоновить пароль</string>
+    <string name="registration">Регистрация</string>
+    <string name="login">Войти</string>
+    <string name="synchronize">Синхронизировать\n данные</string>
+    <string name="add_data">Добавить %s</string>
+    <string name="books_count">Книг: %d</string>
+    <string name="authors_count">Авторов: %d</string>
+    <string name="books">Книги</string>
+    <string name="authors">Авторы</string>
+    <string name="my_list">Мой список</string>
+    <string name="author">Автор</string>
+    <string name="hint_first_name">Имя</string>
+    <string name="hint_last_name">Фамилия</string>
+    <string name="description">Описание</string>
+    <string name="hint_author_date">Дата</string>
+    <string name="add">Добавить</string>
+    <string name="book">Книга</string>
+    <string name="hint_book_title">Название книги</string>
+    <string name="hint_book_published">Публикация</string>
+    <string name="hint_book_genre">Жанр</string>
+    <string name="choose_author">Выберите автора</string>
+    <string name="select_from_sd">Файл</string>
+    <string name="biography">Биография</string>
+    <string name="zero">0</string>
+    <string name="hint_author_name">Имя автора</string>
+    <string name="hint_book_series">Серия</string>
+    <string name="edit">Править</string>
+    <string name="delete">Удалить</string>
+    <string name="menu">Меню</string>
+    <string name="add_citation">Добавить цитату</string>
+    <string name="empty_value">Пустые данные</string>
+    <string name="add_book">Добавить книгу</string>
+    <string name="logout">Выйти</string>
+    <string name="incorrect_value">Неправильные данные</string>
+    <string name="hint_confirm_password">Подтвердить пароль</string>
+    <string name="incorrect_password">Неправильный пароль</string>
+    <string name="search">Поиск</string>
+    <string name="sort">Сортировать</string>
+    <string name="cancel">Отмена</string>
+    <string name="settings">Настройки</string>
+    <string-array name="genre_list">
+        <item>Фэнтези</item>
+        <item>Научная фантастика</item>
+        <item>Детектив</item>
+        <item>История</item>
+        <item>Роман</item>
+        <item>Другой</item>
+    </string-array>
+    <string-array name="author_sort_types">
+        <item>По алфавиту</item>
+        <item>С последнего</item>
+        <item>По количеству книг</item>
+    </string-array>
+    <string-array name="book_sort_types">
+        <item>По алфавиту</item>
+        <item>С последнего</item>
+        <item>По рейтингу</item>
+        <item>По жанру</item>
+        <item>По дате публикации</item>
+    </string-array>
+</resources>

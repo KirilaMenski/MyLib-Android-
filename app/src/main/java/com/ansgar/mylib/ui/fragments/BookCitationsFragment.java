@@ -81,6 +81,7 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
             mCitEditVis = false;
             mPresenter.addNewCitation(mNewCitation.getText().toString());
             mNewCitation.setText("");
+            hideKeyBoard();
         } else {
             mNewCitation.setVisibility(View.VISIBLE);
             mCitEditVis = true;

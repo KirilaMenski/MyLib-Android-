@@ -24,7 +24,7 @@
     <string name="add">Дадаць</string>
     <string name="book">Кніга</string>
     <string name="hint_book_title">Назва кнігі</string>
-    <string name="hint_book_published">Пуьлікацыя</string>
+    <string name="hint_book_published">Публікацыя</string>
     <string name="hint_book_genre">Жанр</string>
     <string name="choose_author">Абярыце аўтара</string>
     <string name="select_from_sd">Файл</string>

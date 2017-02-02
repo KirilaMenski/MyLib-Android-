@@ -130,6 +130,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                     trans.remove(currFragment);
                     trans.commit();
                     manager.popBackStack();
+                    hideKeyBoard();
                 }
             });
         }

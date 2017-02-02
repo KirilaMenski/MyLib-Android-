@@ -124,13 +124,14 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     @OnClick(R.id.cancel)
-    public void cancelSearch(){
+    public void cancelSearch() {
         setSearchVisibility(false);
+        hideKeyBoard();
     }
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
     }
 
     @Override
