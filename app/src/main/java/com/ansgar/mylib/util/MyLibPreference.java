@@ -25,6 +25,7 @@ public class MyLibPreference {
     private static final int DEFAULT_USER = -1;
 
     private static final String CURRENT_USER = "current_user";
+    private static final String CURRENT_LANG = "current_language";
 
     private static SharedPreferences mPreference;
     private static MyLibPreference mInstance;
@@ -99,6 +100,22 @@ public class MyLibPreference {
 
     public static int getBookSortType() {
         return mPreference.getInt(SORT_TYPE_BOOK, LAST_ADDED);
+    }
+
+    public static void saveCurrentLang(String lang) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(CURRENT_LANG, lang);
+        ed.commit();
+    }
+
+    public static String getCurrentLang() {
+        return mPreference.getString(CURRENT_LANG, RUS_LANG);
+    }
+
+    public static void removeCurrentLang() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putString(CURRENT_LANG, RUS_LANG);
+        ed.commit();
     }
 
     public static void clearData() {

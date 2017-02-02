@@ -2,28 +2,41 @@ package com.ansgar.mylib.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ansgar.mylib.R;
+import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.LocaleDialog;
+import com.ansgar.mylib.ui.listener.LocaleDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.SettingsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.SettingsFragmentView;
+import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.LanguageUtil;
+import com.ansgar.mylib.util.MyLibPreference;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by kirill on 2.2.17.
  */
 
-public class SettingsFragment extends BaseFragment implements SettingsFragmentView {
+public class SettingsFragment extends BaseFragment implements SettingsFragmentView, LocaleDialogListener {
 
     private static final int LAYOUT = R.layout.fragment_settings;
     private SettingsFragmentPresenter mPresenter;
 
-    public static SettingsFragment newInstance(){
+    @BindView(R.id.lang)
+    TextView mLocale;
+
+    public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
         return fragment;
     }
@@ -36,6 +49,26 @@ public class SettingsFragment extends BaseFragment implements SettingsFragmentVi
         return view;
     }
 
+    @OnClick(R.id.lang)
+    public void openLocaleDialog() {
+        LocaleDialog dialog = new LocaleDialog();
+        dialog.setListener(this);
+        dialog.show(getFragmentManager(), "localeDialog");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setScreenTitle(getString(R.string.settings));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setLocaleIcon(MyLibPreference.getCurrentLang());
+    }
+
     @Override
     public BasePresenter getPresenter() {
         return mPresenter;
@@ -45,4 +78,39 @@ public class SettingsFragment extends BaseFragment implements SettingsFragmentVi
     protected void createPresenter() {
         mPresenter = new SettingsFragmentPresenter(this);
     }
+
+    @Override
+    public void localeSelected(String locale) {
+        switch (locale){
+            case MyLibPreference.ENG_LANG:
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.ENG);
+                break;
+            case MyLibPreference.BEL_LANG:
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.BEL);
+                break;
+            case MyLibPreference.RUS_LANG:
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.RUS);
+                break;
+        }
+        getActivity().recreate();
+        mLocale.setText(locale);//TODO
+    }
+
+    private void setLocaleIcon(String locale){
+        switch (locale){
+            case MyLibPreference.ENG_LANG:
+                mLocale.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null,
+                        ContextCompat.getDrawable(getContext(), R.drawable.ic_eng), null);
+                break;
+            case MyLibPreference.BEL_LANG:
+                mLocale.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null,
+                        ContextCompat.getDrawable(getContext(), R.drawable.ic_bel), null);
+                break;
+            case MyLibPreference.RUS_LANG:
+                mLocale.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null,
+                        ContextCompat.getDrawable(getContext(), R.drawable.ic_rus), null);
+                break;
+        }
+    }
+
 }

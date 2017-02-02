@@ -4,6 +4,7 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.ProfileFragment;
+import com.ansgar.mylib.ui.fragments.SettingsFragment;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
@@ -26,6 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,6 +35,7 @@ import butterknife.OnClick;
 public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener {
 
     private static final int LAYOUT = R.layout.activity_main;
+    private final String CHANGED_SETTING = "CHANGED_SETTING";
 
     private MainActivityPresenter mPresenter;
 
@@ -72,7 +75,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         mToggle.syncState();
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        if (savedInstanceState == null) {
+            FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        }
         mPresenter.initializeView();
     }
 
@@ -84,21 +89,33 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     }
 
     @OnClick(R.id.profile)
-    public void openProfile(){
+    public void openProfile() {
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ProfileFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
 
     @OnClick(R.id.tv_my_lib)
-    public void openMyLib(){
+    public void openMyLib() {
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
         mDrawer.closeDrawers();
     }
 
     @OnClick(R.id.tv_users)
-    public void openUsers(){
+    public void openUsers() {
 //        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
         mDrawer.closeDrawers();
+    }
+
+    @OnClick(R.id.tv_settings)
+    public void openSettings() {
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, SettingsFragment.newInstance(), false);
+        mDrawer.closeDrawers();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(CHANGED_SETTING, true);
     }
 
     @Override

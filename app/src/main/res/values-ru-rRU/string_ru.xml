@@ -46,6 +46,10 @@
     <string name="sort">Сортировать</string>
     <string name="cancel">Отмена</string>
     <string name="settings">Настройки</string>
+    <string name="language">Язык</string>
+    <string name="english">English</string>
+    <string name="bel">Беларуская</string>
+    <string name="rus">Российская</string>
     <string-array name="genre_list">
         <item>Фэнтези</item>
         <item>Научная фантастика</item>

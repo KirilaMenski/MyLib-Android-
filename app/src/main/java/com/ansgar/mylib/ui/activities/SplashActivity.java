@@ -9,6 +9,7 @@ import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.activity.SplashActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.SplashActivityView;
 import com.ansgar.mylib.util.DateUtils;
+import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.concurrent.TimeUnit;
@@ -67,7 +68,15 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
 
         @Override
         public void onNext(String s) {
-
+            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.BEL_LANG)) {
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.BEL);
+            }
+            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.RUS_LANG)) {
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.RUS);
+            }
+            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.ENG_LANG)) {
+                LanguageUtil.setLanguage(getContext(), LanguageUtil.ENG);
+            }
         }
     };
 }

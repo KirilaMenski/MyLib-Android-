@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by kirill on 24.1.17.
  */
-public class AuthorsFragmentPresenter extends BasePresenter implements SortDialogListener{
+public class AuthorsFragmentPresenter extends BasePresenter implements SortDialogListener {
 
     private AuthorsFragmentView mView;
     private UserDao mUserDao = UserDaoImpl.getInstance();
@@ -34,9 +34,9 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
         long userId = MyLibPreference.getUserId();
         User user = mUserDao.getUserById(userId);
         List<Author> authors = user.getAuthors();
-        switch (pos){
+        switch (pos) {
             case 0:
-                Collections.sort(authors, new Author(){
+                Collections.sort(authors, new Author() {
                     @Override
                     public int compare(Author o1, Author o2) {
                         String lastName1 = o1.getLastName().toLowerCase().trim();
@@ -49,7 +49,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
                 Collections.sort(authors, new Author());
                 break;
             case 2:
-                Collections.sort(authors, new Author(){
+                Collections.sort(authors, new Author() {
                     @Override
                     public int compare(Author o1, Author o2) {
                         return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
