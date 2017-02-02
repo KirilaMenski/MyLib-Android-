@@ -26,4 +26,6 @@ public interface BookDetailsFragmentView extends BaseContextView {
 
     void setDescription(String description);
 
+    void setRatingAdapter(int rating);
+
 }

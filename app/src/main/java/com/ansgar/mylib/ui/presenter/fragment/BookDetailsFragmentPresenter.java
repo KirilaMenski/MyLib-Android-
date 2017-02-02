@@ -9,13 +9,14 @@ import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.AddBookFragment;
+import com.ansgar.mylib.ui.listener.RatingAdapterListener;
 import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 
 /**
  * Created by kirill on 30.1.17.
  */
-public class BookDetailsFragmentPresenter extends BasePresenter {
+public class BookDetailsFragmentPresenter extends BasePresenter implements RatingAdapterListener {
 
     private BookDetailsFragmentView mView;
     private Book mBook;
@@ -35,6 +36,7 @@ public class BookDetailsFragmentPresenter extends BasePresenter {
         mView.setBookTitle(book.getTitle());
         mView.setBookGenre(book.getGenre());
         mView.setSeries(book.getSeries() + "-" + book.getNumSeries());
+        mView.setRatingAdapter(book.getRating());
     }
 
     public void updateBook() {
@@ -51,5 +53,12 @@ public class BookDetailsFragmentPresenter extends BasePresenter {
     @Override
     public BaseContextView getView() {
         return mView;
+    }
+
+    @Override
+    public void rating(int rating) {
+        mBook.setRating(rating);
+        mBookDao.updateBook(mBook);
+        mView.setRatingAdapter(rating);
     }
 }

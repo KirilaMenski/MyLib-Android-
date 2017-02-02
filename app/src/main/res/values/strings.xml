@@ -45,6 +45,7 @@
     <string name="search">Search</string>
     <string name="sort">Sorting</string>
     <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

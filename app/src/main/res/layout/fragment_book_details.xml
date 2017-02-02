@@ -18,6 +18,16 @@
             android:layout_width="@dimen/b_size"
             android:layout_height="@dimen/xxxb_size"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_rating"
+            android:layout_width="@dimen/b_size"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_cover"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_rating">
+
+        </android.support.v7.widget.RecyclerView>
+
         <LinearLayout
             android:id="@+id/inf_ll"
             android:layout_width="match_parent"
@@ -86,7 +96,7 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/inf_ll"
+            android:layout_below="@+id/recycler_rating"
             android:layout_marginTop="@dimen/m_dimen"
             android:paddingLeft="@dimen/m_dimen"
             android:text="@string/description"
