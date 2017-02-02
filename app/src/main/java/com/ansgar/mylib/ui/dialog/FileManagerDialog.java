@@ -79,7 +79,6 @@ public class FileManagerDialog extends AlertDialog.Builder {
     private void addBook(Context context, String path) {
 
         try {
-//            InputStream is = context.getAssets().open("giperion.fb2");
             InputStream is = new FileInputStream(path);
             mListener.get().fileSelected(is, path);
         } catch (IOException e) {

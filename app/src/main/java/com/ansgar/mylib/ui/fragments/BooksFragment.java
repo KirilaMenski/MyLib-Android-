@@ -11,6 +11,7 @@ import com.ansgar.mylib.ui.presenter.fragment.BooksFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.BooksFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.kevin.loopview.AdLoopView;
 
 import java.util.List;
 
