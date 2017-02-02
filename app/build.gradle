@@ -103,4 +103,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'biz.kasual:materialnumberpicker:1.2.1'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.kevin:wraprecyclerview:1.0.6'
+    compile 'com.kevin:loopview:1.0.9'
 }
