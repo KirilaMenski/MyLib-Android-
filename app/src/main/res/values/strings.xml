@@ -12,6 +12,7 @@
     <string name="synchronize">Synchronize\n data</string>
     <string name="add_data">Add %s</string>
     <string name="books_count">Books: %d</string>
+    <string name="authors_count">Author: %d</string>
     <string name="books">Books</string>
     <string name="authors">Authors</string>
     <string name="my_list">My list</string>

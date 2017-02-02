@@ -3,6 +3,7 @@ package com.ansgar.mylib.ui.activities;
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.fragments.ProfileFragment;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
@@ -14,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +46,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     DrawerLayout mDrawer;
     @BindView(R.id.tv_screen_title)
     TextView mScreenTitle;
-
+    @BindView(R.id.profile)
+    RelativeLayout mProfileRl;
     @BindView(R.id.main_fragment_container)
     FrameLayout mFrameLayout;
 
@@ -68,7 +72,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         mToggle.syncState();
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+        FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
         mPresenter.initializeView();
     }
 
@@ -77,6 +81,24 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         MyLibPreference.clearData();
         startActivity(LogInActivity.newIntent(getContext()));
         finish();
+    }
+
+    @OnClick(R.id.profile)
+    public void openProfile(){
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ProfileFragment.newInstance(), false);
+        mDrawer.closeDrawers();
+    }
+
+    @OnClick(R.id.tv_my_lib)
+    public void openMyLib(){
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        mDrawer.closeDrawers();
+    }
+
+    @OnClick(R.id.tv_users)
+    public void openUsers(){
+//        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        mDrawer.closeDrawers();
     }
 
     @Override

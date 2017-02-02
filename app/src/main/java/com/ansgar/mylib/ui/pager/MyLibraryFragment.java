@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 public class MyLibraryFragment extends BaseFragment implements MyLibraryFragmentView {
 
     private static final int LAYOUT = R.layout.pager_my_library;
+    private static final String EXTRA_POSITION = "com.ansgar.mylib.ui.pager.position";
 
     private MyLibraryFragmentPresenter mPresenter;
 
@@ -37,8 +38,11 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     @BindView(R.id.my_lib_pager)
     ViewPager mMyLibPager;
 
-    public static MyLibraryFragment newInstance() {
+    public static MyLibraryFragment newInstance(int position) {
         MyLibraryFragment pager = new MyLibraryFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_POSITION, position);
+        pager.setArguments(args);
         return pager;
     }
 
@@ -47,6 +51,7 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
+        mPosition = getArguments().getInt(EXTRA_POSITION);
         return view;
     }
 
