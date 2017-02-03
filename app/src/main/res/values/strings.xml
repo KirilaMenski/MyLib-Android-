@@ -56,6 +56,8 @@
     <string name="library">Libraries</string>
     <string name="current_pos">You are here</string>
     <string name="author_not_selected">Author is not selected</string>
+    <string name="image_not_support">Sorry, but this format of image is not supporting</string>
+    <string name="book_not_support">Sorry, but this book format is not supporting</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

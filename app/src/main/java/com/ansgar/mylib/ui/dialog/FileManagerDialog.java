@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 
 import java.io.File;
@@ -72,8 +74,15 @@ public class FileManagerDialog extends AlertDialog.Builder {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String path = mTitle.getText() + "/" + mFile;
+                        String[] file = mFile.split("\\.");
                         if (type.equals(TYPE)) {
-                            mListener.get().photoSelected(path);
+                            if (file[file.length - 1].equals("png") ||
+                                    file[file.length - 1].equals("jpg") ||
+                                    file[file.length - 1].equals("ipeg")) {
+                                mListener.get().photoSelected(path);
+                            } else {
+                                Toast.makeText(getContext(), getContext().getString(R.string.image_not_support), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             addBook(context, path);
                         }
@@ -84,12 +93,17 @@ public class FileManagerDialog extends AlertDialog.Builder {
 
     private void addBook(Context context, String path) {
 
-        try {
-            InputStream is = new FileInputStream(path);
-            mListener.get().fileSelected(is, path);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "File not found ", Toast.LENGTH_LONG).show();
+        String[] file = mFile.split("\\.");
+        if (file[file.length - 1].equals("fb2")) {
+            try {
+                InputStream is = new FileInputStream(path);
+                mListener.get().fileSelected(is, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "File not found ", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(getContext(), getContext().getString(R.string.book_not_support), Toast.LENGTH_SHORT).show();
         }
     }
 

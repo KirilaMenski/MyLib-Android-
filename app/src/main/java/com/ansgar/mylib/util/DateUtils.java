@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 public class DateUtils {
 
-    private static final String DATE_FORMAT = "dd.MM.yyyy kk:mm";
+    private static final String DATE_FORMAT = "dd MMM yyyy kk:mm";
 
     public static String getDate(){
         String date;
