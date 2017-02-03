@@ -73,7 +73,7 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
                 return true;
             }
         });
-        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
         return mDialog;
     }
 

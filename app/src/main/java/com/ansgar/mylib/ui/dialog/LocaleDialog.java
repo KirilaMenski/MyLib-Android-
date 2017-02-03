@@ -55,7 +55,7 @@ public class LocaleDialog extends DialogFragment {
                 return true;
             }
         });
-        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
         return mDialog;
     }
 

@@ -70,7 +70,7 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
                 return true;
             }
         });
-        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
         return mDialog;
     }
 

@@ -69,7 +69,7 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
                 return true;
             }
         });
-        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
         return mDialog;
     }
 

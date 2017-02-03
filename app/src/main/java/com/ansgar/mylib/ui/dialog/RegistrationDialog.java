@@ -66,7 +66,7 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
                 return true;
             }
         });
-        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
         return mDialog;
     }
 

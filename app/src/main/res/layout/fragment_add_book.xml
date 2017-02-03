@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:fillViewport="true"
             android:orientation="vertical"
             android:padding="@dimen/m_dimen"
@@ -63,10 +63,11 @@
             <TextView
                 android:id="@+id/book_res_path"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/xxh_size"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/m_dimen"
                 android:background="@drawable/background_edit"
                 android:gravity="center_vertical"
+                android:minHeight="@dimen/xxh_size"
                 android:paddingLeft="@dimen/m_dimen"
                 android:paddingRight="@dimen/m_dimen"
                 android:text="@string/select_from_sd"

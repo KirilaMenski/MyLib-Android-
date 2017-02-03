@@ -107,14 +107,6 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
 
     @Override
     public void setAuthorImage(Bitmap img) {
-//        byte[] b = new byte[1];
-//        Drawable image = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(b, 0, b.length));
-//        Picasso.with(getContext())
-//                .load(img)
-//                .fit()
-//                .centerCrop()
-//                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
-//                .into(mAuthorIcon);
         mAuthorIcon.setImageBitmap(img);
     }
 
