@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.adapter;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -141,32 +142,14 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         }
 
         public void bindViews(Author author) {
-            setAuthorIcon(author.getCoverBytes());
+            setAuthorIcon(author.getBitmap());
             mAuthorName.setText(author.getFirstName() + "\n" + author.getLastName());
             mBooksCount.setText(mFragmentActivity.get()
                     .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
         }
 
-        private void setAuthorIcon(String path) {
-
-            //TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            try {
-                Uri uri = Uri.parse(path);
-                Picasso.with(mFragmentActivity.get())
-                        .load(uri)
-                        .fit()
-                        .centerCrop()
-                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
-                        .into(mAuthorIcon);
-            } catch (Exception e) {
-                Picasso.with(mFragmentActivity.get())
-                        .load(path)
-                        .fit()
-                        .centerCrop()
-                        .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.ic_synchronize))
-                        .into(mAuthorIcon);
-            }
-
+        private void setAuthorIcon(Bitmap bitmap) {
+            mAuthorIcon.setImageBitmap(bitmap);
         }
 
     }

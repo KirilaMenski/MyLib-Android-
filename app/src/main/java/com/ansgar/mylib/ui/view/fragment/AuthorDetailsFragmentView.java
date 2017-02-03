@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.view.fragment;
 
+import android.graphics.Bitmap;
+
 import com.ansgar.mylib.ui.base.BaseContextView;
 
 /**
@@ -8,7 +10,7 @@ import com.ansgar.mylib.ui.base.BaseContextView;
 public interface AuthorDetailsFragmentView extends BaseContextView {
     void setScreenTitle(String title);
 
-    void setAuthorImage(String img);
+    void setAuthorImage(Bitmap img);
 
     void setAuthorName(String name);
 

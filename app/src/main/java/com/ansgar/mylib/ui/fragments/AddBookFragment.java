@@ -159,7 +159,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public void addBook() {
 
         if (mAuthor == null) {
-            Toast.makeText(getContext(), "You don't select author", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.author_not_selected), Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -18,6 +18,8 @@ public interface Description {
 	public String getGenre();
 
 	public String getLang();
+
+	public String getYear();
 	
 	public List<String> getAnnotation();
 

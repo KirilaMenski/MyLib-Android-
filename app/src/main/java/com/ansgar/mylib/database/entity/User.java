@@ -1,5 +1,8 @@
 package com.ansgar.mylib.database.entity;
 
+import android.graphics.Bitmap;
+
+import com.ansgar.mylib.util.BitmapCover;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -128,5 +131,9 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         mPassword = password;
+    }
+
+    public Bitmap getBitmap() {
+        return BitmapCover.getBitmapCover(mCoverBytes);
     }
 }

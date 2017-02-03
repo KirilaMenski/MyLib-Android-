@@ -161,6 +161,22 @@ public class DescriptionImpl implements Description {
     }
 
     @Override
+    public String getYear() {
+        NodeList nodeList = mDocument.getElementsByTagName("publish-info");
+        String year = "";
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Element element = (Element) nodeList.item(i);
+            try {
+                year = element.getElementsByTagName("year").item(0)
+                        .getChildNodes().item(0).getNodeValue();
+            } catch (Exception e) {
+                continue;
+            }
+        }
+        return year;
+    }
+
+    @Override
     public List<String> getAnnotation() {
         NodeList nodeList = mDocument.getElementsByTagName("annotation");
         List<String> anotation = new ArrayList<String>();

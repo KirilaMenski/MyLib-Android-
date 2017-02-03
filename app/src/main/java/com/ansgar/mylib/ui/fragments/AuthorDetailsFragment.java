@@ -9,6 +9,7 @@ import com.ansgar.mylib.ui.presenter.fragment.AuthorDetailsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorDetailsFragmentView;
 import com.squareup.picasso.Picasso;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -102,13 +103,8 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
     }
 
     @Override
-    public void setAuthorImage(String img) {
-        Picasso.with(getContext())
-                .load(img)
-                .fit()
-                .centerCrop()
-                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.ic_synchronize))
-                .into(mAuthorImage);
+    public void setAuthorImage(Bitmap img) {
+        mAuthorImage.setImageBitmap(img);
     }
 
     @Override

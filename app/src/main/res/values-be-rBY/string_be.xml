@@ -53,6 +53,9 @@
     <string name="make_photo">Зрабіць фатаздымак</string>
     <string name="choose_photo">Выбраць выяву</string>
     <string name="map">Map</string>
+    <string name="library">Бібліатэкі</string>
+    <string name="current_pos">Вы тут</string>
+    <string name="author_not_selected">Не абраны аўтар</string>
     <string-array name="genre_list">
         <item>Фэнтэзі</item>
         <item>Навуковая фантастыка</item>

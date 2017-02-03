@@ -31,7 +31,7 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
         mView.setScreenTitle(author.getFirstName() + "\n" + author.getLastName());
         mView.setAuthorName(author.getFirstName() + " " + author.getLastName());
         mView.setAuthorBiography(author.getBiography());
-        mView.setAuthorImage(author.getCoverBytes());
+        mView.setAuthorImage(author.getBitmap());
     }
 
     @Override

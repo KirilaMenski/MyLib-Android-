@@ -53,8 +53,9 @@
     <string name="make_photo">Make photo</string>
     <string name="choose_photo">Choose image</string>
     <string name="map">Map</string>
-    <string name="library">Library</string>
+    <string name="library">Libraries</string>
     <string name="current_pos">You are here</string>
+    <string name="author_not_selected">Author is not selected</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

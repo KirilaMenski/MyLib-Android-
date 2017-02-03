@@ -104,7 +104,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
 //        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName()); // TODO ???
         mView.setBookResPath(path);
         mView.setBookTitle(description.getTitle());
-//        mView.setBookPublished(String.valueOf(description.get));
+        mView.setBookPublished(String.valueOf(description.getYear()));
         mView.setBookGenre(description.getGenre());
         mView.setSeries(description.getSeries());
         mView.setNumbSeries(String.valueOf(description.getNumOfSer()));
