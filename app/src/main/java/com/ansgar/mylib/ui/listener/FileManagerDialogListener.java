@@ -10,4 +10,5 @@ public interface FileManagerDialogListener {
 
     void fileSelected(InputStream inputStream, String path);
 
+    void photoSelected(String path);
 }

@@ -3,6 +3,7 @@ package com.ansgar.mylib.ui.activities;
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.fragments.MapFragment;
 import com.ansgar.mylib.ui.fragments.ProfileFragment;
 import com.ansgar.mylib.ui.fragments.SettingsFragment;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
@@ -109,6 +110,12 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @OnClick(R.id.tv_settings)
     public void openSettings() {
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, SettingsFragment.newInstance(), false);
+        mDrawer.closeDrawers();
+    }
+
+    @OnClick(R.id.tv_map)
+    public void openMap() {
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
 

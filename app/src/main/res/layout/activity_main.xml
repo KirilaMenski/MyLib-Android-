@@ -90,7 +90,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@+id/profile"
             android:orientation="vertical">
 
             <TextView
@@ -121,6 +121,25 @@
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="@string/my_lib"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/tv_map"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_map"
+                android:drawablePadding="@dimen/m_dimen"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="@string/map"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"/>
 

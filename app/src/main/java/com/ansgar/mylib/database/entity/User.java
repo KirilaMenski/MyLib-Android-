@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ public class User implements Serializable {
     private String mFirstName;
     @DatabaseField(columnName = "last_name")
     private String mLastName;
-    @DatabaseField(columnName = "cover")
-    private String mCover;
+    @DatabaseField(columnName = "cover_bytes")
+    private String mCoverBytes;
     @DatabaseField(columnName = "email")
     private String mEmail;
     @DatabaseField(columnName = "password")
@@ -43,7 +44,7 @@ public class User implements Serializable {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
-        mCover = cover;
+        mCoverBytes = cover;
         mEmail = email;
         mPassword = password;
     }
@@ -105,12 +106,12 @@ public class User implements Serializable {
         mLastName = lastName;
     }
 
-    public String getCover() {
-        return mCover;
+    public String getCoverBytes() {
+        return mCoverBytes;
     }
 
-    public void setCover(String cover) {
-        mCover = cover;
+    public void setCoverBytes(String coverBytes) {
+        mCoverBytes = coverBytes;
     }
 
     public String getEmail() {

@@ -50,6 +50,9 @@
     <string name="english">English</string>
     <string name="bel">Беларуская</string>
     <string name="rus">Российская</string>
+    <string name="make_photo">Зрабіць фатаздымак</string>
+    <string name="choose_photo">Выбраць выяву</string>
+    <string name="map">Map</string>
     <string-array name="genre_list">
         <item>Фэнтэзі</item>
         <item>Навуковая фантастыка</item>

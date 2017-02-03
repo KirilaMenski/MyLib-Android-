@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,8 +21,8 @@ public class Author implements Serializable, Comparator<Author> {
 
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
-    @DatabaseField(columnName = "cover")
-    private String mCover;
+    @DatabaseField(columnName = "cover_bytes")
+    private String mCoverBytes;
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
     @DatabaseField(columnName = "last_name")
@@ -109,12 +110,12 @@ public class Author implements Serializable, Comparator<Author> {
         mUser = user;
     }
 
-    public String getCover() {
-        return mCover;
+    public String getCoverBytes() {
+        return mCoverBytes;
     }
 
-    public void setCover(String cover) {
-        mCover = cover;
+    public void setCoverBytes(String coverBytes) {
+        mCoverBytes = coverBytes;
     }
 
     @Override

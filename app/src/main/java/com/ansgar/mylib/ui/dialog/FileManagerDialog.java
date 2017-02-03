@@ -41,6 +41,8 @@ import java.util.List;
 
 public class FileManagerDialog extends AlertDialog.Builder {
 
+    public static final String TYPE = "just_photo";
+
     private int mSelectedIndex = -1;
 
     private TextView mTitle;
@@ -55,7 +57,7 @@ public class FileManagerDialog extends AlertDialog.Builder {
     private List<File> mFiles = new ArrayList<>();
     private WeakReference<FileManagerDialogListener> mListener;
 
-    public FileManagerDialog(final Context context) {
+    public FileManagerDialog(final Context context, final String type) {
         super(context);
         mTitle = createTitle(context);
         LinearLayout linearLayout = createMainLayout(context);
@@ -70,7 +72,11 @@ public class FileManagerDialog extends AlertDialog.Builder {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String path = mTitle.getText() + "/" + mFile;
-                        addBook(context, path);
+                        if (type.equals(TYPE)) {
+                            mListener.get().photoSelected(path);
+                        } else {
+                            addBook(context, path);
+                        }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null);

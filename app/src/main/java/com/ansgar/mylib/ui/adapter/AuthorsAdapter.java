@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.ui.fragments.AuthorDetailsFragment;
 import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.util.FragmentUtil;
@@ -142,7 +141,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         }
 
         public void bindViews(Author author) {
-            setAuthorIcon(author.getCover());
+            setAuthorIcon(author.getCoverBytes());
             mAuthorName.setText(author.getFirstName() + "\n" + author.getLastName());
             mBooksCount.setText(mFragmentActivity.get()
                     .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));

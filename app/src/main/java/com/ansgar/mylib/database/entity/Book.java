@@ -8,6 +8,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,8 +29,8 @@ public class Book implements Serializable, Comparator<Book> {
     private String mDescription;
     @DatabaseField(columnName = "genre")
     private String mGenre;
-    @DatabaseField(columnName = "cover")
-    private String mCover;
+    @DatabaseField(columnName = "cover_bytes")
+    private String mCoverBytes;
     @DatabaseField(columnName = "series")
     private String mSeries;
     @DatabaseField(columnName = "num_series")
@@ -64,7 +65,7 @@ public class Book implements Serializable, Comparator<Book> {
         mTitle = title;
         mDescription = description;
         mGenre = genre;
-        mCover = cover;
+        mCoverBytes = cover;
         mSeries = series;
         mNumSeries = numSeries;
         mYear = year;
@@ -117,16 +118,16 @@ public class Book implements Serializable, Comparator<Book> {
         mGenre = genre;
     }
 
-    public String getCover() {
-        return mCover;
+    public String getCoverBytes() {
+        return mCoverBytes;
     }
 
-    public Bitmap getBitmap(){
-        return BitmapCover.getBitmapCover(mCover);
+    public Bitmap getBitmap() {
+        return BitmapCover.getBitmapCover(mCoverBytes);
     }
 
-    public void setCover(String cover) {
-        mCover = cover;
+    public void setCoverBytes(String coverBytes) {
+        mCoverBytes = coverBytes;
     }
 
     public int getYear() {
@@ -201,9 +202,14 @@ public class Book implements Serializable, Comparator<Book> {
         mNumSeries = numSeries;
     }
 
+    public String getPhotoFileName() {
+        return "IMG_" + String.valueOf(getId()) + ".jpg";
+    }
+
     @Override
+
     public int compare(Book o1, Book o2) {
-        return (int)(o2.getId() - o1.getId());
+        return (int) (o2.getId() - o1.getId());
     }
 }
 

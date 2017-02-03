@@ -32,7 +32,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter {
     public void initializeView(Author author) {
         mAuthor = author;
         mView.setScreenTitle(author.getFirstName() + "\n" + author.getLastName());
-        mView.setAuthorImage(author.getCover());
+        mView.setAuthorImage(author.getCoverBytes());
         mView.setAuthorBiography(author.getBiography());
         mView.setAuthorFirstName(author.getFirstName());
         mView.setAuthorLastName(author.getLastName());
@@ -45,7 +45,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter {
         if (mAuthor != null) {
             author = mAuthor;
         }
-        author.setCover(authorIconPath);
+        author.setCoverBytes(authorIconPath);
         author.setFirstName(firstName);
         author.setLastName(lastName);
         author.setDate(date);

@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
 
+import java.io.File;
+
 /**
  * Created by kirill on 25.1.17.
  */
@@ -30,4 +32,6 @@ public interface AddBookFragmentView extends BaseContextView {
     void setNumbSeries(String numbSeries);
 
     void setDescription(String description);
+
+    void updatePhotoView(File path);
 }

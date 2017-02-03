@@ -25,7 +25,7 @@ public class MainActivityPresenter extends BasePresenter {
         long userId = MyLibPreference.getUserId();
         User user = mUserDao.getUserById(userId);
         mView.setUserName(user.getFirstName() + " " + user.getLastName());
-        mView.setUserAvatar(user.getCover());
+        mView.setUserAvatar(user.getCoverBytes());
     }
 
     @Override

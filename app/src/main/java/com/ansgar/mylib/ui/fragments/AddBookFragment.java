@@ -1,9 +1,11 @@
 package com.ansgar.mylib.ui.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -20,16 +22,21 @@ import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.FileManagerDialog;
+import com.ansgar.mylib.ui.dialog.PhotoDialog;
 import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
 import com.ansgar.mylib.ui.dialog.SelectDialog;
 import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
+import com.ansgar.mylib.ui.listener.PhotoDialogListener;
 import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 import com.ansgar.mylib.util.BitmapCover;
+import com.ansgar.mylib.util.PictureUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,6 +118,13 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         }
     }
 
+    @OnClick(R.id.book_cover)
+    public void selectPhoto() {
+        PhotoDialog dialog = new PhotoDialog();
+        dialog.setListener(mPresenter);
+        dialog.show(getFragmentManager(), "photoDialog");
+    }
+
     @OnClick(R.id.select_author)
     public void selectAuthor() {
         SelectEntityDialog dialog = SelectEntityDialog.newInstance(SelectEntityDialogPresenter.AUTHORS);
@@ -120,7 +134,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     @OnClick(R.id.book_res_path)
     public void selectFile() {
-        FileManagerDialog dialog = new FileManagerDialog(getActivity()).setFilter(".*\\.txt");
+        FileManagerDialog dialog = new FileManagerDialog(getActivity(), "").setFilter(".*\\.txt");
         dialog.setListener(mPresenter);
         dialog.show();
     }
@@ -210,6 +224,14 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AddBookFragmentPresenter.REQUEST_PHOTO) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            mPresenter.updatePhoto(photo);
+        }
+    }
+
+    @Override
     public void setCoverBook(Bitmap bitmap) {
         mCoverBook.setImageBitmap(bitmap);
     }
@@ -252,5 +274,15 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @Override
     public void setDescription(String description) {
         mDescription.setText(description);
+    }
+
+    @Override
+    public void updatePhotoView(File file) {
+        if (!file.exists()) {
+            mCoverBook.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
+        } else {
+            Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
+            mCoverBook.setImageBitmap(bitmap);
+        }
     }
 }

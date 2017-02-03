@@ -8,7 +8,6 @@ import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.view.fragment.ProfileFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
@@ -34,7 +33,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
     public void initializeView() {
         mUser = mUserDao.getUserById(MyLibPreference.getUserId());
         mView.setScreenTitle(mUser.getFirstName() + "\n" + mUser.getLastName());
-        mView.setUserAvatar(mUser.getCover());
+        mView.setUserAvatar(mUser.getCoverBytes());
         mView.setUserEmail(mUser.getEmail());
         mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthors().size()));
         mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));

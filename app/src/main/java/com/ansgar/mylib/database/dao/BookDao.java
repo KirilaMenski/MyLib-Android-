@@ -2,6 +2,7 @@ package com.ansgar.mylib.database.dao;
 
 import com.ansgar.mylib.database.entity.Book;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -25,5 +26,7 @@ public interface BookDao {
     List<Book> getBooksByReadValue(int read);
 
     Book getBookById(long id);
+
+    File getPhotoFile(Book book);
 
 }

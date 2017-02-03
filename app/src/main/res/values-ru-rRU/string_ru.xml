@@ -50,6 +50,9 @@
     <string name="english">English</string>
     <string name="bel">Беларуская</string>
     <string name="rus">Российская</string>
+    <string name="make_photo">Сделать фотографию</string>
+    <string name="choose_photo">Выбрать изображение</string>
+    <string name="map">Map</string>
     <string-array name="genre_list">
         <item>Фэнтези</item>
         <item>Научная фантастика</item>
