@@ -103,6 +103,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
         if (book != null) {
             mPresenter.initializeView(book);
+            mAdd.setText(getString(R.string.edit));
             mIsEdit = true;
         }
         return view;

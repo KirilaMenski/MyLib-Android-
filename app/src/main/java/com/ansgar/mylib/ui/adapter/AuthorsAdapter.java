@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -58,8 +59,8 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     @Override
     public void onBindViewHolder(AuthorsHolder holder, int position) {
         final Author author = mAuthors.get(position);
-        holder.bindViews(author);
-        holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.bindViews(author, position);
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO
@@ -127,29 +128,34 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
 
     public class AuthorsHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.author_img)
-        CircleImageView mAuthorIcon;
+        @BindView(R.id.author_img_left)
+        CircleImageView mAuthorIconLeft;
+        @BindView(R.id.author_img_right)
+        CircleImageView mAuthorIconRight;
         @BindView(R.id.author_name)
         TextView mAuthorName;
         @BindView(R.id.authro_books)
         TextView mBooksCount;
         @BindView(R.id.item_author_layout)
-        RelativeLayout mRelativeLayout;
+        LinearLayout mLayout;
+        @BindView(R.id.ll)
+        LinearLayout mLl;
 
         public AuthorsHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindViews(Author author) {
-            setAuthorIcon(author.getBitmap());
-            mAuthorName.setText(author.getFirstName() + "\n" + author.getLastName());
+        public void bindViews(Author author, int position) {
+            setAuthorIcon(author.getBitmap(), (position % 2 == 0));
+            mAuthorName.setText(author.getFirstName() + " " + author.getLastName());
             mBooksCount.setText(mFragmentActivity.get()
                     .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
         }
 
-        private void setAuthorIcon(Bitmap bitmap) {
-            mAuthorIcon.setImageBitmap(bitmap);
+        private void setAuthorIcon(Bitmap bitmap, boolean state) {
+            if (!state) mAuthorIconLeft.setImageBitmap(bitmap);
+            if (state) mAuthorIconRight.setImageBitmap(bitmap);
         }
 
     }

@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:id="@+id/item_author_layout"
-                android:padding="@dimen/m_dimen"
-                android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/item_author_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              android:orientation="horizontal"
+              android:padding="@dimen/m_dimen">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/author_img"
+        android:id="@+id/author_img_left"
         android:layout_width="@dimen/xww_dimen"
         android:layout_height="@dimen/xww_dimen"
         android:layout_margin="@dimen/m_dimen"
         tools:src="@drawable/ic_synchronize"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/author_img"
-        android:gravity="left"
+        android:id="@+id/ll"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_xsmall"
             tools:text="Firstname Lastname"/>
@@ -34,11 +35,17 @@
             android:id="@+id/authro_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/author_name"
+            android:text="@string/books_count"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_tiny"
-            android:text="@string/books_count"
             tools:text="Books: 25"/>
     </LinearLayout>
-</RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/author_img_right"
+        android:layout_width="@dimen/xww_dimen"
+        android:layout_height="@dimen/xww_dimen"
+        android:layout_margin="@dimen/m_dimen"
+        android:layout_toRightOf="@+id/ll"
+        tools:src="@drawable/ic_synchronize"/>
+</LinearLayout>

@@ -12,6 +12,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <android.support.v4.widget.Space
+            android:layout_width="@dimen/l_dimen"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/edit_citation"
+            android:layout_width="@dimen/x_dimen"
+            android:layout_height="@dimen/x_dimen"
+            android:src="@drawable/ic_edit"/>
+
+        <android.support.v4.widget.Space
+            android:layout_width="@dimen/l_dimen"
+            android:layout_height="match_parent"/>
+
         <ImageView
             android:id="@+id/delete_citation"
             android:layout_width="@dimen/x_dimen"
