@@ -1,14 +1,5 @@
 package com.ansgar.mylib.ui.pager;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
@@ -19,6 +10,14 @@ import com.ansgar.mylib.ui.fragments.ReadingListFragment;
 import com.ansgar.mylib.ui.presenter.fragment.MyLibraryFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.MyLibraryFragmentView;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +29,7 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
 
     private static final int LAYOUT = R.layout.pager_my_library;
     private static final String EXTRA_POSITION = "com.ansgar.mylib.ui.pager.position";
+    private static final String CURRENT_POS = "current_position";
 
     private MyLibraryFragmentPresenter mPresenter;
 
@@ -46,12 +46,22 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
         return pager;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPosition = getArguments().getInt(EXTRA_POSITION);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mPosition = getArguments().getInt(EXTRA_POSITION);
+//        if(savedInstanceState == null){
+//            mPosition = getArguments().getInt(EXTRA_POSITION);
+//        } else {
+//            mPosition = savedInstanceState.getInt(CURRENT_POS);
+//        }
         return view;
     }
 
@@ -110,6 +120,12 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((MainActivity) getActivity()).setScreenTitle(getResources().getString(R.string.my_lib));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+        outState.putInt(CURRENT_POS, mPosition);
     }
 
     @Override

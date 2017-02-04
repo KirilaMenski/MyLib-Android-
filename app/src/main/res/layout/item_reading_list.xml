@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:gravity="center"
               android:orientation="horizontal"
-              android:padding="@dimen/m_dimen">
+              android:layout_margin="@dimen/m_dimen">
 
     <LinearLayout
         android:id="@+id/book_ll"
@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_xsmall"
+            android:textSize="@dimen/text_size_small"
             tools:text="1. Harry Potter"/>
 
         <TextView

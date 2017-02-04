@@ -11,7 +11,6 @@ import com.ansgar.mylib.ui.presenter.fragment.BooksFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.BooksFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
-import com.kevin.loopview.AdLoopView;
 
 import java.util.List;
 
@@ -26,11 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -155,7 +152,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @Override
     public void setAdapter(List<Book> books) {
         mAdapter = new BooksAdapter(books, getActivity(), false);
-        mBooksRecycler.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        mBooksRecycler.setLayoutManager(new GridLayoutManager(getContext(), 4));
         mBooksRecycler.setAdapter(mAdapter);
         mBooksRecycler.getAdapter().notifyDataSetChanged();
     }
