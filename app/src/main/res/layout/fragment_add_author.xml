@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:orientation="vertical"
-            android:padding="@dimen/m_dimen"
             android:scrollbars="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/m_dimen">
+        android:padding="@dimen/x_dimen">
 
 
         <ImageView
             android:id="@+id/author_icon"
-            android:layout_width="@dimen/b_size"
-            android:layout_height="@dimen/xxxb_size"/>
+            android:layout_width="@dimen/xxb_size"
+            android:layout_height="@dimen/xxxxb_size"
+            android:paddingLeft="@dimen/x_dimen"
+            android:paddingRight="@dimen/x_dimen"
+            android:src="@drawable/ic_default_avatar"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/xxxb_size"
             android:layout_toRightOf="@+id/author_icon"
             android:orientation="vertical"
+            android:gravity="center"
             android:padding="@dimen/m_dimen">
 
             <EditText

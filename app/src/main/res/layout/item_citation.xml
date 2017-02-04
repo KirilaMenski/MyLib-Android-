@@ -4,13 +4,16 @@
                                 android:id="@+id/citation_item"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="@drawable/background"
+                                android:layout_margin="@dimen/l_dimen"
                                 android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/drag_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/x_dimen">
 
         <android.support.v4.widget.Space
             android:layout_width="@dimen/l_dimen"
@@ -40,6 +43,7 @@
     <LinearLayout
         android:id="@+id/citation_ll"
         android:layout_width="match_parent"
+        android:padding="@dimen/x_dimen"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -75,6 +79,7 @@
                 android:visibility="gone"
                 tools:visibility="visible"/>
         </LinearLayout>
+
     </LinearLayout>
 
 </com.daimajia.swipe.SwipeLayout>

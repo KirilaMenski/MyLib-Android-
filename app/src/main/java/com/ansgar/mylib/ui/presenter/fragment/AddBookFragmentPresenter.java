@@ -1,11 +1,6 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
-
+import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
@@ -29,6 +24,12 @@ import com.ansgar.mylib.util.PictureUtils;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by kirill on 25.1.17.
@@ -82,7 +83,12 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setYear(year);
         book.setDescription(description);
         book.setUser(user);
-        if (mPhoto != null) book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+        if (mPhoto != null) {
+            book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+        } else {
+            book.setCoverBytes(BitmapCover.getStringBytes
+                    (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));
+        }
         if (isEdit) {
             mBookDao.updateBook(book);
         } else {

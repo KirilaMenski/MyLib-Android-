@@ -50,6 +50,7 @@
     <dimen name="bx_size">115dp</dimen>
     <dimen name="b_size">120dp</dimen>
     <dimen name="xb_size">140dp</dimen>
+    <dimen name="xbb_size">150dp</dimen>
     <dimen name="xxb_size">160dp</dimen>
     <dimen name="xxbb_size">170dp</dimen>
     <dimen name="xxxb_size">180dp</dimen>

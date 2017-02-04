@@ -1,10 +1,6 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
-
+import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
@@ -24,6 +20,12 @@ import com.ansgar.mylib.util.PictureUtils;
 
 import java.io.File;
 import java.io.InputStream;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by kirill on 25.1.17.
@@ -65,7 +67,12 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         author.setDate(date);
         author.setBiography(biography);
         author.setUser(user);
-        if (mPhoto != null) author.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+        if (mPhoto != null) {
+            author.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+        } else {
+            author.setCoverBytes(BitmapCover.getStringBytes
+                    (BitmapFactory.decodeResource(mView.getContext().getResources(),R.drawable.ic_default_user_image_200dp)));
+        }
         if (isEdit) {
             mAuthorDao.updateAuthor(author);
         } else {

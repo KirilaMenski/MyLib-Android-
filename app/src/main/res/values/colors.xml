@@ -20,4 +20,6 @@
     <color name="share_detail_add_back">#f3f3f3</color>
     <color name="background_color">#afa275</color>
     <color name="background_color_pressed">#c5ba92</color>
+    <color name="log_btn">#55C3FA</color>
+    <color name="log_btn_pressed">#C2EBFF</color>
 </resources>

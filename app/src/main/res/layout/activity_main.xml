@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@android:drawable/bottom_bar"
+            android:background="@drawable/toolbar_back"
             android:padding="10dp"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:background="@android:color/white">
+            android:background="@drawable/main_background">
 
         </FrameLayout>
 
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
-        android:background="@android:color/black">
+        android:background="@drawable/toolbar_back">
 
         <RelativeLayout
             android:id="@+id/profile"
@@ -60,17 +60,17 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="@dimen/xxxd_size"
-                android:layout_height="@dimen/b_size"
-                android:layout_margin="@dimen/m_dimen"
+                android:layout_width="@dimen/xl_size"
+                android:layout_height="@dimen/xbb_size"
+                android:layout_marginLeft="@dimen/m_dimen"
                 tools:src="@drawable/ic_images_200dp"/>
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/l_dimen"
                 android:layout_centerVertical="true"
+                android:layout_margin="@dimen/l_dimen"
                 android:layout_toRightOf="@id/profile_image"
                 android:gravity="center"
                 android:textColor="@android:color/white"
@@ -87,20 +87,27 @@
 
         </RelativeLayout>
 
+
+        <android.support.v4.widget.Space
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/xw_dimen"
+            android:layout_below="@+id/profile"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/profile"
+            android:layout_below="@+id/space"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_users"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:drawableLeft="@drawable/ic_users"
                 android:drawablePadding="@dimen/m_dimen"
                 android:gravity="center_vertical"
+                android:padding="10dp"
                 android:text="@string/users"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"/>
@@ -154,9 +161,9 @@
                 android:id="@+id/tv_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:drawableLeft="@drawable/ic_settings"
                 android:drawablePadding="@dimen/m_dimen"
+                android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="@string/settings"
                 android:textColor="@android:color/white"
@@ -173,9 +180,9 @@
                 android:id="@+id/tv_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:drawableLeft="@drawable/ic_logout"
                 android:drawablePadding="@dimen/m_dimen"
+                android:gravity="center_vertical"
                 android:padding="10dp"
                 android:text="@string/logout"
                 android:textColor="@android:color/white"
