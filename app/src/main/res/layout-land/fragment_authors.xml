@@ -19,20 +19,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/ll_search"
-        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_select_object"
             android:layout_width="0dp"
-            android:layout_weight="0.7"
             android:layout_height="wrap_content"
+            android:layout_weight="0.7"
             android:orientation="vertical"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_author">
         </android.support.v7.widget.RecyclerView>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/m_dimen"
+            android:layout_marginRight="@dimen/m_dimen"
+            android:background="@color/edit_color"/>
 
         <FrameLayout
             android:id="@+id/author_book_container_layout"

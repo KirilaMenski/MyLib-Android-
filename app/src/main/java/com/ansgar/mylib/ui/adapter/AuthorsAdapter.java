@@ -70,6 +70,13 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                 }
             }
         });
+        holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //TODO display action menu
+                return true;
+            }
+        });
     }
 
     @Override

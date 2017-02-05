@@ -86,7 +86,7 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
             @Override
             public Fragment getItem(int position) {
                 if (position == 0) return AuthorDetailsFragment.newInstance(mAuthor);
-                if (position == 1) return BooksFragment.newInstance(mAuthor);
+                if (position == 1) return BooksFragment.newInstance(mAuthor, true);
                 return null;
             }
 

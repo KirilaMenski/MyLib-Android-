@@ -41,6 +41,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
 
     private final int LAYOUT = R.layout.fragment_books;
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
+    private static final String EXTRA_SET_MENU = "com.ansgar.mylib.ui.fragments.set_menu";
 
     private BooksFragmentPresenter mPresenter;
     private BooksAdapter mAdapter;
@@ -62,10 +63,11 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @BindView(R.id.recycler_books)
     RecyclerView mBooksRecycler;
 
-    public static BooksFragment newInstance(Author author) {
+    public static BooksFragment newInstance(Author author, boolean setHasOptionMenu) {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_AUTHOR, author);
+        args.putBoolean(EXTRA_SET_MENU, setHasOptionMenu);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,7 +75,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(getArguments().getBoolean(EXTRA_SET_MENU));
     }
 
     @Nullable
