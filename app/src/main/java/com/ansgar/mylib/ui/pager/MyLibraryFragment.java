@@ -57,11 +57,6 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-//        if(savedInstanceState == null){
-//            mPosition = getArguments().getInt(EXTRA_POSITION);
-//        } else {
-//            mPosition = savedInstanceState.getInt(CURRENT_POS);
-//        }
         return view;
     }
 

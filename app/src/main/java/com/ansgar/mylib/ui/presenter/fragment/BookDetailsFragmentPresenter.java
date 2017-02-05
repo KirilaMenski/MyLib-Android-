@@ -1,7 +1,5 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
@@ -12,6 +10,8 @@ import com.ansgar.mylib.ui.fragments.AddBookFragment;
 import com.ansgar.mylib.ui.listener.RatingAdapterListener;
 import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
+
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by kirill on 30.1.17.
@@ -29,6 +29,7 @@ public class BookDetailsFragmentPresenter extends BasePresenter implements Ratin
 
     public void initializeView(Book book) {
         mBook = book;
+        mView.setScreenTitle(book.getTitle());
         mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
         mView.setBookCover(book.getBitmap());
         mView.setBookDate(String.valueOf(book.getYear()));

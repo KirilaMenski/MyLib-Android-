@@ -3,14 +3,16 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_margin="@dimen/m_dimen"
+              android:background="@drawable/background"
               android:gravity="center"
-              android:orientation="horizontal"
-              android:layout_margin="@dimen/m_dimen">
+              android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/book_ll"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/l_dimen"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -24,6 +26,11 @@
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_size_small"
             tools:text="1. Harry Potter"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/edit_color"/>
 
         <TextView
             android:id="@+id/inf"

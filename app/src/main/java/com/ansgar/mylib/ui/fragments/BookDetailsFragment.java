@@ -1,9 +1,17 @@
 package com.ansgar.mylib.ui.fragments;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.ui.activities.MainActivity;
+import com.ansgar.mylib.ui.adapter.RatingAdapter;
+import com.ansgar.mylib.ui.base.BaseFragment;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.presenter.fragment.BookDetailsFragmentPresenter;
+import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,16 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.ui.adapter.RatingAdapter;
-import com.ansgar.mylib.ui.base.BaseFragment;
-import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.presenter.fragment.BookDetailsFragmentPresenter;
-import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
-import com.squareup.picasso.Picasso;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -111,6 +109,12 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     @Override
     protected void createPresenter() {
         mPresenter = new BookDetailsFragmentPresenter(this);
+    }
+
+    @Override
+    public void setScreenTitle(String title) {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setScreenTitle(title);
     }
 
     @Override

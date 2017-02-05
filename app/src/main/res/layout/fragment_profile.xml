@@ -65,19 +65,26 @@
             android:id="@+id/author_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="left"
+            android:padding="@dimen/b_dimen"
             android:text="@string/authors_count"
             android:textColor="@android:color/black"
-            android:padding="@dimen/b_dimen"
-            android:gravity="left"
             android:textSize="@dimen/text_size_medium"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/author_count"
+            android:background="@color/edit_color"/>
 
         <TextView
             android:id="@+id/book_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
             android:layout_below="@+id/author_count"
             android:gravity="right"
-            android:layout_marginTop="@dimen/m_dimen"
             android:padding="@dimen/b_dimen"
             android:text="@string/books_count"
             android:textColor="@android:color/black"
