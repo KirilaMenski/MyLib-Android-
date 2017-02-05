@@ -1,9 +1,17 @@
 package com.ansgar.mylib.ui.adapter;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.ui.listener.EntitySelectedListener;
+import com.ansgar.mylib.ui.pager.AuthorBooksPager;
+import com.ansgar.mylib.util.FragmentUtil;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.ui.listener.EntitySelectedListener;
-import com.ansgar.mylib.ui.pager.AuthorBooksPager;
-import com.ansgar.mylib.util.FragmentUtil;
-import com.squareup.picasso.Picasso;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,13 +35,15 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     private List<Author> mAuthorsCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
     private boolean mCreateBook;
+    private boolean mLandscape;
     private WeakReference<EntitySelectedListener> mListener;
 
-    public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook) {
+    public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook, boolean landscape) {
         mAuthors = authors;
         mAuthorsCopy = authors;
         mFragmentActivity = new WeakReference<>(fragmentActivity);
         mCreateBook = isCreateBook;
+        mLandscape = landscape;
     }
 
     @Override
@@ -64,7 +61,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             @Override
             public void onClick(View v) {
                 //TODO
-                if (mCreateBook) {
+                if (mCreateBook || mLandscape) {
                     mListener.get().authorSelected(author);
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),

@@ -2,10 +2,12 @@ package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.SortDialog;
+import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
@@ -24,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,13 +40,13 @@ import butterknife.OnTextChanged;
  * Created by kirill on 24.1.17.
  */
 
-public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView {
+public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView, EntitySelectedListener {
 
     private static final int LAYOUT = R.layout.fragment_authors;
 
     private AuthorsFragmentPresenter mPresenter;
     private AuthorsAdapter mAdapter;
-
+    private boolean mLandscape;
 
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
@@ -59,6 +62,9 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     RelativeLayout mNoItemLayout;
     @BindView(R.id.recycler_select_object)
     RecyclerView mAuthorsRecycler;
+    @Nullable
+    @BindView(R.id.author_book_container_layout)
+    FrameLayout mSecondFrameLayout;
 
     public static AuthorsFragment newInstance() {
         AuthorsFragment authorsFragment = new AuthorsFragment();
@@ -82,6 +88,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onStart() {
         super.onStart();
+        if (mSecondFrameLayout != null) {
+            mLandscape = true;
+            selectAuthorBooks(null);
+        }
         mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
     }
 
@@ -156,10 +166,24 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @Override
     public void setAuthorAdapter(List<Author> authors) {
-        mAdapter = new AuthorsAdapter(authors, getActivity(), false);
+        mAdapter = new AuthorsAdapter(authors, getActivity(), false, mLandscape);
+        mAdapter.setListener(this);
         mAuthorsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mAuthorsRecycler.setAdapter(mAdapter);
         mAuthorsRecycler.getAdapter().notifyDataSetChanged();
     }
 
+    private void selectAuthorBooks(Author author) {
+        FragmentUtil.replaceFragment(getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author), false);
+    }
+
+    @Override
+    public void authorSelected(Author author) {
+        selectAuthorBooks(author);
+    }
+
+    @Override
+    public void bookSelected(Book book) {
+
+    }
 }

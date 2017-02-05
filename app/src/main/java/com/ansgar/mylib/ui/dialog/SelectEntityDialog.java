@@ -1,16 +1,5 @@
 package com.ansgar.mylib.ui.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
@@ -26,6 +15,16 @@ import com.ansgar.mylib.ui.view.dialog.SelectEntityDialogView;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -95,7 +94,7 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
 
     @Override
     public void setAuthorsAdapter(List<Author> authors) {
-        mAuthorsAdapter = new AuthorsAdapter(authors, getActivity(), true);
+        mAuthorsAdapter = new AuthorsAdapter(authors, getActivity(), true, false);
         mAuthorsAdapter.setListener(this);
         mEntityRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mEntityRecycler.setAdapter(mAuthorsAdapter);
