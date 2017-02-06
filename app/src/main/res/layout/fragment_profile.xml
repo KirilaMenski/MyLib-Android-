@@ -1,93 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
 
-    <RelativeLayout
-        android:id="@+id/user_inf"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="@dimen/b_size"
-            android:layout_height="@dimen/xxbb_size"
-            android:layout_margin="@dimen/m_dimen"
-            tools:src="@drawable/ic_images_200dp"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@id/profile_image">
-
-            <TextView
-                android:id="@+id/user_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/m_dimen"
-
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_medium"
-                tools:text="Kirila Menski"/>
-
-            <TextView
-                android:id="@+id/user_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_name"
-                android:layout_margin="@dimen/m_dimen"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_medium"
-                tools:text="ansgar@tut.by"/>
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/user_inf"
-        android:background="@color/edit_color"/>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
-        android:layout_marginTop="@dimen/m_dimen">
+        android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/author_count"
+        <LinearLayout
+            android:id="@+id/user_inf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:padding="@dimen/b_dimen"
-            android:text="@string/authors_count"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_medium"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/b_size"
+                android:layout_height="@dimen/xxbb_size"
+                android:layout_margin="@dimen/m_dimen"
+                tools:src="@drawable/ic_images_200dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/profile_image">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/m_dimen"
+
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    tools:text="Kirila Menski"/>
+
+                <TextView
+                    android:id="@+id/user_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/user_name"
+                    android:layout_margin="@dimen/m_dimen"
+                    android:gravity="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/text_size_medium"
+                    tools:text="ansgar@tut.by"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/author_count"
+            android:layout_height="2dp"
+            android:layout_below="@+id/user_inf"
             android:background="@color/edit_color"/>
 
-        <TextView
-            android:id="@+id/book_count"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/author_count"
-            android:gravity="right"
-            android:padding="@dimen/b_dimen"
-            android:text="@string/books_count"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_medium"/>
+            android:layout_below="@+id/view"
+            android:orientation="vertical">
 
-    </RelativeLayout>
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/author_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="@dimen/b_dimen"
+                android:text="@string/authors_count"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_medium"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/author_count"
+                android:background="@color/edit_color"/>
+
+            <TextView
+                android:id="@+id/book_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/author_count"
+                android:gravity="right"
+                android:padding="@dimen/b_dimen"
+                android:text="@string/books_count"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_size_medium"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

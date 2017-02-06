@@ -46,7 +46,7 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
     @Override
     public void onBindViewHolder(final CitationHolder holder, int position) {
         final Citation citation = mCitations.get(position);
-        holder.bindView(citation, position + 1);
+        holder.bindView(citation);
         holder.mLikeCitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +86,7 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindView(Citation citation, int position) {
+        public void bindView(Citation citation) {
             mCitation.setText(citation.getCitation());
             mCitationDate.setText(citation.getDate());
             mLiked.setVisibility(citation.getLiked() == 1 ? View.VISIBLE : View.GONE);
