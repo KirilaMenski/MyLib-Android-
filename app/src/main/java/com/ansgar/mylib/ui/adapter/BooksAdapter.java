@@ -100,7 +100,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                List<Book> filteredResult = null;
+                List<Book> filteredResult;
                 if (charSequence.length() == 0) {
                     filteredResult = mBooksCopy;
                 } else {

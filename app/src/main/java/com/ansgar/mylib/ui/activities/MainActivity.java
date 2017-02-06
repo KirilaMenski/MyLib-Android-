@@ -3,6 +3,8 @@ package com.ansgar.mylib.ui.activities;
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.fragments.AddAuthorFragment;
+import com.ansgar.mylib.ui.fragments.AddBookFragment;
 import com.ansgar.mylib.ui.fragments.MapFragment;
 import com.ansgar.mylib.ui.fragments.ProfileFragment;
 import com.ansgar.mylib.ui.fragments.SettingsFragment;
@@ -24,7 +26,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     private MainActivityPresenter mPresenter;
 
     private int mBackStackSize = 0;
+    private boolean mHasChanged;
 
     @BindView(R.id.profile_image)
     ImageView mAvatar;
@@ -163,6 +165,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         mScreenTitle.setText(title);
     }
 
+    public void setHasChanged(boolean hasChanged) {
+        mHasChanged = hasChanged;
+    }
+
     @Override
     public void setUserName(String name) {
         mUserName.setText(name);
@@ -183,9 +189,13 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
         Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+//        if (currFragment instanceof AddAuthorFragment || currFragment instanceof AddBookFragment) {
+
+//        } else {
         trans.remove(currFragment);
         trans.commit();
         manager.popBackStack();
+//        }
         hideKeyBoard();
     }
 }

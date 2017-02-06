@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
@@ -38,6 +40,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     private boolean mCreateBook;
     private boolean mLandscape;
     private WeakReference<EntitySelectedListener> mListener;
+    private int mLastPosition = 0;
 
     public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook, boolean landscape) {
         mAuthors = authors;
@@ -58,6 +61,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     public void onBindViewHolder(AuthorsHolder holder, int position) {
         final Author author = mAuthors.get(position);
         holder.bindViews(author);
+//        animateItem(holder, position);
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +84,14 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                 return true;
             }
         });
+    }
+
+    private void animateItem(AuthorsHolder holder, int position) {
+        Animation animation = AnimationUtils.loadAnimation(mFragmentActivity.get(),
+                (position > mLastPosition) ? R.anim.up_from_bottom
+                        : R.anim.down_from_top);
+        holder.itemView.startAnimation(animation);
+        mLastPosition = position;
     }
 
     @Override

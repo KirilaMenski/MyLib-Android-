@@ -2,6 +2,7 @@ package com.ansgar.mylib.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,9 +72,9 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     }
 
     @OnClick(R.id.add_citation)
-    public void addCitation(){
-        if (mCitEditVis){
-            if(mNewCitation.getText().toString().length() == 0){
+    public void addCitation() {
+        if (mCitEditVis) {
+            if (mNewCitation.getText().toString().length() == 0) {
                 Toast.makeText(getContext(), getString(R.string.empty_value), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -110,4 +111,5 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     public void notifyData() {
         mCitationRec.getAdapter().notifyDataSetChanged();
     }
+
 }

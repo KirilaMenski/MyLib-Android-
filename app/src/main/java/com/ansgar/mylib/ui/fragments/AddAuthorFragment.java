@@ -40,6 +40,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     private AddAuthorFragmentPresenter mPresenter;
 
     private boolean mEdit;
+    private boolean mHasChanged;
 
     @BindView(R.id.author_icon)
     ImageView mAuthorIcon;
@@ -68,7 +69,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
         View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
         ButterKnife.bind(this, view);
         Author author = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
-        if(author != null) {
+        if (author != null) {
             mPresenter.initializeView(author);
             mAdd.setText(getString(R.string.edit));
             mEdit = true;

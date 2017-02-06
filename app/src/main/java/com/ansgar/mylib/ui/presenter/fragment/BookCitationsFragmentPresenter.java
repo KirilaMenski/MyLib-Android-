@@ -61,7 +61,6 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     @Override
     public void deleteCitation(Citation citation) {
         mCitationDao.deleteCitation(citation);
-        loadCitation();
     }
 
     @Override

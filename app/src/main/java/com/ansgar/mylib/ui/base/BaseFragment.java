@@ -2,11 +2,16 @@ package com.ansgar.mylib.ui.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.ansgar.mylib.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,7 +30,6 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentView 
         super.onCreate(savedInstanceState);
         createPresenter();
     }
-
 
     @Override
     public void onDestroy() {
