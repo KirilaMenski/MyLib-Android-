@@ -25,4 +25,6 @@
     <color name="bookshelves">#914100</color>
     <color name="textview_back">#2a5efc</color>
     <color name="textview_back_pressed">#1e45bc</color>
+    <color name="main_back_start_color">#FABD55</color>
+    <color name="main_back_end_color">#E4FCD4</color>
 </resources>
