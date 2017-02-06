@@ -46,13 +46,15 @@ public class ProfileFragmentPresenter extends BasePresenter {
 
     public void openFragment(String fragment) {
         if (fragment.equals(AUTHOR_FRAGMENT)) {
+            MyLibPreference.saveCurrentLibPage(0);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                    R.id.main_fragment_container, MyLibraryFragment.newInstance(0),
+                    R.id.main_fragment_container, MyLibraryFragment.newInstance(),
                     false, R.anim.right_out, R.anim.left_out);
         }
         if (fragment.equals(BOOK_FRAGMENT)) {
+            MyLibPreference.saveCurrentLibPage(1);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                    R.id.main_fragment_container, MyLibraryFragment.newInstance(1),
+                    R.id.main_fragment_container, MyLibraryFragment.newInstance(),
                     false, R.anim.right_out, R.anim.left_out);
         }
     }

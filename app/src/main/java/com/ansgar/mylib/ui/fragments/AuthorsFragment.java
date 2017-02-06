@@ -59,7 +59,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @BindView(R.id.add_data)
     LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
-    RelativeLayout mNoItemLayout;
+    LinearLayout mNoItemLayout;
     @BindView(R.id.recycler_select_object)
     RecyclerView mAuthorsRecycler;
     @Nullable

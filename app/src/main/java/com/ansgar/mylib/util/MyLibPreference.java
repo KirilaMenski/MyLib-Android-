@@ -22,10 +22,12 @@ public class MyLibPreference {
     public static final String ENG_LANG = "English";
 
     private static final String DEFAULT_STRING_VALUE = "";
+    private static final int DEFAULT_INT = 0;
     private static final int DEFAULT_USER = -1;
 
     private static final String CURRENT_USER = "current_user";
     private static final String CURRENT_LANG = "current_language";
+    private static final String CURRENT_PAGE = "current_library_page";
 
     private static SharedPreferences mPreference;
     private static MyLibPreference mInstance;
@@ -118,10 +120,27 @@ public class MyLibPreference {
         ed.commit();
     }
 
+    public static void saveCurrentLibPage(int page) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(CURRENT_PAGE, page);
+        ed.commit();
+    }
+
+    public static void removeCurrentLibPage() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(CURRENT_PAGE, DEFAULT_INT);
+        ed.commit();
+    }
+
+    public static int getCurrentPage() {
+        return mPreference.getInt(CURRENT_PAGE, DEFAULT_INT);
+    }
+
     public static void clearData() {
         removeUserId();
         removeAuthorSortType();
         removeBookSortType();
+        removeCurrentLibPage();
     }
 
 }

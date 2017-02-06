@@ -56,7 +56,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @BindView(R.id.add_data)
     LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
-    RelativeLayout mNoItemLayout;
+    LinearLayout mNoItemLayout;
     @BindView(R.id.recycler_reading_list)
     RecyclerView mReadingListRec;
 

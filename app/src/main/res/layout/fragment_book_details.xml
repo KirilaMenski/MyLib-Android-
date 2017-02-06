@@ -27,6 +27,7 @@
             android:layout_width="@dimen/b_size"
             android:layout_height="wrap_content"
             android:layout_below="@+id/book_cover"
+            android:layout_centerVertical="true"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/item_rating">
 

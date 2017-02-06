@@ -9,6 +9,7 @@ import com.ansgar.mylib.ui.fragments.BooksFragment;
 import com.ansgar.mylib.ui.fragments.ReadingListFragment;
 import com.ansgar.mylib.ui.presenter.fragment.MyLibraryFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.MyLibraryFragmentView;
+import com.ansgar.mylib.util.MyLibPreference;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +30,6 @@ import butterknife.ButterKnife;
 public class MyLibraryFragment extends BaseFragment implements MyLibraryFragmentView {
 
     private static final int LAYOUT = R.layout.pager_my_library;
-    private static final String EXTRA_POSITION = "com.ansgar.mylib.ui.pager.position";
     private static final String CURRENT_POS = "current_position";
 
     private MyLibraryFragmentPresenter mPresenter;
@@ -38,18 +39,11 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     @BindView(R.id.my_lib_pager)
     ViewPager mMyLibPager;
 
-    public static MyLibraryFragment newInstance(int position) {
+    public static MyLibraryFragment newInstance() {
         MyLibraryFragment pager = new MyLibraryFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_POSITION, position);
         pager.setArguments(args);
         return pager;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mPosition = getArguments().getInt(EXTRA_POSITION);
     }
 
     @Nullable
@@ -63,6 +57,7 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
     @Override
     public void onStart() {
         super.onStart();
+        mPosition = MyLibPreference.getCurrentPage();
         mMyLibPager.setAdapter(getAdapter());
         mMyLibPager.addOnPageChangeListener(getPageChangeListener());
         mMyLibPager.setCurrentItem(mPosition);
@@ -102,6 +97,7 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
             @Override
             public void onPageSelected(int position) {
                 mPosition = position;
+                MyLibPreference.saveCurrentLibPage(position);
             }
 
             @Override

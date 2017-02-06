@@ -7,5 +7,5 @@ import com.ansgar.mylib.database.entity.Book;
  */
 
 public interface ReadingListListener {
-    void changeBookStatus(Book book);
+    void changeBookStatus(Book book, boolean wasRead);
 }

@@ -48,8 +48,8 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
     }
 
     @Override
-    public void changeBookStatus(Book book) {
-        book.setWasRead(1);
+    public void changeBookStatus(Book book, boolean wasRead) {
+        book.setWasRead(wasRead ? 0 : 1);
         mBookDao.updateBook(book);
         mView.notifyData();
     }

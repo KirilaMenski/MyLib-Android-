@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         if (savedInstanceState == null) {
-            FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+            FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
         }
         mPresenter.initializeView();
     }
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     @OnClick(R.id.tv_my_lib)
     public void openMyLib() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
 

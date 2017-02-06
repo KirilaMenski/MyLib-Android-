@@ -55,8 +55,9 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ReadingListHolder holder, int position) {
+    public void onBindViewHolder(final ReadingListHolder holder, int position) {
         final Book book = mBooks.get(position);
+        holder.mWasRead = book.getWasRead() == 1;
         holder.bindViews(position + 1, book);
         holder.mInfLl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +69,8 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
         holder.mStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.get().changeBookStatus(book);
+                mListener.get().changeBookStatus(book, holder.mWasRead);
+                holder.mWasRead = !holder.mWasRead;
             }
         });
     }
@@ -119,6 +121,8 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
     }
 
     public class ReadingListHolder extends RecyclerView.ViewHolder {
+
+        private boolean mWasRead;
 
         @BindView(R.id.status_icon)
         ImageView mStatus;

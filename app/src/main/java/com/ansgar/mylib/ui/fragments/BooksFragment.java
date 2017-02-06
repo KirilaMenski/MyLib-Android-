@@ -65,7 +65,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @BindView(R.id.add_data)
     LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
-    RelativeLayout mNoItemLayout;
+    LinearLayout mNoItemLayout;
     @BindView(R.id.recycler_books)
     RecyclerView mBooksRecycler;
     @Nullable

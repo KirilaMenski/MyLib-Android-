@@ -101,7 +101,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                List<Author> filteredResult = null;
+                List<Author> filteredResult;
                 if (charSequence.length() == 0) {
                     filteredResult = mAuthorsCopy;
                 } else {
