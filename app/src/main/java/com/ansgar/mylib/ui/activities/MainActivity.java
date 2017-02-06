@@ -23,21 +23,26 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener, View.OnClickListener {
 
     private static final int LAYOUT = R.layout.activity_main;
-    private final String CHANGED_SETTING = "CHANGED_SETTING";
+    private final String BACK_STACK_SIZE = "CHANGED_SETTING";
 
     private MainActivityPresenter mPresenter;
+
+    private int mBackStackSize = 0;
 
     @BindView(R.id.profile_image)
     ImageView mAvatar;
@@ -77,7 +82,13 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         if (savedInstanceState == null) {
             FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+        } else {
+            mBackStackSize = savedInstanceState.getInt(BACK_STACK_SIZE);
         }
+//        if(mBackStackSize > 1) {
+//            mToggle.setDrawerIndicatorEnabled(false);
+//            mToolbar.setNavigationOnClickListener(this);
+//        }
         mPresenter.initializeView();
     }
 
@@ -121,7 +132,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(CHANGED_SETTING, true);
+        outState.putInt(BACK_STACK_SIZE, this.getSupportFragmentManager().getFragments().size());
     }
 
     @Override
@@ -144,18 +155,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             mToggle.setDrawerIndicatorEnabled(true);
         } else {
             mToggle.setDrawerIndicatorEnabled(false);
-            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction trans = manager.beginTransaction();
-                    Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
-                    trans.remove(currFragment);
-                    trans.commit();
-                    manager.popBackStack();
-                    hideKeyBoard();
-                }
-            });
+            mToolbar.setNavigationOnClickListener(this);
         }
     }
 
@@ -176,5 +176,16 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                 .centerCrop()
                 .placeholder(R.drawable.ic_images_200dp)
                 .into(mAvatar);
+    }
+
+    @Override
+    public void onClick(View v) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction trans = manager.beginTransaction();
+        Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
+        trans.remove(currFragment);
+        trans.commit();
+        manager.popBackStack();
+        hideKeyBoard();
     }
 }

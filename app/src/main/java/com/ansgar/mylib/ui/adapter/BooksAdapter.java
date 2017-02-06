@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.ansgar.mylib.R;
@@ -135,7 +136,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         @BindView(R.id.book_cover)
         ImageView mBookCover;
         @BindView(R.id.item_book_layout)
-        RelativeLayout mRelativeLayout;
+        LinearLayout mRelativeLayout;
 
         public BooksHolder(View itemView) {
             super(itemView);
