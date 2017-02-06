@@ -1,4 +1,4 @@
-package com.ansgar.mylib.api;
+package com.ansgar.mylib.api.response;
 
 import com.google.gson.annotations.SerializedName;
 

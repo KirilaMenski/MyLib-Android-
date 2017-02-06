@@ -45,6 +45,8 @@ public class Book implements Serializable, Comparator<Book> {
     private int mRating;
     @DatabaseField(columnName = "was_read")
     private int mWasRead;
+    @DatabaseField(columnName = "synchronized")
+    private boolean mHasSynchronized;
     @DatabaseField(columnName = "author_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references authors(id) on delete cascade")
     private Author mAuthor;
@@ -60,7 +62,7 @@ public class Book implements Serializable, Comparator<Book> {
     }
 
     public Book(long id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
-                int inList, int rating, int wasRead, Author author, User user) {
+                int inList, int rating, int wasRead, Author author, User user, boolean hasSynchronized) {
         mId = id;
         mTitle = title;
         mDescription = description;
@@ -75,6 +77,7 @@ public class Book implements Serializable, Comparator<Book> {
         mWasRead = wasRead;
         mResPath = resPath;
         mUser = user;
+        mHasSynchronized = hasSynchronized;
     }
 
     public long getId() {
@@ -204,6 +207,14 @@ public class Book implements Serializable, Comparator<Book> {
 
     public String getPhotoFileName() {
         return "IMG_" + String.valueOf(getId()) + ".jpg";
+    }
+
+    public boolean isHasSynchronized() {
+        return mHasSynchronized;
+    }
+
+    public void setHasSynchronized(boolean hasSynchronized) {
+        mHasSynchronized = hasSynchronized;
     }
 
     @Override

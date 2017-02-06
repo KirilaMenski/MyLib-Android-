@@ -34,6 +34,8 @@ public class Author implements Serializable, Comparator<Author> {
     private String mBiography;
     @DatabaseField(columnName = "date")
     private String mDate;
+    @DatabaseField(columnName = "synchronized")
+    private boolean mHasSynchronized;
     @DatabaseField(columnName = "user_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
     private User mUser;
@@ -44,13 +46,14 @@ public class Author implements Serializable, Comparator<Author> {
 
     }
 
-    public Author(long id, String firstName, String lastName, String biography, String date, User user) {
+    public Author(long id, String firstName, String lastName, String biography, String date, User user, boolean hasSynchronized) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
         mBiography = biography;
         mDate = date;
         mUser = user;
+        mHasSynchronized = hasSynchronized;
     }
 
     public long getId() {
@@ -123,6 +126,14 @@ public class Author implements Serializable, Comparator<Author> {
 
     public Bitmap getBitmap() {
         return BitmapCover.getBitmapCover(mCoverBytes);
+    }
+
+    public boolean isHasSynchronized() {
+        return mHasSynchronized;
+    }
+
+    public void setHasSynchronized(boolean hasSynchronized) {
+        mHasSynchronized = hasSynchronized;
     }
 
     @Override

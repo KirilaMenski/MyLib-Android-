@@ -20,6 +20,8 @@ public class Citation implements Serializable {
     private int mLiked;
     @DatabaseField(columnName = "date")
     private String mDate;
+    @DatabaseField(columnName = "synchronized")
+    private boolean mHasSynchronized;
     @DatabaseField(columnName = "user_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
     private User mUser;
@@ -31,13 +33,14 @@ public class Citation implements Serializable {
 
     }
 
-    public Citation(long id, String citation, int liked, String date, Book book, User user) {
+    public Citation(long id, String citation, int liked, String date, Book book, User user, boolean hasSynchronized) {
         mId = id;
         mCitation = citation;
         mLiked = liked;
         mDate = date;
         mUser = user;
         mBook = book;
+        mHasSynchronized = hasSynchronized;
     }
 
     public long getId() {
@@ -86,5 +89,13 @@ public class Citation implements Serializable {
 
     public void setDate(String date) {
         mDate = date;
+    }
+
+    public boolean isHasSynchronized() {
+        return mHasSynchronized;
+    }
+
+    public void setHasSynchronized(boolean hasSynchronized) {
+        mHasSynchronized = hasSynchronized;
     }
 }

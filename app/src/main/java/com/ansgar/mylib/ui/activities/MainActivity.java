@@ -184,13 +184,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction trans = manager.beginTransaction();
         Fragment currFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragment_container);
-//        if (currFragment instanceof AddAuthorFragment || currFragment instanceof AddBookFragment) {
-
-//        } else {
+        // TODO if (currFragment instanceof AddAuthorFragment || currFragment instanceof AddBookFragment)
         trans.remove(currFragment);
         trans.commit();
         manager.popBackStack();
-//        }
         hideKeyBoard();
     }
 }
