@@ -13,6 +13,7 @@ import java.util.List;
 import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,9 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //TODO display action menu
+                FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
+                        R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
+                        true, R.anim.right_out, R.anim.left_out);
                 return true;
             }
         });

@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 /**
  * Created by kirill on 24.1.17.
  */
-public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder> implements Filterable{
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder> implements Filterable {
 
     private static final int LAYOUT = R.layout.item_books;
 
@@ -72,6 +72,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
                             R.id.main_fragment_container, BookCitationsPager.newInstance(book),
                             true, R.anim.right_out, R.anim.left_out);
                 }
+            }
+        });
+        holder.mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
+                        R.id.main_fragment_container, BookCitationsPager.newInstance(book),
+                        true, R.anim.right_out, R.anim.left_out);
+                return true;
             }
         });
     }
