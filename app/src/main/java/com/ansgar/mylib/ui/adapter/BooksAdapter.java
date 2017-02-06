@@ -41,12 +41,14 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
     private WeakReference<FragmentActivity> mFragmentActivity;
     private WeakReference<EntitySelectedListener> mListener;
     private boolean mFromReadList;
+    private boolean mLandscape;
 
-    public BooksAdapter(List<Book> books, FragmentActivity fragmentActivity, boolean isFromReadList) {
+    public BooksAdapter(List<Book> books, FragmentActivity fragmentActivity, boolean isFromReadList, boolean landscape) {
         mBooks = books;
         mBooksCopy = books;
         mFragmentActivity = new WeakReference<>(fragmentActivity);
         mFromReadList = isFromReadList;
+        mLandscape = landscape;
     }
 
     @Override
@@ -63,7 +65,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mFromReadList) {
+                if (mFromReadList || mLandscape) {
                     mListener.get().bookSelected(book);
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),

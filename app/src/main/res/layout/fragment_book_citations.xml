@@ -32,7 +32,6 @@
         android:id="@+id/add_citation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/m_dimen"
         android:padding="@dimen/m_dimen"
         android:gravity="right"
         android:textColor="@android:color/black"

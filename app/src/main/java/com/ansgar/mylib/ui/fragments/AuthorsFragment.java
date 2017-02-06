@@ -174,7 +174,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     private void selectAuthorBooks(Author author) {
-        FragmentUtil.replaceFragment(getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author, false), false);
+        FragmentUtil.replaceFragment(getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author, false, true), false);
     }
 
     @Override

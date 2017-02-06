@@ -102,7 +102,7 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
 
     @Override
     public void setBooksAdapter(List<Book> books) {
-        mBooksAdapter = new BooksAdapter(books, getActivity(), true);
+        mBooksAdapter = new BooksAdapter(books, getActivity(), true, false);
         mBooksAdapter.setListener(this);
         mEntityRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mEntityRecycler.setAdapter(mBooksAdapter);

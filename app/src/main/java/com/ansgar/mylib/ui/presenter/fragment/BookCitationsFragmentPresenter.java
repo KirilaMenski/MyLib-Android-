@@ -31,8 +31,8 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
         mView = view;
     }
 
-    public void initializeView(Book book){
-        mBook = book;
+    public void initializeView(Book book) {
+        mBook = (book != null) ? book : new Book();
     }
 
     public void loadCitation() {
