@@ -7,7 +7,7 @@ import com.ansgar.mylib.database.entity.Citation;
  */
 public interface CitationAdapterListener {
 
-    void updateCitation(Citation citation);
+    void likeCitation(Citation citation);
 
     void deleteCitation(Citation citation);
 

@@ -56,6 +56,8 @@
     <string name="library">Библиотеки</string>
     <string name="current_pos">Вы здесь</string>
     <string name="author_not_selected">Не выбран автор</string>
+    <string name="image_not_support">Приносим извинения, но формат выбранной картинки не поддерживается</string>
+    <string name="book_not_support">Приносим извинения, нормат выбранной книги не поддерживается</string>
     <string-array name="genre_list">
         <item>Фэнтези</item>
         <item>Научная фантастика</item>

@@ -105,4 +105,9 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
         mCitationRec.setAdapter(mAdapter);
         mCitationRec.getAdapter().notifyDataSetChanged();
     }
+
+    @Override
+    public void notifyData() {
+        mCitationRec.getAdapter().notifyDataSetChanged();
+    }
 }

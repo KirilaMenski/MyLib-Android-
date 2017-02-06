@@ -52,8 +52,10 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     }
 
     @Override
-    public void updateCitation(Citation citation) {
-
+    public void likeCitation(Citation citation) {
+        citation.setLiked(1);
+        mCitationDao.updateCitation(citation);
+        mView.notifyData();
     }
 
     @Override

@@ -21,6 +21,8 @@
     <color name="background_color">#afa275</color>
     <color name="background_color_pressed">#c5ba92</color>
     <color name="log_btn">#55C3FA</color>
-    <color name="log_btn_pressed">#C2EBFF</color>
+    <color name="log_btn_pressed">#7fb9d4</color>
     <color name="bookshelves">#914100</color>
+    <color name="textview_back">#2a5efc</color>
+    <color name="textview_back_pressed">#1e45bc</color>
 </resources>

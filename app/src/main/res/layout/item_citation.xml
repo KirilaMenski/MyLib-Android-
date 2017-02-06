@@ -4,14 +4,16 @@
                                 android:id="@+id/citation_item"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/l_dimen"
+                                android:layout_marginTop="@dimen/l_dimen"
                                 android:background="@drawable/background"
-                                android:layout_margin="@dimen/l_dimen"
                                 android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/drag_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/x_dimen">
 
@@ -20,10 +22,10 @@
             android:layout_height="match_parent"/>
 
         <ImageView
-            android:id="@+id/edit_citation"
+            android:id="@+id/like_citation"
             android:layout_width="@dimen/x_dimen"
             android:layout_height="@dimen/x_dimen"
-            android:src="@drawable/ic_edit"/>
+            android:src="@drawable/ic_like_cit"/>
 
         <android.support.v4.widget.Space
             android:layout_width="@dimen/l_dimen"
@@ -43,9 +45,9 @@
     <LinearLayout
         android:id="@+id/citation_ll"
         android:layout_width="match_parent"
-        android:padding="@dimen/x_dimen"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/x_dimen">
 
         <TextView
             android:id="@+id/citation_date"

@@ -12,4 +12,5 @@ public interface BookCitationsFragmentView extends BaseContextView {
 
     void setAdapter(List<Citation> citations);
 
+    void notifyData();
 }

@@ -47,10 +47,10 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
     public void onBindViewHolder(final CitationHolder holder, int position) {
         final Citation citation = mCitations.get(position);
         holder.bindView(citation, position + 1);
-        holder.mEditCitation.setOnClickListener(new View.OnClickListener() {
+        holder.mLikeCitation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.get().updateCitation(citation);
+                mListener.get().likeCitation(citation);
             }
         });
         holder.mDeleteCitation.setOnClickListener(new View.OnClickListener() {
@@ -70,8 +70,8 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
 
         @BindView(R.id.like)
         ImageView mLiked;
-        @BindView(R.id.edit_citation)
-        ImageView mEditCitation;
+        @BindView(R.id.like_citation)
+        ImageView mLikeCitation;
         @BindView(R.id.delete_citation)
         ImageView mDeleteCitation;
         @BindView(R.id.citation)

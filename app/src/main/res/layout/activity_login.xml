@@ -97,7 +97,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="@string/registration"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/textview_color_back"
             android:textSize="@dimen/text_size_small"/>
 
         <TextView
@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="@string/restore_pass"
-            android:textColor="@android:color/black"
+            android:textColor="@drawable/textview_color_back"
             android:textSize="@dimen/text_size_small"/>
     </LinearLayout>
 
