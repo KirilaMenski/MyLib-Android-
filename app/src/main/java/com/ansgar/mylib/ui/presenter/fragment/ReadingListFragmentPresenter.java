@@ -5,6 +5,7 @@ import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.listener.ReadingListListener;
 import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.view.fragment.ReadingListFragmentView;
 
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Created by kirill on 24.1.17.
  */
-public class ReadingListFragmentPresenter extends BasePresenter {
+public class ReadingListFragmentPresenter extends BasePresenter implements ReadingListListener {
 
     private ReadingListFragmentView mView;
     private BookDao mBookDao = BookDaoImpl.getInstance();
@@ -44,5 +45,12 @@ public class ReadingListFragmentPresenter extends BasePresenter {
     @Override
     public BaseContextView getView() {
         return mView;
+    }
+
+    @Override
+    public void changeBookStatus(Book book) {
+        book.setWasRead(1);
+        mBookDao.updateBook(book);
+        mView.notifyData();
     }
 }

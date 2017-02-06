@@ -56,7 +56,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     @Override
     public void onBindViewHolder(AuthorsHolder holder, int position) {
         final Author author = mAuthors.get(position);
-        holder.bindViews(author, position);
+        holder.bindViews(author);
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,8 +134,6 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
 
         @BindView(R.id.author_img_left)
         CircleImageView mAuthorIconLeft;
-        @BindView(R.id.author_img_right)
-        CircleImageView mAuthorIconRight;
         @BindView(R.id.author_name)
         TextView mAuthorName;
         @BindView(R.id.authro_books)
@@ -150,16 +148,15 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindViews(Author author, int position) {
-            setAuthorIcon(author.getBitmap(), (position % 2 == 0));
+        public void bindViews(Author author) {
+            setAuthorIcon(author.getBitmap());
             mAuthorName.setText(author.getFirstName() + " " + author.getLastName());
             mBooksCount.setText(mFragmentActivity.get()
                     .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
         }
 
-        private void setAuthorIcon(Bitmap bitmap, boolean state) {
-            if (!state) mAuthorIconLeft.setImageBitmap(bitmap);
-            if (state) mAuthorIconRight.setImageBitmap(bitmap);
+        private void setAuthorIcon(Bitmap bitmap) {
+            mAuthorIconLeft.setImageBitmap(bitmap);
         }
 
     }

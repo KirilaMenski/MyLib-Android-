@@ -13,4 +13,6 @@ public interface ReadingListFragmentView extends BaseContextView, NoItemLayoutVi
 
     void setAdapter(List<Book> books);
 
+    void notifyData();
+
 }

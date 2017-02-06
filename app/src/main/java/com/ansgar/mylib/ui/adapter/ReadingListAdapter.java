@@ -16,6 +16,7 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.fragments.AddBookFragment;
 import com.ansgar.mylib.ui.fragments.BookDetailsFragment;
+import com.ansgar.mylib.ui.listener.ReadingListListener;
 import com.ansgar.mylib.ui.pager.BookCitationsPager;
 import com.ansgar.mylib.util.FragmentUtil;
 
@@ -30,18 +31,20 @@ import butterknife.ButterKnife;
  * Created by kirill on 24.1.17.
  */
 
-public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.ReadingListHolder> implements Filterable{
+public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.ReadingListHolder> implements Filterable {
 
     private static final int LAYOUT = R.layout.item_reading_list;
 
     private List<Book> mBooks;
     private List<Book> mBooksCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
+    private WeakReference<ReadingListListener> mListener;
 
-    public ReadingListAdapter(List<Book> books, FragmentActivity fragmentActivity) {
+    public ReadingListAdapter(List<Book> books, FragmentActivity fragmentActivity, ReadingListListener listListener) {
         mBooks = books;
         mBooksCopy = books;
         mFragmentActivity = new WeakReference<>(fragmentActivity);
+        mListener = new WeakReference<>(listListener);
     }
 
     @Override
@@ -60,6 +63,12 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
             public void onClick(View v) {
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(), R.id.main_fragment_container,
                         BookCitationsPager.newInstance(book), true, R.anim.right_out, R.anim.left_out);
+            }
+        });
+        holder.mStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.get().changeBookStatus(book);
             }
         });
     }

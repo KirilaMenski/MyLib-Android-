@@ -143,9 +143,14 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new ReadingListAdapter(books, getActivity());
+        mAdapter = new ReadingListAdapter(books, getActivity(), mPresenter);
         mReadingListRec.setLayoutManager(new LinearLayoutManager(getContext()));
         mReadingListRec.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void notifyData() {
+        mReadingListRec.getAdapter().notifyDataSetChanged();
     }
 
     @Override
