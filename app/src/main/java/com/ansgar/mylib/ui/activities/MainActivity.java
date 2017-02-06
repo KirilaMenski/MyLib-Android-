@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     private MainActivityPresenter mPresenter;
 
     private int mBackStackSize = 0;
-    private boolean mHasChanged;
 
     @BindView(R.id.profile_image)
     ImageView mAvatar;
@@ -163,10 +162,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     public void setScreenTitle(String title) {
         mScreenTitle.setText(title);
-    }
-
-    public void setHasChanged(boolean hasChanged) {
-        mHasChanged = hasChanged;
     }
 
     @Override

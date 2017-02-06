@@ -40,7 +40,6 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     private AddAuthorFragmentPresenter mPresenter;
 
     private boolean mEdit;
-    private boolean mHasChanged;
 
     @BindView(R.id.author_icon)
     ImageView mAuthorIcon;
