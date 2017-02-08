@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by kirill on 24.1.17.
  */
 
 public abstract class BaseActivity extends BaseRxActivity implements BaseContextView{
+
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +30,18 @@ public abstract class BaseActivity extends BaseRxActivity implements BaseContext
     }
 
     protected void bindView() {
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
     }
 
     protected abstract BasePresenter getPresenter();
 
     protected abstract void createPresenter();
+
+    @Override
+    protected void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
+    }
 
     public void hideKeyBoard() {
         Activity activity = this;
