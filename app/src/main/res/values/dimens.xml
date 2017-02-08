@@ -58,6 +58,7 @@
     <dimen name="xxxxbb_size">260dp</dimen>
     <dimen name="xxxxxxb_size">280dp</dimen>
     <dimen name="xxxxxxxb_size">400dp</dimen>
+    <dimen name="xxxxxxxxb_size">600dp</dimen>
 
     <!-- Dimention -->
     <dimen name="z_dimen">0dp</dimen>

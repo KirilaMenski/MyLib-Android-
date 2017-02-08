@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 /**
  * Created by kirill on 25.1.17.
@@ -85,7 +86,8 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setUser(user);
         if (mPhoto != null) {
             book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
-        } else {
+        }
+        if (coverBookPath == null) {
             book.setCoverBytes(BitmapCover.getStringBytes
                     (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));
         }

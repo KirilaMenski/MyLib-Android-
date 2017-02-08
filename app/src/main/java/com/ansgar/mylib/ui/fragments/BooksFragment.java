@@ -142,7 +142,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @OnClick(R.id.add_data)
     public void addBook() {
         FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container,
-                AddBookFragment.newInstance(null, null), true, R.anim.right_out, R.anim.left_out);
+                AddBookFragment.newInstance(mAuthor, null), true, R.anim.right_out, R.anim.left_out);
     }
 
     @OnClick(R.id.cancel)

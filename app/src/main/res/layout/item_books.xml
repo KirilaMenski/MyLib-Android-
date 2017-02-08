@@ -9,9 +9,10 @@
     <ImageView
         android:id="@+id/book_cover"
         android:layout_width="@dimen/xxdd_size"
-        android:layout_height="@dimen/b_size"
+        android:layout_height="@dimen/xxl_size"
         android:layout_margin="@dimen/l_dimen"
-        tools:src="@drawable/ic_synchronize"/>
+        android:scaleType="centerCrop"
+        tools:src="@drawable/default_book_image"/>
 
     <View
         android:layout_width="match_parent"
