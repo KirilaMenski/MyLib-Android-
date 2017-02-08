@@ -13,6 +13,7 @@ import com.ansgar.mylib.ui.view.fragment.BooksFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private static final String EXTRA_AUTHOR_BOOKS = "com.ansgar.mylib.ui.fragments.author_books";
 
     private BooksFragmentPresenter mPresenter;
-    private BooksAdapter mAdapter;
+    private WeakReference<BooksAdapter> mAdapter;
 
     private Author mAuthor;
     private boolean mLandscape;
@@ -153,7 +154,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        if (mAdapter != null) mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
     }
 
     @Override
@@ -168,10 +169,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new BooksAdapter(books, getActivity(), false, mLandscape);
-        mAdapter.setListener(this);
+        mAdapter = new WeakReference<>(new BooksAdapter(books, getActivity(), false, mLandscape));
+        mAdapter.get().setListener(this);
         mBooksRecycler.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mBooksRecycler.setAdapter(mAdapter);
+        mBooksRecycler.setAdapter(mAdapter.get());
         mBooksRecycler.getAdapter().notifyDataSetChanged();
     }
 

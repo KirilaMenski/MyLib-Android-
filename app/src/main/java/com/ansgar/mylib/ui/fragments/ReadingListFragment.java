@@ -12,6 +12,7 @@ import com.ansgar.mylib.ui.presenter.fragment.ReadingListFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.ReadingListFragmentView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private static final int LAYOUT = R.layout.fragment_reading_list;
 
     private ReadingListFragmentPresenter mPresenter;
-    private ReadingListAdapter mAdapter;
+    private WeakReference<ReadingListAdapter> mAdapter;
 
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
@@ -121,7 +122,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        if (mAdapter != null) mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
     }
 
     @Override
@@ -143,9 +144,9 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new ReadingListAdapter(books, getActivity(), mPresenter);
+        mAdapter = new WeakReference<>(new ReadingListAdapter(books, getActivity(), mPresenter));
         mReadingListRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mReadingListRec.setAdapter(mAdapter);
+        mReadingListRec.setAdapter(mAdapter.get());
     }
 
     @Override

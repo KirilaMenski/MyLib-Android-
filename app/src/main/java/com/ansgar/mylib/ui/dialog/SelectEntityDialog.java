@@ -40,7 +40,7 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
     private SelectEntityDialogPresenter mPresenter;
     private Dialog mDialog;
     private AuthorsAdapter mAuthorsAdapter;
-    private BooksAdapter mBooksAdapter;
+    private WeakReference<BooksAdapter> mBooksAdapter;
     private WeakReference<EntitySelectedDialogListener> mListener;
 
     private String mEntityType;
@@ -102,10 +102,10 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
 
     @Override
     public void setBooksAdapter(List<Book> books) {
-        mBooksAdapter = new BooksAdapter(books, getActivity(), true, false);
-        mBooksAdapter.setListener(this);
+        mBooksAdapter = new WeakReference<>(new BooksAdapter(books, getActivity(), true, false));
+        mBooksAdapter.get().setListener(this);
         mEntityRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        mEntityRecycler.setAdapter(mBooksAdapter);
+        mEntityRecycler.setAdapter(mBooksAdapter.get());
     }
 
     public void setListener(EntitySelectedDialogListener listener) {
