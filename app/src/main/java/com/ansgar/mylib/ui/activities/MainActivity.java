@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                 .load(avatar)
                 .fit()
                 .centerCrop()
-                .placeholder(R.drawable.ic_images_200dp)
+                .placeholder(R.drawable.ic_default_avatar)
                 .into(mAvatar);
     }
 

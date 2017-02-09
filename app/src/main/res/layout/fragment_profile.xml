@@ -24,7 +24,7 @@
                 android:layout_width="@dimen/b_size"
                 android:layout_height="@dimen/xxbb_size"
                 android:layout_margin="@dimen/m_dimen"
-                tools:src="@drawable/ic_images_200dp"/>
+                tools:src="@drawable/ic_default_avatar"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

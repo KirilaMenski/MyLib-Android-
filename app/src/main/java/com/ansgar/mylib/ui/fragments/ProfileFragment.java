@@ -94,7 +94,7 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
                 .load(avatar)
                 .fit()
                 .centerCrop()
-                .placeholder(R.drawable.ic_images_200dp)
+                .placeholder(R.drawable.ic_default_avatar)
                 .into(mUserAvatar);
     }
 

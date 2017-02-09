@@ -63,7 +63,7 @@
                 android:layout_width="@dimen/xl_size"
                 android:layout_height="@dimen/xbb_size"
                 android:layout_marginLeft="@dimen/m_dimen"
-                tools:src="@drawable/ic_images_200dp"/>
+                tools:src="@drawable/ic_default_avatar"/>
 
             <TextView
                 android:id="@+id/user_name"
