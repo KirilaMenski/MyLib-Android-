@@ -1,9 +1,12 @@
 package com.ansgar.mylib.database.dao;
 
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 
 import java.io.File;
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by kirill on 24.1.17.

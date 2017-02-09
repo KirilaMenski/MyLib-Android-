@@ -93,9 +93,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         super.onStart();
         if (mSecondFrameLayout != null) {
             mLandscape = true;
-            selectAuthorBooks(null);
+            mPresenter.replaceFragment();
         }
         mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
+
     }
 
     @Override
@@ -164,7 +165,8 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
-        if(mSecondFrameLayout != null) mSecondFrameLayout.setVisibility(vis ? View.GONE : View.VISIBLE);
+        if (mSecondFrameLayout != null)
+            mSecondFrameLayout.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -181,13 +183,9 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         mAuthorsRecycler.getAdapter().notifyDataSetChanged();
     }
 
-    private void selectAuthorBooks(Author author) {
-        FragmentUtil.replaceFragment(getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author, false, true), false);
-    }
-
     @Override
     public void authorSelected(Author author) {
-        selectAuthorBooks(author);
+        mPresenter.selectAuthorBooks(author);
     }
 
     @Override

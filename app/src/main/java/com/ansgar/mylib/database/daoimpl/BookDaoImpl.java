@@ -6,6 +6,7 @@ import android.os.Environment;
 import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.BookDao;
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -17,6 +18,9 @@ import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+
+import rx.Observable;
 
 /**
  * Created by kirill on 24.1.17.
@@ -141,4 +145,5 @@ public class BookDaoImpl implements BookDao {
         }
         return new File(externalFileDir, book.getPhotoFileName());
     }
+
 }

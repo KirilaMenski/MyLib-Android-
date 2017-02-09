@@ -16,6 +16,11 @@ import com.ansgar.mylib.util.MyLibPreference;
 import java.util.Collections;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by kirill on 24.1.17.
  */
@@ -36,6 +41,11 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
         long userId = MyLibPreference.getUserId();
         User user = mUserDao.getUserById(userId);
         List<Book> books;
+//        if((author == null)){
+//            user.getBooks();
+//        } else {
+//            books = mBookDao.getBookDataObs(author);
+//        }
         books = (author == null) ? user.getBooks() : author.getAuthorBooks();
         switch (pos) {
             case 0:

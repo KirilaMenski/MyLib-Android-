@@ -28,9 +28,11 @@ public class MyLibPreference {
     private static final String CURRENT_USER = "current_user";
     private static final String CURRENT_LANG = "current_language";
     private static final String CURRENT_PAGE = "current_library_page";
+    private static final String AUTHOR_ID = "author_id";
 
     private static SharedPreferences mPreference;
     private static MyLibPreference mInstance;
+
     WeakReference<Context> mContext;
 
     public MyLibPreference(Context context) {
@@ -134,6 +136,22 @@ public class MyLibPreference {
 
     public static int getCurrentPage() {
         return mPreference.getInt(CURRENT_PAGE, DEFAULT_INT);
+    }
+
+    public static void saveAuthorId(int id) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(AUTHOR_ID, id);
+        ed.commit();
+    }
+
+    public static void removeAuthorId() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(AUTHOR_ID, LAST_ADDED);
+        ed.commit();
+    }
+
+    public static int getAuthorId() {
+        return mPreference.getInt(AUTHOR_ID, DEFAULT_INT);
     }
 
     public static void clearData() {

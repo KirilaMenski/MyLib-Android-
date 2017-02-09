@@ -71,4 +71,9 @@ public class PhotoDialog extends DialogFragment {
         mListener = new WeakReference<>(listener);
     }
 
+    @Override
+    public void onPause() {
+        mDialog.dismiss();
+        super.onPause();
+    }
 }

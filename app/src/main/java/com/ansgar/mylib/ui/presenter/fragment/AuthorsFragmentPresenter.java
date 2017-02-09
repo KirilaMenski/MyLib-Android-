@@ -1,5 +1,8 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
+import android.support.v4.app.FragmentActivity;
+
+import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
@@ -9,8 +12,10 @@ import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.SortDialog;
+import com.ansgar.mylib.ui.fragments.BooksFragment;
 import com.ansgar.mylib.ui.listener.SortDialogListener;
 import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
+import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.Collections;
@@ -63,6 +68,14 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
             mView.setLayoutVisibility(false);
             mView.setAuthorAdapter(authors);
         }
+    }
+
+    public void replaceFragment(){
+        selectAuthorBooks(mAuthorsDao.getById(MyLibPreference.getAuthorId()));
+    }
+
+    public void selectAuthorBooks(Author author) {
+        FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author, false, true), false);
     }
 
     @Override

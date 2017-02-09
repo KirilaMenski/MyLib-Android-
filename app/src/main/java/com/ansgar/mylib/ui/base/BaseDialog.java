@@ -28,6 +28,11 @@ public abstract class BaseDialog extends DialogFragment implements BaseContextVi
         createPresenter();
     }
 
+    @Override
+    public void onPause() {
+        dismiss();
+        super.onPause();
+    }
 
     @Override
     public void onDestroy() {

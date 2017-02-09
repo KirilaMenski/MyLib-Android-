@@ -5,6 +5,7 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.MyLibPreference;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             public void onClick(View v) {
                 //TODO
                 if (mCreateBook || mLandscape) {
+                    MyLibPreference.saveAuthorId((int)author.getId());
                     mListener.get().authorSelected(author);
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
@@ -78,6 +80,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                MyLibPreference.saveAuthorId((int)author.getId());
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                         R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
                         true, R.anim.right_out, R.anim.left_out);

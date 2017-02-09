@@ -80,7 +80,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == AddAuthorFragmentPresenter.REQUEST_PHOTO) {
+        if (requestCode == AddAuthorFragmentPresenter.REQUEST_PHOTO && data.getExtras() != null) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             mPresenter.updatePhoto(photo);
         }
