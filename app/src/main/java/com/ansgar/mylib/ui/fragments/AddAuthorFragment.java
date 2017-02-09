@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.PhotoDialog;
 import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
+import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
 import com.ansgar.mylib.util.PictureUtils;
 
@@ -74,6 +76,14 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
             mEdit = true;
         }
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == AddAuthorFragmentPresenter.REQUEST_PHOTO) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            mPresenter.updatePhoto(photo);
+        }
     }
 
     @OnClick(R.id.handle_author)
@@ -138,5 +148,10 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
             Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
             mAuthorIcon.setImageBitmap(bitmap);
         }
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent) {
+        startActivityForResult(intent, AddAuthorFragmentPresenter.REQUEST_PHOTO);
     }
 }

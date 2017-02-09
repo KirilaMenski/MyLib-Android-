@@ -30,6 +30,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 /**
@@ -74,7 +75,6 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         if (mBook != null) {
             book = mBook;
         }
-        book.setCoverBytes(coverBookPath);
         book.setAuthor(author);
         book.setResPath(bookResPath);
         book.setTitle(bookTitle);
@@ -86,8 +86,9 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setUser(user);
         if (mPhoto != null) {
             book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
-        }
-        if (coverBookPath == null) {
+        } else if (coverBookPath != null) {
+            book.setCoverBytes(coverBookPath);
+        } else {
             book.setCoverBytes(BitmapCover.getStringBytes
                     (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));
         }
@@ -107,8 +108,15 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
     @Override
     public void fileSelected(InputStream inputStream, String path) {
         Description description = new DescriptionImpl(inputStream);
-        mView.setCoverBytes(description.getCover().get(0));
-        mView.setCoverBook(BitmapCover.getBitmapCover(description.getCover().get(0)));
+        if (description.getCover().size() > 0) {
+            Log.i("!!!!!!!!!!!", "true");
+        } else {
+            Log.i("!!!!!!!!!!!", "false");
+        }
+        String coverBytes = (description.getCover().size() > 0) ? description.getCover().get(0)
+                : BitmapCover.getStringBytes(BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image));
+        mView.setCoverBytes(coverBytes);
+        mView.setCoverBook(BitmapCover.getBitmapCover(coverBytes));
 //        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName()); // TODO ???
         mView.setBookResPath(path);
         mView.setBookTitle(description.getTitle());
@@ -128,23 +136,21 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
     public void photoSelected(String path) {
         mPhotoFile = new File(path);
         mPhoto = PictureUtils.getScaleBitmap(mPhotoFile.getPath(), mView.getActivity());
-        mView.updatePhotoView(mPhotoFile);
+//        mView.updatePhotoView(mPhotoFile);
+        mView.setCoverBook(mPhoto);
+        mView.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
     }
 
     @Override
     public void makePhotoClicked() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        boolean canTAkePhoto = mPhotoFile != null;
-//        if (canTAkePhoto) {
-//            Uri uri = Uri.fromFile(mPhotoFile);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//        }
-        mView.getActivity().startActivityForResult(intent, REQUEST_PHOTO);
+        mView.startActivityForResult(intent);
     }
 
     public void updatePhoto(Bitmap bitmap) {
         mPhoto = bitmap;
-        mView.updatePhotoView(mPhotoFile);
+//        mView.updatePhotoView(mPhotoFile);
+        mView.setCoverBook(mPhoto);
     }
 
     @Override

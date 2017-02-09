@@ -10,7 +10,7 @@
     <string name="registration">Registration</string>
     <string name="login">Login</string>
     <string name="synchronize">Synchronize\n data</string>
-    <string name="add_data">Add %s</string>
+    <string name="add_data">Add\n%s</string>
     <string name="books_count">Books: %d</string>
     <string name="authors_count">Author: %d</string>
     <string name="books">Books</string>
@@ -58,6 +58,7 @@
     <string name="author_not_selected">Author is not selected</string>
     <string name="image_not_support">Sorry, but this format of image is not supporting</string>
     <string name="book_not_support">Sorry, but this book format is not supporting</string>
+    <string name="connection_failed">Connection failed</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

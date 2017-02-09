@@ -13,6 +13,7 @@ import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.ansgar.mylib.util.NetWorkUtils;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -31,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -126,8 +128,12 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     @OnClick(R.id.tv_map)
     public void openMap() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
-        mDrawer.closeDrawers();
+        if (NetWorkUtils.isNetworkConnected(getContext())) {
+            FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
+            mDrawer.closeDrawers();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

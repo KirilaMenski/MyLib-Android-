@@ -122,7 +122,11 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        if (mAdapter != null) mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+        if (mSearchEt.length() > 0) {
+            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+        } else {
+            mPresenter.loadList(true);
+        }
     }
 
     @Override

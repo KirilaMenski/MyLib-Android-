@@ -63,8 +63,8 @@
 
                     <ImageView
                         android:id="@+id/select_author"
-                        android:layout_width="@dimen/x_size"
-                        android:layout_height="@dimen/x_size"
+                        android:layout_width="@dimen/xxh_size"
+                        android:layout_height="@dimen/xxh_size"
                         android:layout_marginLeft="@dimen/l_dimen"
                         android:src="@drawable/ic_add_data"/>
 

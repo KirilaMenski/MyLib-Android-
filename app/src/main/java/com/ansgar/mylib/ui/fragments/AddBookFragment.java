@@ -29,6 +29,7 @@ import com.ansgar.mylib.ui.dialog.SelectDialog;
 import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
 import com.ansgar.mylib.ui.listener.PhotoDialogListener;
 import com.ansgar.mylib.ui.listener.SelectDialogListener;
+import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
@@ -286,5 +287,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
             Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
             mCoverBook.setImageBitmap(bitmap);
         }
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent) {
+        startActivityForResult(intent, AddBookFragmentPresenter.REQUEST_PHOTO);
     }
 }

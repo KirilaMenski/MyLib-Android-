@@ -19,6 +19,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -54,6 +56,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private Author mAuthor;
     private boolean mLandscape;
     private boolean mAuthorBooks;
+    private boolean mHasOptionMenu;
 
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
@@ -72,6 +75,9 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @Nullable
     @BindView(R.id.book_citations_container_layout)
     FrameLayout mBookCitations;
+    @Nullable
+    @BindView(R.id.books_screen)
+    LinearLayout mBooksScreen;
 
     public static BooksFragment newInstance(Author author, boolean setHasOptionMenu, boolean authorBooks) {
         BooksFragment fragment = new BooksFragment();
@@ -95,6 +101,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         mAuthorBooks = getArguments().getBoolean(EXTRA_AUTHOR_BOOKS);
         View view = inflater.inflate(mAuthorBooks ? LAYOUT_AUTHOR_BOOKS : LAYOUT_BOOKS, container, false);
         ButterKnife.bind(this, view);
+        mHasOptionMenu = getArguments().getBoolean(EXTRA_SET_MENU);
         mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
         return view;
     }
@@ -102,7 +109,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @Override
     public void onStart() {
         super.onStart();
-        if(mBookCitations != null){
+        if (mBookCitations != null) {
             mLandscape = true;
             showBookCitations(null);
         }
@@ -154,7 +161,11 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        if (mAdapter != null) mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+        if (mSearchEt.length() > 0) {
+            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+        } else {
+            mPresenter.loadBooks(mAuthor, MyLibPreference.getBookSortType());
+        }
     }
 
     @Override
@@ -171,14 +182,14 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     public void setAdapter(List<Book> books) {
         mAdapter = new WeakReference<>(new BooksAdapter(books, getActivity(), false, mLandscape));
         mAdapter.get().setListener(this);
-        mBooksRecycler.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
         mBooksRecycler.setAdapter(mAdapter.get());
-        mBooksRecycler.getAdapter().notifyDataSetChanged();
     }
 
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if (mBooksScreen != null) mBooksScreen.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -196,7 +207,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         showBookCitations(book);
     }
 
-    private void showBookCitations(Book book){
+    private void showBookCitations(Book book) {
         FragmentUtil.replaceFragment(getActivity(), R.id.book_citations_container_layout, BookCitationsFragment.newInstance(book), false);
     }
 

@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.view.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
@@ -34,4 +35,6 @@ public interface AddBookFragmentView extends BaseContextView {
     void setDescription(String description);
 
     void updatePhotoView(File path);
+
+    void startActivityForResult(Intent intent);
 }

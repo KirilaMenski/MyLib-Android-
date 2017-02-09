@@ -65,6 +65,9 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Nullable
     @BindView(R.id.author_book_container_layout)
     FrameLayout mSecondFrameLayout;
+    @Nullable
+    @BindView(R.id.authors_screen)
+    LinearLayout mAuthorsScreen;
 
     public static AuthorsFragment newInstance() {
         AuthorsFragment authorsFragment = new AuthorsFragment();
@@ -141,7 +144,11 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
-        if (mAdapter != null) mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        if (mSearchEt.length() > 0) {
+            mAdapter.getFilter().filter(mSearchEt.getText().toString());
+        } else {
+            mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
+        }
     }
 
     @Override
@@ -157,6 +164,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void setLayoutVisibility(boolean vis) {
         mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if(mSecondFrameLayout != null) mSecondFrameLayout.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 
     @Override

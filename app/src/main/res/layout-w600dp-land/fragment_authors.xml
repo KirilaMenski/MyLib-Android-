@@ -18,6 +18,7 @@
         tools:visibility="visible"/>
 
     <LinearLayout
+        android:id="@+id/authors_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_search"

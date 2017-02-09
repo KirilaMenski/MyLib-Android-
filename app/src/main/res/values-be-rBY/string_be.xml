@@ -10,7 +10,7 @@
     <string name="registration">Рэгістрацыя</string>
     <string name="login">Увайсці</string>
     <string name="synchronize">Сінхранізаваць\n данныя</string>
-    <string name="add_data">Дадаць %s</string>
+    <string name="add_data">Дадаць\n%s</string>
     <string name="books_count">Кнігаў: %d</string>
     <string name="authors_count">Аўтараў: %d</string>
     <string name="books">Кнігі</string>
@@ -58,6 +58,7 @@
     <string name="author_not_selected">Не абраны аўтар</string>
     <string name="image_not_support">Прыносім выбачэнні, але фармат выбраннай карцінкі не падтрымліваецца</string>
     <string name="book_not_support">Прыносім выбачэнні, але фармат выбраннай кнігі не падтрымліваецца</string>
+    <string name="connection_failed">Няма сувязі з сецівам</string>
     <string-array name="genre_list">
         <item>Фэнтэзі</item>
         <item>Навуковая фантастыка</item>

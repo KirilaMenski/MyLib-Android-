@@ -1,5 +1,6 @@
 package com.ansgar.mylib.ui.view.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
@@ -23,4 +24,6 @@ public interface AddAuthorFragmentView extends BaseContextView {
     void setAuthorDate(String date);
 
     void updatePhotoView(File path);
+
+    void startActivityForResult(Intent intent);
 }

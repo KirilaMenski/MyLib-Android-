@@ -95,18 +95,14 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
     public void photoSelected(String path) {
         mPhotoFile = new File(path);
         mPhoto = PictureUtils.getScaleBitmap(mPhotoFile.getPath(), mView.getActivity());
-        mView.updatePhotoView(mPhotoFile);
+        mView.setAuthorImage(mPhoto);
+//        mView.updatePhotoView(mPhotoFile);
     }
 
     @Override
     public void makePhotoClicked() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        boolean canTAkePhoto = mPhotoFile != null;
-//        if (canTAkePhoto) {
-//            Uri uri = Uri.fromFile(mPhotoFile);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//        }
-        mView.getActivity().startActivityForResult(intent, REQUEST_PHOTO);
+        mView.startActivityForResult(intent);
     }
 
     @Override
@@ -114,5 +110,11 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         FileManagerDialog dialog = new FileManagerDialog(mView.getActivity(), FileManagerDialog.TYPE).setFilter(".*\\.txt");
         dialog.setListener(this);
         dialog.show();
+    }
+
+    public void updatePhoto(Bitmap photo) {
+        mPhoto = photo;
+//        mView.updatePhotoView(mPhotoFile);
+        mView.setAuthorImage(photo);
     }
 }
