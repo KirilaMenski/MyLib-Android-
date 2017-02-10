@@ -1,6 +1,5 @@
 package com.ansgar.mylib.database.dao;
 
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 
 import java.io.File;
@@ -31,5 +30,13 @@ public interface BookDao {
     Book getBookById(long id);
 
     File getPhotoFile(Book book);
+
+    Observable<List<Book>> getUserBooks();
+
+    Observable<List<Book>> getUserBooksByGenre(String genre);
+
+    Observable<List<Book>> getUserBooksFromReadingList(boolean inList);
+
+    Observable<List<Book>> getUserBooksByReadValue(int read);
 
 }

@@ -2,14 +2,24 @@ package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
+import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
+import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.view.dialog.SelectEntityDialogView;
+import com.ansgar.mylib.util.MyLibPreference;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by kirill on 25.1.17.
@@ -22,6 +32,7 @@ public class SelectEntityDialogPresenter extends BasePresenter {
     private SelectEntityDialogView mView;
     private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();
     private BookDao mBookDao = BookDaoImpl.getInstance();
+    private List<Book> mAllBooks = new ArrayList<>();
 
     public SelectEntityDialogPresenter(SelectEntityDialogView view) {
         super(view.getContext());
@@ -30,7 +41,26 @@ public class SelectEntityDialogPresenter extends BasePresenter {
 
     public void loadEntity(String type) {
         if (type.equals(AUTHORS)) mView.setAuthorsAdapter(mAuthorDao.getAllAuthors());
-        if(type.equals(BOOKS)) mView.setBooksAdapter(mBookDao.getBooksByReadValue(0));
+        if(type.equals(BOOKS)) {
+            Observable<List<Book>> observable = mBookDao.getUserBooksByReadValue(0);
+            Observer<List<Book>> observer = new Observer<List<Book>>() {
+                @Override
+                public void onCompleted() {
+                    mView.setBooksAdapter(mAllBooks);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(List<Book> books) {
+                    mAllBooks = books;
+                }
+            };
+            bindObservable(observable, observer);
+        }
     }
 
     @Override

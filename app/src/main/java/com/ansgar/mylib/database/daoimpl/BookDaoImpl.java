@@ -8,6 +8,7 @@ import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by kirill on 24.1.17.
@@ -144,6 +146,95 @@ public class BookDaoImpl implements BookDao {
             return null;
         }
         return new File(externalFileDir, book.getPhotoFileName());
+    }
+
+    @Override
+    public Observable<List<Book>> getUserBooks() {
+        return Observable.create(new Observable.OnSubscribe<List<Book>>() {
+            @Override
+            public void call(Subscriber<? super List<Book>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+
+                try {
+                    QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId());
+                    List<Book> books = queryBuilder.query();
+                    subscriber.onNext(books);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(new Throwable(e.toString()));
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Book>> getUserBooksByGenre(final String genre) {
+        return Observable.create(new Observable.OnSubscribe<List<Book>>() {
+            @Override
+            public void call(Subscriber<? super List<Book>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+                try {
+                    QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId()).and().eq("genre", genre);
+                    List<Book> books = queryBuilder.query();
+                    subscriber.onNext(books);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Book>> getUserBooksFromReadingList(final boolean inList) {
+        return Observable.create(new Observable.OnSubscribe<List<Book>>() {
+            @Override
+            public void call(Subscriber<? super List<Book>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+                try {
+                    QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId()).and().eq("in_list", inList ? 1 : 0);
+                    List<Book> books = queryBuilder.query();
+                    subscriber.onNext(books);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public Observable<List<Book>> getUserBooksByReadValue(final int read) {
+        return Observable.create(new Observable.OnSubscribe<List<Book>>() {
+            @Override
+            public void call(Subscriber<? super List<Book>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+                try {
+                    QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId()).and().eq("was_read", read);
+                    List<Book> books = queryBuilder.query();
+                    subscriber.onNext(books);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }

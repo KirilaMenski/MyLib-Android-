@@ -13,10 +13,12 @@ import com.ansgar.mylib.ui.listener.SortDialogListener;
 import com.ansgar.mylib.ui.view.fragment.BooksFragmentView;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -30,6 +32,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     private UserDao mUserDao = UserDaoImpl.getInstance();
     private BookDao mBookDao = BookDaoImpl.getInstance();
     private Author mAuthor;
+    private List<Book> allBooks = new ArrayList<>();
 
     public BooksFragmentPresenter(BooksFragmentView view) {
         super(view.getContext());
@@ -38,18 +41,39 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
 
     public void loadBooks(Author author, int pos) {
         mAuthor = author;
-        long userId = MyLibPreference.getUserId();
-        User user = mUserDao.getUserById(userId);
-        List<Book> books;
 //        if((author == null)){
 //            user.getBooks();
 //        } else {
 //            books = mBookDao.getBookDataObs(author);
 //        }
-        books = (author == null) ? user.getBooks() : author.getAuthorBooks();
+//        books = (author == null) ? user.getBooks() : author.getAuthorBooks();
+        if (author == null) {
+            Observable<List<Book>> observable = mBookDao.getUserBooks();
+            Observer<List<Book>> observer = new Observer<List<Book>>() {
+                @Override
+                public void onCompleted() {
+                    setVisView();
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(List<Book> books) {
+                    allBooks = books;
+                }
+            };
+            bindObservable(observable, observer);
+        } else {
+            allBooks = author.getAuthorBooks();
+            setVisView();
+        }
+
         switch (pos) {
             case 0:
-                Collections.sort(books, new Book() {
+                Collections.sort(allBooks, new Book() {
                     @Override
                     public int compare(Book o1, Book o2) {
                         String title1 = o1.getTitle().toLowerCase().trim();
@@ -59,10 +83,10 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                 });
                 break;
             case 1:
-                Collections.sort(books, new Book());
+                Collections.sort(allBooks, new Book());
                 break;
             case 2:
-                Collections.sort(books, new Book() {
+                Collections.sort(allBooks, new Book() {
                     @Override
                     public int compare(Book o1, Book o2) {
                         return (o2.getRating() - o1.getRating());
@@ -70,7 +94,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                 });
                 break;
             case 3:
-                Collections.sort(books, new Book() {
+                Collections.sort(allBooks, new Book() {
                     @Override
                     public int compare(Book o1, Book o2) {
                         String genre1 = o1.getGenre().toLowerCase().trim();
@@ -80,7 +104,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                 });
                 break;
             case 4:
-                Collections.sort(books, new Book() {
+                Collections.sort(allBooks, new Book() {
                     @Override
                     public int compare(Book o1, Book o2) {
                         return (o2.getYear() - o1.getYear());
@@ -88,12 +112,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                 });
                 break;
         }
-        if (books.size() == 0) {
-            mView.setLayoutVisibility(true);
-        } else {
-            mView.setLayoutVisibility(false);
-            mView.setAdapter(books);
-        }
+
     }
 
     @Override
@@ -105,5 +124,14 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     public void sortTypePosition(int pos) {
         MyLibPreference.saveBookSortType(pos);
         loadBooks(mAuthor, pos);
+    }
+
+    private void setVisView() {
+        if (allBooks.size() == 0) {
+            mView.setLayoutVisibility(true);
+        } else {
+            mView.setLayoutVisibility(false);
+            mView.setAdapter(allBooks);
+        }
     }
 }

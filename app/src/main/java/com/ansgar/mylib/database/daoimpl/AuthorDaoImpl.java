@@ -6,6 +6,8 @@ import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.entity.Author;
+import com.ansgar.mylib.database.entity.User;
+import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -70,7 +72,9 @@ public class AuthorDaoImpl implements AuthorDao {
     public List<Author> getAllAuthors() {
         List<Author> authors = new ArrayList<>();
         try {
-            authors = mDao.queryForAll();
+            QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("user_id", MyLibPreference.getUserId());
+            authors = queryBuilder.query();
         } catch (SQLException e) {
             e.printStackTrace();
         }
