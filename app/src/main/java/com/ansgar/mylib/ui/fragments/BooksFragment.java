@@ -30,7 +30,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -53,10 +52,9 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private BooksFragmentPresenter mPresenter;
     private WeakReference<BooksAdapter> mAdapter;
 
-    private Author mAuthor;
+    private int mAuthorId;
     private boolean mLandscape;
     private boolean mAuthorBooks;
-    private boolean mHasOptionMenu;
 
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
@@ -79,10 +77,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @BindView(R.id.books_screen)
     LinearLayout mBooksScreen;
 
-    public static BooksFragment newInstance(Author author, boolean setHasOptionMenu, boolean authorBooks) {
+    public static BooksFragment newInstance(int authorId, boolean setHasOptionMenu, boolean authorBooks) {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_AUTHOR, author);
+        args.putInt(EXTRA_AUTHOR, authorId);
         args.putBoolean(EXTRA_SET_MENU, setHasOptionMenu);
         args.putBoolean(EXTRA_AUTHOR_BOOKS, authorBooks);
         fragment.setArguments(args);
@@ -101,8 +99,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         mAuthorBooks = getArguments().getBoolean(EXTRA_AUTHOR_BOOKS);
         View view = inflater.inflate(mAuthorBooks ? LAYOUT_AUTHOR_BOOKS : LAYOUT_BOOKS, container, false);
         ButterKnife.bind(this, view);
-        mHasOptionMenu = getArguments().getBoolean(EXTRA_SET_MENU);
-        mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
+        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
         return view;
     }
 
@@ -113,7 +110,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
             mLandscape = true;
             showBookCitations(null);
         }
-        mPresenter.loadBooks(mAuthor, MyLibPreference.getBookSortType());
+        mPresenter.loadBooks(mAuthorId, MyLibPreference.getBookSortType());
     }
 
     @Override
@@ -150,7 +147,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @OnClick(R.id.add_data)
     public void addBook() {
         FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container,
-                AddBookFragment.newInstance(mAuthor, null), true, R.anim.right_out, R.anim.left_out);
+                AddBookFragment.newInstance(mAuthorId, null), true, R.anim.right_out, R.anim.left_out);
     }
 
     @OnClick(R.id.cancel)
@@ -164,7 +161,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         if (mSearchEt.length() > 0) {
             mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
         } else {
-            mPresenter.loadBooks(mAuthor, MyLibPreference.getBookSortType());
+            mPresenter.loadBooks(mAuthorId, MyLibPreference.getBookSortType());
         }
     }
 
@@ -198,7 +195,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     }
 
     @Override
-    public void authorSelected(Author author) {
+    public void authorSelected(int authorId, String firstName, String lastName) {
 
     }
 

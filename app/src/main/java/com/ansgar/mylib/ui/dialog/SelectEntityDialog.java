@@ -113,8 +113,8 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
     }
 
     @Override
-    public void authorSelected(Author author) {
-        mListener.get().authorSelected(author);
+    public void authorSelected(int authorId, String firstName, String lastName) {
+        mListener.get().authorSelected(authorId, firstName, lastName);
         mDialog.dismiss();
     }
 

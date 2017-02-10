@@ -24,6 +24,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,8 +69,8 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             public void onClick(View v) {
                 //TODO
                 if (mCreateBook || mLandscape) {
-                    MyLibPreference.saveAuthorId((int)author.getId());
-                    mListener.get().authorSelected(author);
+                    MyLibPreference.saveAuthorId(author.getId());
+                    mListener.get().authorSelected(author.getId(), author.getFirstName(), author.getLastName());
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                             R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
@@ -80,7 +81,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                MyLibPreference.saveAuthorId((int)author.getId());
+                MyLibPreference.saveAuthorId(author.getId());
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                         R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
                         true, R.anim.right_out, R.anim.left_out);

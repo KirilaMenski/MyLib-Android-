@@ -1,8 +1,10 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.UserDao;
+import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.Author;
@@ -42,6 +44,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
 
     private AddBookFragmentView mView;
     private BookDao mBookDao = BookDaoImpl.getInstance();
+    private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();
     private UserDao mUserDao = UserDaoImpl.getInstance();
     private Book mBook;
     private File mPhotoFile;
@@ -52,11 +55,16 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         mView = view;
     }
 
-    public void initializeView(Book book) {
+    public void initializeView(int authorId, Book book) {
         mBook = book;
+
         mView.setCoverBytes(book.getCoverBytes());
         mView.setCoverBook(book.getBitmap());
         mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
+        if (authorId != -1) {
+            Author author = mAuthorDao.getById(authorId);
+            mView.setAuthorNameById(author.getFirstName() + "\n" + author.getLastName());
+        }
         mView.setBookResPath(book.getResPath());
         mView.setBookTitle(book.getTitle());
         mView.setBookPublished(String.valueOf(book.getYear()));
@@ -66,10 +74,10 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         mView.setDescription(book.getDescription());
     }
 
-    public void addBook(boolean isEdit, String coverBookPath, Author author, String bookResPath,
+    public void addBook(boolean isEdit, String coverBookPath, int authorId, String bookResPath,
                         String bookTitle, String genre, String series, int seriesNum,
                         int year, String description) {
-
+        Author author = mAuthorDao.getById(authorId);
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Book book = new Book();
         if (mBook != null) {

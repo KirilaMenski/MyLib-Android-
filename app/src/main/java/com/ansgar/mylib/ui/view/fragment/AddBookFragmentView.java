@@ -20,6 +20,8 @@ public interface AddBookFragmentView extends BaseContextView {
 
     void setAuthorName(String authorName);
 
+    void setAuthorNameById(String authorName);
+
     void setBookResPath(String path);
 
     void setBookTitle(String title);

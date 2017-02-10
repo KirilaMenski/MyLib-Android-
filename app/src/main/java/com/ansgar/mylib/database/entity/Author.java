@@ -23,7 +23,7 @@ import java.util.List;
 public class Author implements Serializable, Comparator<Author> {
 
     @DatabaseField(generatedId = true, columnName = "id")
-    private long mId;
+    private int mId;
     @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
     @DatabaseField(columnName = "first_name")
@@ -46,7 +46,7 @@ public class Author implements Serializable, Comparator<Author> {
 
     }
 
-    public Author(long id, String firstName, String lastName, String biography, String date, User user, boolean hasSynchronized) {
+    public Author(int id, String firstName, String lastName, String biography, String date, User user, boolean hasSynchronized) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -56,11 +56,11 @@ public class Author implements Serializable, Comparator<Author> {
         mHasSynchronized = hasSynchronized;
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 

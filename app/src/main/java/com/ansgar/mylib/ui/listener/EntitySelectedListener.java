@@ -9,7 +9,7 @@ import com.ansgar.mylib.database.entity.Book;
 
 public interface EntitySelectedListener {
 
-    void authorSelected(Author author);
+    void authorSelected(int authorId, String firstName, String lastName);
 
     void bookSelected(Book book);
 

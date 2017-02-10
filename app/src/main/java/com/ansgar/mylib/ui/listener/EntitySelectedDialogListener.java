@@ -1,6 +1,5 @@
 package com.ansgar.mylib.ui.listener;
 
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 
 /**
@@ -9,7 +8,7 @@ import com.ansgar.mylib.database.entity.Book;
 
 public interface EntitySelectedDialogListener {
 
-    void authorSelected(Author author);
+    void authorSelected(int authorId, String firstName, String lastName);
 
     void bookSelected(Book book);
 

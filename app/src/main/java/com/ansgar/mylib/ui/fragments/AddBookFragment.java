@@ -2,13 +2,9 @@ package com.ansgar.mylib.ui.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,16 +23,11 @@ import com.ansgar.mylib.ui.dialog.PhotoDialog;
 import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
 import com.ansgar.mylib.ui.dialog.SelectDialog;
 import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
-import com.ansgar.mylib.ui.listener.PhotoDialogListener;
 import com.ansgar.mylib.ui.listener.SelectDialogListener;
-import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
-import com.ansgar.mylib.util.BitmapCover;
 import com.ansgar.mylib.util.PictureUtils;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
 
@@ -57,7 +48,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     private AddBookFragmentPresenter mPresenter;
 
     private String mCoverBookBytes;
-    private Author mAuthor;
+    private int mAuthorId;
     private String mType;
     private boolean mOtherGenre;
     private boolean mIsEdit;
@@ -87,10 +78,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.add_book)
     TextView mAdd;
 
-    public static AddBookFragment newInstance(Author author, Book book) {
+    public static AddBookFragment newInstance(int authorId, Book book) {
         AddBookFragment fragment = new AddBookFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_AUTHOR, author);
+        args.putInt(EXTRA_AUTHOR, authorId);
         args.putSerializable(EXTRA_BOOK, book);
         fragment.setArguments(args);
         return fragment;
@@ -101,24 +92,14 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
+        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
         Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
         if (book != null) {
-            mPresenter.initializeView(book);
+            mPresenter.initializeView(mAuthorId, book);
             mAdd.setText(getString(R.string.edit));
             mIsEdit = true;
         }
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (mAuthor != null) {
-            mSelectAuthor.setVisibility(View.GONE);
-            mAuthorName.setText(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
-            mAuthorName.setEnabled(false);
-        }
     }
 
     @OnClick(R.id.book_cover)
@@ -161,7 +142,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @OnClick(R.id.add_book)
     public void addBook() {
 
-        if (mAuthor == null) {
+        if (mAuthorId != -1) {
             Toast.makeText(getContext(), getString(R.string.author_not_selected), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -172,7 +153,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         int numSeries = 0;
         if (mSeriesNum.length() != 0) Integer.valueOf(mSeriesNum.getText().toString().trim());
 
-        mPresenter.addBook(mIsEdit, mCoverBookBytes, mAuthor, mBookResPath.getText().toString().trim(),
+        mPresenter.addBook(mIsEdit, mCoverBookBytes, mAuthorId, mBookResPath.getText().toString().trim(),
                 mBookTitle.getText().toString().trim(),
                 mOtherGenre ? mGenreOther.getText().toString().trim() : mGenre.getText().toString().trim(),
                 mSeries.getText().toString().trim(),
@@ -192,9 +173,9 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     }
 
     @Override
-    public void authorSelected(Author author) {
-        mAuthor = author;
-        mAuthorName.setText(mAuthor.getFirstName() + " " + mAuthor.getLastName());
+    public void authorSelected(int authorId, String firstName, String lastName) {
+        mAuthorId = authorId;
+        mAuthorName.setText(firstName + " " + lastName);
     }
 
     @Override
@@ -242,6 +223,13 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @Override
     public void setAuthorName(String authorName) {
         mAuthorName.setText(authorName);
+    }
+
+    @Override
+    public void setAuthorNameById(String authorName) {
+        mSelectAuthor.setVisibility(View.GONE);
+        mAuthorName.setText(authorName);
+        mAuthorName.setEnabled(false);
     }
 
     @Override

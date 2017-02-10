@@ -237,4 +237,26 @@ public class BookDaoImpl implements BookDao {
         });
     }
 
+    @Override
+    public Observable<List<Book>> getUserBooksByAuthorId(final int authorId) {
+        return Observable.create(new Observable.OnSubscribe<List<Book>>() {
+            @Override
+            public void call(Subscriber<? super List<Book>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+                try {
+                    QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId()).and().eq("author_id", authorId);
+                    List<Book> books = queryBuilder.query();
+                    subscriber.onNext(books);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
