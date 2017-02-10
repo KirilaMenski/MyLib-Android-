@@ -25,6 +25,7 @@ public abstract class BasePresenter {
     }
 
     public void bindObservable(Observable<?> observable, Observer sub) {
+        if(compositeSubscription == null) compositeSubscription = new CompositeSubscription();
         addSubscription(observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(sub));

@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
+import android.util.Log;
+
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
@@ -54,6 +56,7 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
             }
         };
         bindObservable(observable, observer);
+//        bindObservableWithoutComposite(observable, observer);
     }
 
     public void addBookToList(Book book) {

@@ -4,6 +4,8 @@ import com.ansgar.mylib.database.entity.Author;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * Created by kirill on 24.1.17.
  */
@@ -19,5 +21,7 @@ public interface AuthorDao {
     List<Author> getAllAuthors();
 
     Author getById(long id);
+
+    Observable<List<Author>> getUserAuthors();
 
 }

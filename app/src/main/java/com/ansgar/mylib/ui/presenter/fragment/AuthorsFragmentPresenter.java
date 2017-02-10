@@ -18,8 +18,12 @@ import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by kirill on 24.1.17.
@@ -27,47 +31,62 @@ import java.util.List;
 public class AuthorsFragmentPresenter extends BasePresenter implements SortDialogListener {
 
     private AuthorsFragmentView mView;
-    private UserDao mUserDao = UserDaoImpl.getInstance();
     private AuthorDao mAuthorsDao = AuthorDaoImpl.getInstance();
+    private List<Author> mAllAuthors = new ArrayList<>();
 
     public AuthorsFragmentPresenter(AuthorsFragmentView view) {
         super(view.getContext());
         mView = view;
     }
 
-    public void loadAuthors(int pos) {
-        long userId = MyLibPreference.getUserId();
-        User user = mUserDao.getUserById(userId);
-        List<Author> authors = user.getAuthors();
-        switch (pos) {
-            case 0:
-                Collections.sort(authors, new Author() {
-                    @Override
-                    public int compare(Author o1, Author o2) {
-                        String lastName1 = o1.getLastName().toLowerCase().trim();
-                        String lastName2 = o2.getLastName().toLowerCase().trim();
-                        return lastName1.compareTo(lastName2);
-                    }
-                });
-                break;
-            case 1:
-                Collections.sort(authors, new Author());
-                break;
-            case 2:
-                Collections.sort(authors, new Author() {
-                    @Override
-                    public int compare(Author o1, Author o2) {
-                        return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
-                    }
-                });
-                break;
-        }
-        if (authors.size() == 0) {
-            mView.setLayoutVisibility(true);
-        } else {
-            mView.setLayoutVisibility(false);
-            mView.setAuthorAdapter(authors);
-        }
+    public void loadAuthors(final int pos) {
+        Observable<List<Author>> observable = mAuthorsDao.getUserAuthors();
+        Observer<List<Author>> observer = new Observer<List<Author>>() {
+            @Override
+            public void onCompleted() {
+                switch (pos) {
+                    case 0:
+                        Collections.sort(mAllAuthors, new Author() {
+                            @Override
+                            public int compare(Author o1, Author o2) {
+                                String lastName1 = o1.getLastName().toLowerCase().trim();
+                                String lastName2 = o2.getLastName().toLowerCase().trim();
+                                return lastName1.compareTo(lastName2);
+                            }
+                        });
+                        break;
+                    case 1:
+                        Collections.sort(mAllAuthors, new Author());
+                        break;
+                    case 2:
+                        Collections.sort(mAllAuthors, new Author() {
+                            @Override
+                            public int compare(Author o1, Author o2) {
+                                return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
+                            }
+                        });
+                        break;
+                }
+                if (mAllAuthors.size() == 0) {
+                    mView.setLayoutVisibility(true);
+                } else {
+                    mView.setLayoutVisibility(false);
+                    mView.setAuthorAdapter(mAllAuthors);
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Author> authors) {
+                mAllAuthors = authors;
+            }
+        };
+        bindObservable(observable, observer);
     }
 
     public void replaceFragment(){

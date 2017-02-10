@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+
 /**
  * Created by kirill on 24.1.17.
  */
@@ -92,5 +95,27 @@ public class AuthorDaoImpl implements AuthorDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Observable<List<Author>> getUserAuthors() {
+        return Observable.create(new Observable.OnSubscribe<List<Author>>() {
+            @Override
+            public void call(Subscriber<? super List<Author>> subscriber) {
+                if (subscriber.isUnsubscribed()) {
+                    return;
+                }
+                try {
+                    QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
+                    queryBuilder.where().eq("user_id", MyLibPreference.getUserId());
+                    List<Author> authors = queryBuilder.query();
+                    subscriber.onNext(authors);
+                    subscriber.onCompleted();
+                } catch (SQLException e) {
+                    subscriber.onError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

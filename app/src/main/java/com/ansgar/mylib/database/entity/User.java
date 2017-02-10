@@ -38,8 +38,6 @@ public class User implements Serializable {
     ForeignCollection<Author> mAuthors;
     @ForeignCollectionField
     ForeignCollection<Book> mBooks;
-    @ForeignCollectionField
-    ForeignCollection<Citation> mCitations;
 
     public User() {
 
@@ -83,17 +81,6 @@ public class User implements Serializable {
             books.add(book);
         }
         return books;
-    }
-
-    public List<Citation> getCitations() {
-        List<Citation> citations = new ArrayList<>();
-        if (mCitations == null) {
-            return citations;
-        }
-        for (Citation citation : mCitations) {
-            citations.add(citation);
-        }
-        return citations;
     }
 
     public String getFirstName() {
