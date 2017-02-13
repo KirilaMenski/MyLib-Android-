@@ -95,9 +95,10 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setUser(user);
         if (mPhoto != null) {
 //            book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
-            book.setCoverBytes(FileManagerUtil.saveFile(mView.getActivity(), mPhoto, bookTitle + DateUtils.getNewFileDate()));
+            book.setCoverBytes(FileManagerUtil.saveFile(mPhoto, bookTitle + DateUtils.getNewFileDate()));
         } else if (coverBookPath != null) {
-            book.setCoverBytes(coverBookPath);
+//            book.setCoverBytes(coverBookPath);
+            book.setCoverBytes(FileManagerUtil.saveFile(BitmapCover.getBitmapCover(coverBookPath), bookTitle + DateUtils.getNewFileDate()));
         } else {
 //            book.setCoverBytes(BitmapCover.getStringBytes
 //                    (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));

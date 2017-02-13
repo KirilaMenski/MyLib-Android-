@@ -24,7 +24,7 @@ public class DateUtils {
     public static String getNewFileDate(){
         String date;
         Calendar calendar = Calendar.getInstance();
-        DateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        DateFormat format = new SimpleDateFormat(NEW_FILE_DATE_FORMAT);
         date = format.format(calendar.getTime());
         return date;
     }

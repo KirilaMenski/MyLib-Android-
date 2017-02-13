@@ -8,6 +8,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * Created by kirill on 13.2.17.
@@ -17,20 +18,26 @@ public class FileManagerUtil {
 
     private static final String SD_PATH = "/MyLib/booksCover/";
 
-    public static String saveFile(Activity activity, Bitmap image, String fileName) {
-        String path = "";
+    public static String saveFile(Bitmap image, String fileName) {
+        String path;
+        OutputStream os;
+
+        File filepath = Environment.getExternalStorageDirectory();
+
+        File dir = new File(filepath + SD_PATH);
+        dir.mkdir();
+        File file = new File(dir, fileName + ".png");
+
         try {
-            File file = new File(activity.getExternalFilesDir(null) + SD_PATH + fileName + ".png");
-            path = Environment.getExternalStorageDirectory().toString();
-            File newImage = new File(path + SD_PATH + fileName + ".png");
-            FileOutputStream fos = new FileOutputStream(file);
-            image.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            Log.i("!!!!!!!", "path: " + path);
-        } catch (IOException e) {
-            e.printStackTrace();
+            os = new FileOutputStream(file);
+            image.compress(Bitmap.CompressFormat.PNG, 100, os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+
         }
+        path = file.getPath();
+        Log.i("!!!!!!!!!", "path: " + path);
         return path;
     }
 
