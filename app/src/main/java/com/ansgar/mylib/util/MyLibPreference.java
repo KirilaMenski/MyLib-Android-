@@ -58,20 +58,20 @@ public class MyLibPreference {
         }
     }
 
-    public static void saveUserId(long userId) {
+    public static void saveUserId(int userId) {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putLong(CURRENT_USER, userId);
+        ed.putInt(CURRENT_USER, userId);
         ed.commit();
     }
 
     public static void removeUserId() {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putLong(CURRENT_USER, DEFAULT_USER);
+        ed.putInt(CURRENT_USER, DEFAULT_USER);
         ed.commit();
     }
 
-    public static long getUserId() {
-        return mPreference.getLong(CURRENT_USER, DEFAULT_USER);
+    public static int getUserId() {
+        return mPreference.getInt(CURRENT_USER, DEFAULT_USER);
     }
 
     public static void saveAuthorSortType(int type) {

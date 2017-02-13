@@ -26,12 +26,12 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
         mView = view;
     }
 
-    public void initializeViews(Author author) {
-        mAuthor = author;
-        mView.setScreenTitle(author.getFirstName() + "\n" + author.getLastName());
-        mView.setAuthorName(author.getFirstName() + " " + author.getLastName());
-        mView.setAuthorBiography(author.getBiography());
-        mView.setAuthorImage(author.getBitmap());
+    public void initializeViews(int authorId) {
+        mAuthor = mAuthorDao.getAuthorById(authorId);
+        mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
+        mView.setAuthorName(mAuthor.getFirstName() + " " + mAuthor.getLastName());
+        mView.setAuthorBiography(mAuthor.getBiography());
+        mView.setAuthorImage(mAuthor.getBitmap());
     }
 
     @Override
@@ -46,6 +46,6 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
 
     public void editAuthor() {
         FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(), R.id.main_fragment_container,
-                AddAuthorFragment.newInstance(mAuthor), true, R.anim.right_out, R.anim.left_out);
+                AddAuthorFragment.newInstance(mAuthor.getId()), true, R.anim.right_out, R.anim.left_out);
     }
 }

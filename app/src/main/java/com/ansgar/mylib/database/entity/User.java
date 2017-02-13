@@ -21,7 +21,7 @@ import java.util.List;
 public class User implements Serializable {
 
     @DatabaseField(generatedId = true, columnName = "id")
-    private long mId;
+    private int mId;
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
     @DatabaseField(columnName = "last_name")
@@ -43,7 +43,7 @@ public class User implements Serializable {
 
     }
 
-    public User(long id, String firstName, String lastName, String cover, String email, String password, boolean hasSynchronized) {
+    public User(int id, String firstName, String lastName, String cover, String email, String password, boolean hasSynchronized) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -53,11 +53,11 @@ public class User implements Serializable {
         mHasSynchronized = hasSynchronized;
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 

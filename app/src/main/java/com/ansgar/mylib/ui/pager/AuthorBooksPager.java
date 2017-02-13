@@ -30,17 +30,17 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.pager.author";
 
     private AuthorBooksPagerPresenter mPresenter;
-    private Author mAuthor;
+    private int mAuthorId;
 
     private int mPosition;
 
     @BindView(R.id.author_books_pager)
     ViewPager mAuthorBooksPager;
 
-    public static AuthorBooksPager newInstance(Author author) {
+    public static AuthorBooksPager newInstance(int authorId) {
         AuthorBooksPager pager = new AuthorBooksPager();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_AUTHOR, author);
+        args.putInt(EXTRA_AUTHOR, authorId);
         pager.setArguments(args);
         return pager;
     }
@@ -50,7 +50,7 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mAuthor = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
+        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
         return view;
     }
 
@@ -85,8 +85,8 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
         return new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if (position == 0) return AuthorDetailsFragment.newInstance(mAuthor);
-                if (position == 1) return BooksFragment.newInstance(mAuthor.getId(), true, false);
+                if (position == 0) return AuthorDetailsFragment.newInstance(mAuthorId);
+                if (position == 1) return BooksFragment.newInstance(mAuthorId, true, false);
                 return null;
             }
 

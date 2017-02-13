@@ -13,6 +13,7 @@ import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -45,7 +46,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     private static final int LAYOUT = R.layout.fragment_authors;
 
     private AuthorsFragmentPresenter mPresenter;
-    private AuthorsAdapter mAdapter;
+    private WeakReference<AuthorsAdapter> mAdapter;
     private boolean mLandscape;
 
     @BindView(R.id.progress_bar_layout)
@@ -135,7 +136,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @OnClick(R.id.add_data)
     public void addAuthor() {
         FragmentUtil.replaceAnimFragment(getActivity(),
-                R.id.main_fragment_container, AddAuthorFragment.newInstance(null),
+                R.id.main_fragment_container, AddAuthorFragment.newInstance(-1),
                 true, R.anim.right_out, R.anim.left_out);
     }
 
@@ -148,7 +149,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
         if (mSearchEt.length() > 0) {
-            mAdapter.getFilter().filter(mSearchEt.getText().toString());
+            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
         } else {
             mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
         }
@@ -185,11 +186,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @Override
     public void setAuthorAdapter(List<Author> authors) {
-        mAdapter = new AuthorsAdapter(authors, getActivity(), false, mLandscape);
-        mAdapter.setListener(this);
+        mAdapter = new WeakReference<>(new AuthorsAdapter(authors, getActivity(), false, mLandscape));
+        mAdapter.get().setListener(this);
         mAuthorsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAuthorsRecycler.setAdapter(mAdapter);
-        mAuthorsRecycler.getAdapter().notifyDataSetChanged();
+        mAuthorsRecycler.setAdapter(mAdapter.get());
     }
 
     @Override
@@ -198,7 +198,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     @Override
-    public void bookSelected(Book book) {
+    public void bookSelected(int bookId) {
 
     }
 }

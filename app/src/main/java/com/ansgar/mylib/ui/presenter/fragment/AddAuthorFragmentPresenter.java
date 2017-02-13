@@ -46,14 +46,14 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         mView = view;
     }
 
-    public void initializeView(Author author) {
-        mAuthor = author;
-        mView.setScreenTitle(author.getFirstName() + "\n" + author.getLastName());
-        mView.setAuthorImage(author.getBitmap());
-        mView.setAuthorBiography(author.getBiography());
-        mView.setAuthorFirstName(author.getFirstName());
-        mView.setAuthorLastName(author.getLastName());
-        mView.setAuthorDate(author.getDate());
+    public void initializeView(int authorId) {
+        mAuthor = mAuthorDao.getAuthorById(authorId);
+        mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
+        mView.setAuthorImage(mAuthor.getBitmap());
+        mView.setAuthorBiography(mAuthor.getBiography());
+        mView.setAuthorFirstName(mAuthor.getFirstName());
+        mView.setAuthorLastName(mAuthor.getLastName());
+        mView.setAuthorDate(mAuthor.getDate());
     }
 
     public void handleAuthor(boolean isEdit, String firstName, String lastName, String date, String biography) {

@@ -27,22 +27,22 @@ public class BookDetailsFragmentPresenter extends BasePresenter implements Ratin
         mView = view;
     }
 
-    public void initializeView(Book book) {
-        mBook = book;
-        mView.setScreenTitle(book.getTitle());
-        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
-        mView.setBookCover(book.getBitmap());
-        mView.setBookDate(String.valueOf(book.getYear()));
-        mView.setDescription(book.getDescription());
-        mView.setBookTitle(book.getTitle());
-        mView.setBookGenre(book.getGenre());
-        mView.setSeries(book.getSeries() + "-" + book.getNumSeries());
-        mView.setRatingAdapter(book.getRating());
+    public void initializeView(int bookId) {
+        mBook = mBookDao.getBookById(bookId);
+        mView.setScreenTitle(mBook.getTitle());
+        mView.setAuthorName(mBook.getAuthor().getFirstName() + "\n" + mBook.getAuthor().getLastName());
+        mView.setBookCover(mBook.getBitmap());
+        mView.setBookDate(String.valueOf(mBook.getYear()));
+        mView.setDescription(mBook.getDescription());
+        mView.setBookTitle(mBook.getTitle());
+        mView.setBookGenre(mBook.getGenre());
+        mView.setSeries(mBook.getSeries() + "-" + mBook.getNumSeries());
+        mView.setRatingAdapter(mBook.getRating());
     }
 
     public void updateBook() {
         FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                R.id.main_fragment_container, AddBookFragment.newInstance(mBook.getAuthor().getId(), mBook),
+                R.id.main_fragment_container, AddBookFragment.newInstance(mBook.getAuthor().getId(), mBook.getId()),
                 true, R.anim.right_out, R.anim.left_out);
     }
 

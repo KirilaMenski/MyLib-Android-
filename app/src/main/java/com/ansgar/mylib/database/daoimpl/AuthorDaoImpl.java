@@ -72,20 +72,7 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public List<Author> getAllAuthors() {
-        List<Author> authors = new ArrayList<>();
-        try {
-            QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
-            queryBuilder.where().eq("user_id", MyLibPreference.getUserId());
-            authors = queryBuilder.query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return authors;
-    }
-
-    @Override
-    public Author getById(long id) {
+    public Author getAuthorById(long id) {
         try {
             QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
             queryBuilder.where().eq("id", id);

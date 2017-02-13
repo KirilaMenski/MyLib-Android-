@@ -22,7 +22,7 @@ import java.util.List;
 public class Book implements Serializable, Comparator<Book> {
 
     @DatabaseField(generatedId = true, columnName = "id")
-    private long mId;
+    private int mId;
     @DatabaseField(columnName = "title")
     private String mTitle;
     @DatabaseField(columnName = "description")
@@ -61,7 +61,7 @@ public class Book implements Serializable, Comparator<Book> {
 
     }
 
-    public Book(long id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
+    public Book(int id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
                 int inList, int rating, int wasRead, Author author, User user, boolean hasSynchronized) {
         mId = id;
         mTitle = title;
@@ -80,11 +80,11 @@ public class Book implements Serializable, Comparator<Book> {
         mHasSynchronized = hasSynchronized;
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 
@@ -220,7 +220,7 @@ public class Book implements Serializable, Comparator<Book> {
     @Override
 
     public int compare(Book o1, Book o2) {
-        return (int) (o2.getId() - o1.getId());
+        return o2.getId() - o1.getId();
     }
 }
 

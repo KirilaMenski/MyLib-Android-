@@ -18,9 +18,7 @@ public interface AuthorDao {
 
     void deleteAuthor(Author author);
 
-    List<Author> getAllAuthors();
-
-    Author getById(long id);
+    Author getAuthorById(long id);
 
     Observable<List<Author>> getUserAuthors();
 

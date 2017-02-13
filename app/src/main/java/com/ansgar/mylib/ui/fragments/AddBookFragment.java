@@ -28,6 +28,7 @@ import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 import com.ansgar.mylib.util.PictureUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -78,11 +79,11 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.add_book)
     TextView mAdd;
 
-    public static AddBookFragment newInstance(int authorId, Book book) {
+    public static AddBookFragment newInstance(int authorId, int bookId) {
         AddBookFragment fragment = new AddBookFragment();
         Bundle args = new Bundle();
         args.putInt(EXTRA_AUTHOR, authorId);
-        args.putSerializable(EXTRA_BOOK, book);
+        args.putInt(EXTRA_BOOK, bookId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -93,9 +94,9 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
         mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
-        Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
-        if (book != null) {
-            mPresenter.initializeView(mAuthorId, book);
+        int bookId = getArguments().getInt(EXTRA_BOOK);
+        if (bookId != -1) {
+            mPresenter.initializeView(mAuthorId, bookId);
             mAdd.setText(getString(R.string.edit));
             mIsEdit = true;
         }
@@ -149,9 +150,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
         int yearPubl = 0;
         if (mBookPublished.length() != 0)
-            Integer.valueOf(mBookPublished.getText().toString().trim());
+            yearPubl = Integer.valueOf(mBookPublished.getText().toString().trim());
         int numSeries = 0;
-        if (mSeriesNum.length() != 0) Integer.valueOf(mSeriesNum.getText().toString().trim());
+        if (mSeriesNum.length() != 0)
+            numSeries = Integer.valueOf(mSeriesNum.getText().toString().trim());
 
         mPresenter.addBook(mIsEdit, mCoverBookBytes, mAuthorId, mBookResPath.getText().toString().trim(),
                 mBookTitle.getText().toString().trim(),
@@ -179,7 +181,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     }
 
     @Override
-    public void bookSelected(Book book) {
+    public void bookSelected(int bookId) {
 
     }
 
@@ -270,10 +272,12 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @Override
     public void updatePhotoView(File file) {
         if (!file.exists()) {
-            mCoverBook.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
-        } else {
-            Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
-            mCoverBook.setImageBitmap(bitmap);
+//            mCoverBook.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
+            Picasso.with(getContext())
+                    .load(file)
+//                    .centerCrop()
+                    .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                    .into(mCoverBook);
         }
     }
 

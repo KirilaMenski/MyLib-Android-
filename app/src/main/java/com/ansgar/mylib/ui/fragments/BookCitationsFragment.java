@@ -21,6 +21,7 @@ import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.BookCitationsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.BookCitationsFragmentView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,7 +37,7 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private BookCitationsFragmentPresenter mPresenter;
-    private CitationAdapter mAdapter;
+    private WeakReference<CitationAdapter> mAdapter;
 
     private boolean mCitEditVis;
 
@@ -47,10 +48,10 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     @BindView(R.id.recycler_citation)
     RecyclerView mCitationRec;
 
-    public static BookCitationsFragment newInstance(Book book) {
+    public static BookCitationsFragment newInstance(int bookId) {
         BookCitationsFragment fragment = new BookCitationsFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_BOOK, book);
+        args.putInt(EXTRA_BOOK, bookId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -60,8 +61,8 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        Book book = (Book) getArguments().getSerializable(EXTRA_BOOK);
-        mPresenter.initializeView(book);
+        int bookId = getArguments().getInt(EXTRA_BOOK);
+        mPresenter.initializeView(bookId);
         return view;
     }
 
@@ -101,9 +102,9 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
 
     @Override
     public void setAdapter(List<Citation> citations) {
-        mAdapter = new CitationAdapter(citations, getActivity(), mPresenter);
+        mAdapter = new WeakReference<>(new CitationAdapter(citations, getActivity(), mPresenter));
         mCitationRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCitationRec.setAdapter(mAdapter);
+        mCitationRec.setAdapter(mAdapter.get());
         mCitationRec.getAdapter().notifyDataSetChanged();
     }
 

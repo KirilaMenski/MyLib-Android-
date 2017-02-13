@@ -119,8 +119,8 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
     }
 
     @Override
-    public void bookSelected(Book book) {
-        mListener.get().bookSelected(book);
+    public void bookSelected(int bookId) {
+        mListener.get().bookSelected(bookId);
         mDialog.dismiss();
     }
 }

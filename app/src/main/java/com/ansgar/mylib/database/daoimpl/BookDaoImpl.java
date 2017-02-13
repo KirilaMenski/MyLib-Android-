@@ -76,57 +76,6 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<Book> getAllBooks() {
-        List<Book> books = new ArrayList<>();
-        try {
-            books = mDao.queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
-    }
-
-    @Override
-    public List<Book> getByGenre(String genre) {
-        try {
-            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
-            queryBuilder.where().eq("genre", genre);
-            List<Book> booksByGenre = queryBuilder.query();
-            return booksByGenre;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Book> getBooksFromReadingList(boolean inList) {
-        List<Book> books = new ArrayList<>();
-        long userId = MyLibPreference.getUserId();
-        try {
-            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
-            queryBuilder.where().eq("in_list", inList ? 1 : 0).and().eq("user_id", userId);
-            books.addAll(queryBuilder.query());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
-    }
-
-    @Override
-    public List<Book> getBooksByReadValue(int read) {
-        List<Book> books = new ArrayList<>();
-        try {
-            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
-            queryBuilder.where().eq("was_read", read).and().eq("in_list", read);
-            books.addAll(queryBuilder.query());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return books;
-    }
-
-    @Override
     public Book getBookById(long id) {
         try {
             QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
@@ -137,15 +86,6 @@ public class BookDaoImpl implements BookDao {
             e.printStackTrace();
         }
         return null;
-    }
-
-    @Override
-    public File getPhotoFile(Book book) {
-        File externalFileDir = mContext.get().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        if (externalFileDir == null) {
-            return null;
-        }
-        return new File(externalFileDir, book.getPhotoFileName());
     }
 
     @Override

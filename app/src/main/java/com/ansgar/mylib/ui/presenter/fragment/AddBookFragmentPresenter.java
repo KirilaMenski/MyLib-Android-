@@ -19,6 +19,8 @@ import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 import com.ansgar.mylib.ui.listener.PhotoDialogListener;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
 import com.ansgar.mylib.util.BitmapCover;
+import com.ansgar.mylib.util.DateUtils;
+import com.ansgar.mylib.util.FileManagerUtil;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.PictureUtils;
@@ -32,8 +34,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 /**
  * Created by kirill on 25.1.17.
@@ -55,29 +55,30 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         mView = view;
     }
 
-    public void initializeView(int authorId, Book book) {
-        mBook = book;
+    public void initializeView(int authorId, int bookId) {
+        mBook = mBookDao.getBookById(bookId);
 
-        mView.setCoverBytes(book.getCoverBytes());
-        mView.setCoverBook(book.getBitmap());
-        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName());
+        mView.setCoverBytes(mBook.getCoverBytes());
+//        mView.setCoverBook(mBook.getBitmap());
+        mView.updatePhotoView(new File(mBook.getCoverBytes()));
+        mView.setAuthorName(mBook.getAuthor().getFirstName() + "\n" + mBook.getAuthor().getLastName());
         if (authorId != -1) {
-            Author author = mAuthorDao.getById(authorId);
+            Author author = mAuthorDao.getAuthorById(authorId);
             mView.setAuthorNameById(author.getFirstName() + "\n" + author.getLastName());
         }
-        mView.setBookResPath(book.getResPath());
-        mView.setBookTitle(book.getTitle());
-        mView.setBookPublished(String.valueOf(book.getYear()));
-        mView.setBookGenre(book.getGenre());
-        mView.setSeries(book.getSeries());
-        mView.setNumbSeries(String.valueOf(book.getNumSeries()));
-        mView.setDescription(book.getDescription());
+        mView.setBookResPath(mBook.getResPath());
+        mView.setBookTitle(mBook.getTitle());
+        mView.setBookPublished(String.valueOf(mBook.getYear()));
+        mView.setBookGenre(mBook.getGenre());
+        mView.setSeries(mBook.getSeries());
+        mView.setNumbSeries(String.valueOf(mBook.getNumSeries()));
+        mView.setDescription(mBook.getDescription());
     }
 
     public void addBook(boolean isEdit, String coverBookPath, int authorId, String bookResPath,
                         String bookTitle, String genre, String series, int seriesNum,
                         int year, String description) {
-        Author author = mAuthorDao.getById(authorId);
+        Author author = mAuthorDao.getAuthorById(authorId);
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Book book = new Book();
         if (mBook != null) {
@@ -93,12 +94,14 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setDescription(description);
         book.setUser(user);
         if (mPhoto != null) {
-            book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+//            book.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
+            book.setCoverBytes(FileManagerUtil.saveFile(mView.getActivity(), mPhoto, bookTitle + DateUtils.getNewFileDate()));
         } else if (coverBookPath != null) {
             book.setCoverBytes(coverBookPath);
         } else {
-            book.setCoverBytes(BitmapCover.getStringBytes
-                    (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));
+//            book.setCoverBytes(BitmapCover.getStringBytes
+//                    (BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image)));
+            book.setCoverBytes("");
         }
         if (isEdit) {
             mBookDao.updateBook(book);
@@ -139,7 +142,6 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
     public void photoSelected(String path) {
         mPhotoFile = new File(path);
         mPhoto = PictureUtils.getScaleBitmap(mPhotoFile.getPath(), mView.getActivity());
-//        mView.updatePhotoView(mPhotoFile);
         mView.setCoverBook(mPhoto);
         mView.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
     }
@@ -152,7 +154,6 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
 
     public void updatePhoto(Bitmap bitmap) {
         mPhoto = bitmap;
-//        mView.updatePhotoView(mPhotoFile);
         mView.setCoverBook(mPhoto);
     }
 

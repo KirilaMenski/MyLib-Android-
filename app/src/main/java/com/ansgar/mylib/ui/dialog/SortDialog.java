@@ -37,7 +37,7 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
 
     private SortDialogPresenter mPresenter;
     private Dialog mDialog;
-    private SortTypeAdapter mAdapter;
+    private WeakReference<SortTypeAdapter> mAdapter;
     private WeakReference<SortDialogListener> mListener;
 
     private String mType;
@@ -91,9 +91,9 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
 
     @Override
     public void setAdapter() {
-        mAdapter = new SortTypeAdapter(mType, this, getActivity());
+        mAdapter = new WeakReference<>(new SortTypeAdapter(mType, this, getActivity()));
         mSortTypesRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSortTypesRec.setAdapter(mAdapter);
+        mSortTypesRec.setAdapter(mAdapter.get());
     }
 
     @Override

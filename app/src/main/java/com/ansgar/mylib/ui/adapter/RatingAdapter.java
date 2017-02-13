@@ -30,7 +30,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
     private int mRating;
 
     public RatingAdapter(int rating, FragmentActivity fragmentActivity, RatingAdapterListener listener) {
-        mFragmentActivity = new WeakReference<FragmentActivity>(fragmentActivity);
+        mFragmentActivity = new WeakReference<>(fragmentActivity);
         mListener = new WeakReference<>(listener);
         mRating = rating;
     }

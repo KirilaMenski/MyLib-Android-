@@ -23,6 +23,7 @@ import com.ansgar.mylib.ui.pager.BookCitationsPager;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +68,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
             @Override
             public void onClick(View v) {
                 if (mFromReadList || mLandscape) {
-                    mListener.get().bookSelected(book);
+                    mListener.get().bookSelected(book.getId());
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
-                            R.id.main_fragment_container, BookCitationsPager.newInstance(book),
+                            R.id.main_fragment_container, BookCitationsPager.newInstance(book.getId()),
                             true, R.anim.right_out, R.anim.left_out);
                 }
             }
@@ -79,7 +80,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
             @Override
             public boolean onLongClick(View v) {
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
-                        R.id.main_fragment_container, BookCitationsPager.newInstance(book),
+                        R.id.main_fragment_container, BookCitationsPager.newInstance(book.getId()),
                         true, R.anim.right_out, R.anim.left_out);
                 return true;
             }
@@ -144,7 +145,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         }
 
         public void bindViews(Book book) {
-            setBookCover(book.getBitmap());
+//            setBookCover(book.getBitmap());
+            Picasso.with(mFragmentActivity.get())
+                    .load(new File(book.getCoverBytes()))
+//                    .centerCrop()
+                    .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.spinner_gray_circle))
+                    .into(mBookCover);
         }
 
         private void setBookCover(Bitmap bitmap) {

@@ -1,21 +1,14 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.util.Log;
-
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
-import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
-import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.view.dialog.SelectEntityDialogView;
-import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.ArrayList;
 import java.util.List;

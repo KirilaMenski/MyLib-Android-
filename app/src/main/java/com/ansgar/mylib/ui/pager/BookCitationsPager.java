@@ -10,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.BookCitationsFragment;
-import com.ansgar.mylib.ui.fragments.AuthorDetailsFragment;
 import com.ansgar.mylib.ui.fragments.BookDetailsFragment;
 import com.ansgar.mylib.ui.presenter.fragment.BookCitationsPagerPresenter;
 import com.ansgar.mylib.ui.view.fragment.BookCitationsPagerView;
@@ -33,15 +31,15 @@ public class BookCitationsPager extends BaseFragment implements BookCitationsPag
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.pager.book";
 
     private BookCitationsPagerPresenter mPresenter;
-    private Book mBook;
+    private int mBookId;
 
     @BindView(R.id.author_books_pager)
     ViewPager mAuthorBooksPager;
 
-    public static BookCitationsPager newInstance(Book book) {
+    public static BookCitationsPager newInstance(int bookId) {
         BookCitationsPager pager = new BookCitationsPager();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_BOOK, book);
+        args.putInt(EXTRA_BOOK, bookId);
         pager.setArguments(args);
         return pager;
     }
@@ -51,7 +49,7 @@ public class BookCitationsPager extends BaseFragment implements BookCitationsPag
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mBook = (Book) getArguments().getSerializable(EXTRA_BOOK);
+        mBookId = getArguments().getInt(EXTRA_BOOK);
         return view;
     }
 
@@ -65,8 +63,8 @@ public class BookCitationsPager extends BaseFragment implements BookCitationsPag
         return new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if (position == 0) return BookDetailsFragment.newInstance(mBook);
-                if (position == 1) return BookCitationsFragment.newInstance(mBook);
+                if (position == 0) return BookDetailsFragment.newInstance(mBookId);
+                if (position == 1) return BookCitationsFragment.newInstance(mBookId);
                 return null;
             }
 

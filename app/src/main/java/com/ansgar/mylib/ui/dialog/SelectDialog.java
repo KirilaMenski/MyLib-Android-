@@ -39,7 +39,7 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
 
     private WeakReference<SelectDialogListener> mListener;
     private SelectDialogPresenter mPresenter;
-    private SelectAdapter mAdapter;
+    private WeakReference<SelectAdapter> mAdapter;
     private Dialog mDialog;
     private String mType;
 
@@ -92,9 +92,9 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
 
     @Override
     public void setAdapter(List<String> value) {
-        mAdapter = new SelectAdapter(value, getActivity(), this, mType);
+        mAdapter = new WeakReference<>(new SelectAdapter(value, getActivity(), this, mType));
         mValueRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mValueRec.setAdapter(mAdapter);
+        mValueRec.setAdapter(mAdapter.get());
     }
 
     public void setListener(SelectDialogListener listener) {

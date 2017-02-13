@@ -56,10 +56,10 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     @BindView(R.id.handle_author)
     TextView mAdd;
 
-    public static AddAuthorFragment newInstance(Author author) {
+    public static AddAuthorFragment newInstance(int authorId) {
         AddAuthorFragment fragment = new AddAuthorFragment();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_AUTHOR, author);
+        args.putInt(EXTRA_AUTHOR, authorId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,8 +69,8 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
         ButterKnife.bind(this, view);
-        Author author = (Author) getArguments().getSerializable(EXTRA_AUTHOR);
-        if (author != null) {
+        int author = getArguments().getInt(EXTRA_AUTHOR);
+        if (author != -1) {
             mPresenter.initializeView(author);
             mAdd.setText(getString(R.string.edit));
             mEdit = true;

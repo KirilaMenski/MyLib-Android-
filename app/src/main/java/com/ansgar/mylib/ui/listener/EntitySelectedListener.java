@@ -11,6 +11,6 @@ public interface EntitySelectedListener {
 
     void authorSelected(int authorId, String firstName, String lastName);
 
-    void bookSelected(Book book);
+    void bookSelected(int bookId);
 
 }

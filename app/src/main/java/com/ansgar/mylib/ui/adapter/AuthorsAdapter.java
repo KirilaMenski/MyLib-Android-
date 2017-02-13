@@ -73,7 +73,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                     mListener.get().authorSelected(author.getId(), author.getFirstName(), author.getLastName());
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
-                            R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
+                            R.id.main_fragment_container, AuthorBooksPager.newInstance(author.getId()),
                             true, R.anim.right_out, R.anim.left_out);
                 }
             }
@@ -83,7 +83,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             public boolean onLongClick(View view) {
                 MyLibPreference.saveAuthorId(author.getId());
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
-                        R.id.main_fragment_container, AuthorBooksPager.newInstance(author),
+                        R.id.main_fragment_container, AuthorBooksPager.newInstance(author.getId()),
                         true, R.anim.right_out, R.anim.left_out);
                 return true;
             }

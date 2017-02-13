@@ -1,7 +1,9 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
+import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.CitationDao;
 import com.ansgar.mylib.database.dao.UserDao;
+import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.daoimpl.CitationDaoImpl;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
@@ -25,14 +27,15 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     private Book mBook;
     private UserDao mUserDao = UserDaoImpl.getInstance();
     private CitationDao mCitationDao = CitationDaoImpl.getInstance();
+    private BookDao mBookDao = BookDaoImpl.getInstance();
 
     public BookCitationsFragmentPresenter(BookCitationsFragmentView view) {
         super(view.getContext());
         mView = view;
     }
 
-    public void initializeView(Book book) {
-        mBook = (book != null) ? book : new Book();
+    public void initializeView(int bookId) {
+        mBook = (bookId != -1) ? mBookDao.getBookById(bookId) : new Book();
     }
 
     public void loadCitation() {

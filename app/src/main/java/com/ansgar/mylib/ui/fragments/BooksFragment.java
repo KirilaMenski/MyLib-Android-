@@ -110,7 +110,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         super.onStart();
         if (mBookCitations != null) {
             mLandscape = true;
-            showBookCitations(null);
+            showBookCitations(-1);
         }
         mPresenter.loadBooks(mAuthorId, MyLibPreference.getBookSortType());
     }
@@ -149,7 +149,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @OnClick(R.id.add_data)
     public void addBook() {
         FragmentUtil.replaceAnimFragment(getActivity(), R.id.main_fragment_container,
-                AddBookFragment.newInstance(mAuthorId, null), true, R.anim.right_out, R.anim.left_out);
+                AddBookFragment.newInstance(mAuthorId, -1), true, R.anim.right_out, R.anim.left_out);
     }
 
     @OnClick(R.id.cancel)
@@ -208,12 +208,12 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     }
 
     @Override
-    public void bookSelected(Book book) {
-        showBookCitations(book);
+    public void bookSelected(int bookId) {
+        showBookCitations(bookId);
     }
 
-    private void showBookCitations(Book book) {
-        FragmentUtil.replaceFragment(getActivity(), R.id.book_citations_container_layout, BookCitationsFragment.newInstance(book), false);
+    private void showBookCitations(int bookId) {
+        FragmentUtil.replaceFragment(getActivity(), R.id.book_citations_container_layout, BookCitationsFragment.newInstance(bookId), false);
     }
 
 }

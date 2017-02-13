@@ -63,7 +63,7 @@ public class ReadingListAdapter extends RecyclerView.Adapter<ReadingListAdapter.
             @Override
             public void onClick(View v) {
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(), R.id.main_fragment_container,
-                        BookCitationsPager.newInstance(book), true, R.anim.right_out, R.anim.left_out);
+                        BookCitationsPager.newInstance(book.getId()), true, R.anim.right_out, R.anim.left_out);
             }
         });
         holder.mStatus.setOnClickListener(new View.OnClickListener() {
