@@ -1,27 +1,5 @@
 package com.ansgar.mylib.ui.dialog;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.listener.FileManagerDialogListener;
 
@@ -36,6 +14,27 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by kirill on 31.1.17.
@@ -53,7 +52,8 @@ public class FileManagerDialog extends AlertDialog.Builder {
 
     private FilenameFilter mFileNameFilter;
 
-    private String mCurrentPath = Environment.getRootDirectory().getAbsolutePath();
+//    private String mCurrentPath = Environment.getRootDirectory().getAbsolutePath();
+    private String mCurrentPath = Environment.getExternalStorageDirectory().toString();
     private String mFile;
 
     private List<File> mFiles = new ArrayList<>();

@@ -1,14 +1,12 @@
 package com.ansgar.mylib.util;
 
-import android.app.Activity;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Created by kirill on 13.2.17.
@@ -16,7 +14,7 @@ import java.io.OutputStream;
 
 public class FileManagerUtil {
 
-    private static final String SD_PATH = "/MyLib/booksCover/";
+    private static final String SD_PATH = "/MyLib/booksCover";
 
     public static String saveFile(Bitmap image, String fileName) {
         String path;
@@ -25,7 +23,7 @@ public class FileManagerUtil {
         File filepath = Environment.getExternalStorageDirectory();
 
         File dir = new File(filepath + SD_PATH);
-        dir.mkdir();
+        dir.mkdirs();
         File file = new File(dir, fileName + ".png");
 
         try {

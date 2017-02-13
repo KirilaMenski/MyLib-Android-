@@ -2,7 +2,6 @@ package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -35,13 +34,6 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     public void loadBooks(int authorId, final int pos) {
         mAuthorId = authorId;
         mView.setProgressBarVis(true);
-//        if((author == null)){
-//            user.getBooks();
-//        } else {
-//            books = mBookDao.getBookDataObs(author);
-//        }
-//        books = (author == null) ? user.getBooks() : author.getAuthorBooks();
-//        if (author == null) {
         Observable<List<Book>> observable = (authorId == -1) ? mBookDao.getUserBooks() : mBookDao.getUserBooksByAuthorId(authorId);
         Observer<List<Book>> observer = new Observer<List<Book>>() {
             @Override
@@ -102,10 +94,6 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
             }
         };
         bindObservable(observable, observer);
-//        } else {
-//            allBooks = author.getAuthorBooks();
-//            setVisView();
-//        }
     }
 
     @Override

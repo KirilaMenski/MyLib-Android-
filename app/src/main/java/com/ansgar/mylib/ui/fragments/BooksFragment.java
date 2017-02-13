@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.adapter.BooksAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
@@ -31,7 +30,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -181,13 +179,15 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     public void setAdapter(List<Book> books) {
         mAdapter = new WeakReference<>(new BooksAdapter(books, getActivity(), false, mLandscape));
         mAdapter.get().setListener(this);
-        mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
-        mBooksRecycler.setAdapter(mAdapter.get());
+        if (mBooksRecycler != null) {
+            mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
+            mBooksRecycler.setAdapter(mAdapter.get());
+        }
     }
 
     @Override
     public void setLayoutVisibility(boolean vis) {
-        mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if (mNoItemLayout != null) mNoItemLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
         if (mBooksScreen != null) mBooksScreen.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 
@@ -198,7 +198,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @Override
     public void setProgressBarVis(boolean vis) {
-        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if (mProgressBar != null) mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
         if (mBooksScreen != null) mBooksScreen.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 

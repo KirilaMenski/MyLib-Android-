@@ -1,17 +1,19 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.adapter.RatingAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.BookDetailsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.BookDetailsFragmentView;
+import com.squareup.picasso.Picasso;
 
-import android.graphics.Bitmap;
+import java.io.File;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -118,8 +120,11 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     }
 
     @Override
-    public void setBookCover(Bitmap cover) {
-        mBookCover.setImageBitmap(cover);
+    public void setBookCover(String cover) {
+        Picasso.with(getContext())
+                .load(new File(cover))
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                .into(mBookCover);
     }
 
     @Override

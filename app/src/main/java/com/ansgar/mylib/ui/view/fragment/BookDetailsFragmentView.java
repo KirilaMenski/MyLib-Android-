@@ -2,8 +2,6 @@ package com.ansgar.mylib.ui.view.fragment;
 
 import com.ansgar.mylib.ui.base.BaseContextView;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by kirill on 30.1.17.
  */
@@ -11,7 +9,7 @@ public interface BookDetailsFragmentView extends BaseContextView {
 
     void setScreenTitle(String title);
 
-    void setBookCover(Bitmap cover);
+    void setBookCover(String cover);
 
     void setAuthorName(String authorName);
 
