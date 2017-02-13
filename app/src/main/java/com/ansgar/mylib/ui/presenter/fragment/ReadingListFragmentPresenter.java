@@ -31,12 +31,12 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
     }
 
     public void loadList(boolean inList) {
-
-//        List<Book> books = mBookDao.getBooksFromReadingList(inList);
+        mView.setProgressBarVis(true);
         Observable<List<Book>> observable = mBookDao.getUserBooksFromReadingList(inList);
         Observer<List<Book>> observer = new Observer<List<Book>>() {
             @Override
             public void onCompleted() {
+                mView.setProgressBarVis(false);
                 if (mAllBooks.size() == 0) {
                     mView.setLayoutVisibility(true);
                 } else {
@@ -56,7 +56,6 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
             }
         };
         bindObservable(observable, observer);
-//        bindObservableWithoutComposite(observable, observer);
     }
 
     public void addBookToList(Book book) {

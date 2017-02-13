@@ -34,6 +34,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
 
     public void loadBooks(int authorId, final int pos) {
         mAuthorId = authorId;
+        mView.setProgressBarVis(true);
 //        if((author == null)){
 //            user.getBooks();
 //        } else {
@@ -41,7 +42,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
 //        }
 //        books = (author == null) ? user.getBooks() : author.getAuthorBooks();
 //        if (author == null) {
-        Observable<List<Book>> observable = (authorId != -1) ? mBookDao.getUserBooks() : mBookDao.getUserBooksByAuthorId(authorId);
+        Observable<List<Book>> observable = (authorId == -1) ? mBookDao.getUserBooks() : mBookDao.getUserBooksByAuthorId(authorId);
         Observer<List<Book>> observer = new Observer<List<Book>>() {
             @Override
             public void onCompleted() {
@@ -86,6 +87,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                         });
                         break;
                 }
+                mView.setProgressBarVis(false);
                 setVisView();
             }
 

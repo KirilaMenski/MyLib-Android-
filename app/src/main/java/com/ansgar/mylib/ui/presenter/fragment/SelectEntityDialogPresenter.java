@@ -64,7 +64,7 @@ public class SelectEntityDialogPresenter extends BasePresenter {
             bindObservable(observable, observer);
         }
         if (type.equals(BOOKS)) {
-            Observable<List<Book>> observable = mBookDao.getUserBooksByReadValue(0);
+            Observable<List<Book>> observable = mBookDao.getUserBooksFromReadingList(false);
             Observer<List<Book>> observer = new Observer<List<Book>>() {
                 @Override
                 public void onCompleted() {

@@ -46,6 +46,8 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private ReadingListFragmentPresenter mPresenter;
     private WeakReference<ReadingListAdapter> mAdapter;
 
+    @BindView(R.id.progress_bar_layout)
+    LinearLayout mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -169,7 +171,12 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     }
 
     @Override
-    public void authorSelected(Author author) {
+    public void setProgressBarVis(boolean vis) {
+        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void authorSelected(int authorId, String firstName, String lastName) {
 
     }
 

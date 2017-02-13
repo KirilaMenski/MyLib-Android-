@@ -18,6 +18,11 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
+    <include
+        layout="@layout/layout_progress"
+        android:visibility="gone"
+        tools:visiblity="visible"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_reading_list"
         android:layout_width="match_parent"

@@ -142,7 +142,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @OnClick(R.id.add_book)
     public void addBook() {
 
-        if (mAuthorId != -1) {
+        if (mAuthorId == -1) {
             Toast.makeText(getContext(), getString(R.string.author_not_selected), Toast.LENGTH_SHORT).show();
             return;
         }

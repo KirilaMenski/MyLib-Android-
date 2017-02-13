@@ -17,6 +17,10 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
+    <include
+        layout="@layout/layout_progress"
+        android:visibility="gone"
+        tools:visiblity="visible"/>
 
     <LinearLayout
         android:id="@+id/books_screen"

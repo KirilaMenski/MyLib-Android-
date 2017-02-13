@@ -48,6 +48,8 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     private AuthorsAdapter mAdapter;
     private boolean mLandscape;
 
+    @BindView(R.id.progress_bar_layout)
+    LinearLayout mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -175,6 +177,13 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     @Override
+    public void setProgressBarVis(boolean vis) {
+        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if (mSecondFrameLayout != null)
+            mSecondFrameLayout.setVisibility(vis ? View.GONE : View.VISIBLE);
+    }
+
+    @Override
     public void setAuthorAdapter(List<Author> authors) {
         mAdapter = new AuthorsAdapter(authors, getActivity(), false, mLandscape);
         mAdapter.setListener(this);
@@ -184,8 +193,8 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     @Override
-    public void authorSelected(Author author) {
-        mPresenter.selectAuthorBooks(author);
+    public void authorSelected(int authorId, String firstName, String lastName) {
+        mPresenter.selectAuthorBooks(authorId);
     }
 
     @Override

@@ -56,6 +56,8 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private boolean mLandscape;
     private boolean mAuthorBooks;
 
+    @BindView(R.id.progress_bar_layout)
+    LinearLayout mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -192,6 +194,12 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @Override
     public void setSearchVisibility(boolean vis) {
         mSearchLayout.setVisibility(vis ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setProgressBarVis(boolean vis) {
+        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
+        if (mBooksScreen != null) mBooksScreen.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 
     @Override

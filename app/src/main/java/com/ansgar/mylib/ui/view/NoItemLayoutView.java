@@ -10,4 +10,6 @@ public interface NoItemLayoutView {
 
     void setSearchVisibility(boolean vis);
 
+    void setProgressBarVis(boolean vis);
+
 }

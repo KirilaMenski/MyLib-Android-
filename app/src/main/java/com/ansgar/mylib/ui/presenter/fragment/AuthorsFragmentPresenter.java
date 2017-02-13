@@ -40,6 +40,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     }
 
     public void loadAuthors(final int pos) {
+        mView.setProgressBarVis(true);
         Observable<List<Author>> observable = mAuthorsDao.getUserAuthors();
         Observer<List<Author>> observer = new Observer<List<Author>>() {
             @Override
@@ -67,6 +68,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
                         });
                         break;
                 }
+                mView.setProgressBarVis(false);
                 if (mAllAuthors.size() == 0) {
                     mView.setLayoutVisibility(true);
                 } else {
@@ -90,11 +92,11 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     }
 
     public void replaceFragment(){
-        selectAuthorBooks(mAuthorsDao.getById(MyLibPreference.getAuthorId()));
+        selectAuthorBooks(MyLibPreference.getAuthorId());
     }
 
-    public void selectAuthorBooks(Author author) {
-        FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(author, false, true), false);
+    public void selectAuthorBooks(int authorId) {
+        FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(authorId, false, true), false);
     }
 
     @Override

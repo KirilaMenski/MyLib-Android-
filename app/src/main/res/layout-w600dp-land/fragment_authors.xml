@@ -17,6 +17,11 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
+    <include
+        layout="@layout/layout_progress"
+        android:visibility="gone"
+        tools:visiblity="visible"/>
+
     <LinearLayout
         android:id="@+id/authors_screen"
         android:layout_width="match_parent"
