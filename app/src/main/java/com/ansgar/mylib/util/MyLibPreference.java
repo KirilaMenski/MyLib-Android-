@@ -24,6 +24,7 @@ public class MyLibPreference {
     private static final String DEFAULT_STRING_VALUE = "";
     private static final int DEFAULT_INT = 0;
     private static final int DEFAULT_USER = -1;
+    private static final int DEFAULT_AUTHOR = -1;
 
     private static final String CURRENT_USER = "current_user";
     private static final String CURRENT_LANG = "current_language";
@@ -151,7 +152,7 @@ public class MyLibPreference {
     }
 
     public static int getAuthorId() {
-        return mPreference.getInt(AUTHOR_ID, DEFAULT_INT);
+        return mPreference.getInt(AUTHOR_ID, DEFAULT_AUTHOR);
     }
 
     public static void clearData() {

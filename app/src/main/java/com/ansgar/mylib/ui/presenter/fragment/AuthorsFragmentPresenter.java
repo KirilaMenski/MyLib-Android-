@@ -92,7 +92,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     }
 
     public void replaceFragment(){
-        selectAuthorBooks(MyLibPreference.getAuthorId());
+        selectAuthorBooks(MyLibPreference.getAuthorId() != -1 ? MyLibPreference.getAuthorId() : mAllAuthors.get(0).getId());
     }
 
     public void selectAuthorBooks(int authorId) {
