@@ -5,8 +5,11 @@ import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.AddAuthorFragment;
 import com.ansgar.mylib.ui.fragments.AddBookFragment;
+import com.ansgar.mylib.ui.fragments.AuthorsFragment;
+import com.ansgar.mylib.ui.fragments.BooksFragment;
 import com.ansgar.mylib.ui.fragments.MapFragment;
 import com.ansgar.mylib.ui.fragments.ProfileFragment;
+import com.ansgar.mylib.ui.fragments.ReadingListFragment;
 import com.ansgar.mylib.ui.fragments.SettingsFragment;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
@@ -30,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +65,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     RelativeLayout mProfileRl;
     @BindView(R.id.main_fragment_container)
     FrameLayout mFrameLayout;
+    @BindView(R.id.footer)
+    LinearLayout mFooter;
+    @BindView(R.id.authors)
+    ImageView mAuthorsScreen;
+    @BindView(R.id.books)
+    ImageView mBooksScreen;
+    @BindView(R.id.reading_list)
+    ImageView mReadingList;
 
     ActionBarDrawerToggle mToggle;
 
@@ -84,7 +96,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 //        TranslucenStatusBarUtils.setTranslucentStatusBar(getWindow(), this);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
         if (savedInstanceState == null) {
-            FragmentUtil.replaceFragment(this, R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+            FragmentUtil.replaceFragment(this, R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
+            setFooterVis(true);
         } else {
             mBackStackSize = savedInstanceState.getInt(BACK_STACK_SIZE);
         }
@@ -106,24 +119,38 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     public void openProfile() {
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ProfileFragment.newInstance(), false);
         mDrawer.closeDrawers();
+        setFooterVis(false);
     }
 
-    @OnClick(R.id.tv_my_lib)
+    @OnClick({R.id.tv_my_lib, R.id.authors})
     public void openMyLib() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(), false);
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         mDrawer.closeDrawers();
+        setFooterVis(true);
+    }
+
+    @OnClick(R.id.books)
+    public void openBooksFragment() {
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false), false);
+    }
+
+    @OnClick(R.id.reading_list)
+    public void openReadingList() {
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ReadingListFragment.newInstance(), false);
     }
 
     @OnClick(R.id.tv_users)
     public void openUsers() {
 //        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
         mDrawer.closeDrawers();
+        setFooterVis(false);
     }
 
     @OnClick(R.id.tv_settings)
     public void openSettings() {
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, SettingsFragment.newInstance(), false);
         mDrawer.closeDrawers();
+        setFooterVis(false);
     }
 
     @OnClick(R.id.tv_map)
@@ -131,6 +158,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         if (NetWorkUtils.isNetworkConnected(getContext())) {
             FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
             mDrawer.closeDrawers();
+            setFooterVis(false);
         } else {
             Toast.makeText(getContext(), getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
         }
@@ -183,6 +211,11 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                 .centerCrop()
                 .placeholder(R.drawable.ic_default_avatar)
                 .into(mAvatar);
+    }
+
+    @Override
+    public void setFooterVis(boolean vis) {
+        mFooter.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
     @Override
