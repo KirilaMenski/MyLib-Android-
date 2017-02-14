@@ -6,8 +6,11 @@ import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
 import com.ansgar.mylib.database.entity.User;
+import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.fragments.AuthorsFragment;
+import com.ansgar.mylib.ui.fragments.BooksFragment;
 import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.view.fragment.ProfileFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
@@ -45,17 +48,21 @@ public class ProfileFragmentPresenter extends BasePresenter {
     }
 
     public void openFragment(String fragment) {
+        //TODO
+        MainActivity activity = (MainActivity) mView.getActivity();
         if (fragment.equals(AUTHOR_FRAGMENT)) {
             MyLibPreference.saveCurrentLibPage(0);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                    R.id.main_fragment_container, MyLibraryFragment.newInstance(),
+                    R.id.main_fragment_container, AuthorsFragment.newInstance(),
                     false, R.anim.right_out, R.anim.left_out);
+            activity.setFooterVis(true);
         }
         if (fragment.equals(BOOK_FRAGMENT)) {
             MyLibPreference.saveCurrentLibPage(1);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                    R.id.main_fragment_container, MyLibraryFragment.newInstance(),
+                    R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false),
                     false, R.anim.right_out, R.anim.left_out);
+            activity.setFooterVis(true);
         }
     }
 }
