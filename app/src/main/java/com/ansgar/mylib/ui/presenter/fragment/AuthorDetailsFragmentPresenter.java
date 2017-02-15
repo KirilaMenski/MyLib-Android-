@@ -10,6 +10,8 @@ import com.ansgar.mylib.ui.fragments.AddAuthorFragment;
 import com.ansgar.mylib.ui.view.fragment.AuthorDetailsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 
+import java.io.File;
+
 import android.support.v4.app.FragmentActivity;
 
 /**
@@ -31,7 +33,7 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
         mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
         mView.setAuthorName(mAuthor.getFirstName() + " " + mAuthor.getLastName());
         mView.setAuthorBiography(mAuthor.getBiography());
-        mView.setAuthorImage(mAuthor.getBitmap());
+        mView.setAuthorImage(new File(mAuthor.getCoverBytes()));
     }
 
     @Override

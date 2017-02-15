@@ -1,7 +1,5 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.support.v4.app.FragmentActivity;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
@@ -11,10 +9,11 @@ import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.AuthorsFragment;
 import com.ansgar.mylib.ui.fragments.BooksFragment;
-import com.ansgar.mylib.ui.pager.MyLibraryFragment;
 import com.ansgar.mylib.ui.view.fragment.ProfileFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+
+import android.support.v4.app.FragmentActivity;
 
 /**
  * Created by kirill on 24.1.17.
@@ -38,8 +37,8 @@ public class ProfileFragmentPresenter extends BasePresenter {
         mView.setScreenTitle(mUser.getFirstName() + "\n" + mUser.getLastName());
         mView.setUserAvatar(mUser.getCoverBytes());
         mView.setUserEmail(mUser.getEmail());
-        mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthors().size()));
-        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
+//        mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthors().size()));
+//        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
     }
 
     @Override

@@ -198,7 +198,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @Override
     public void setProgressBarVis(boolean vis) {
-        if (mProgressBar != null) mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
+        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
         if (mBooksScreen != null) mBooksScreen.setVisibility(vis ? View.GONE : View.VISIBLE);
     }
 

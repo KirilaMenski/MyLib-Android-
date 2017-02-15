@@ -37,24 +37,26 @@ public class SelectEntityDialogPresenter extends BasePresenter {
 
     public void loadEntity(String type) {
         if (type.equals(AUTHORS)) {
-            Observable<List<Author>> observable = mAuthorDao.getUserAuthors();
-            Observer<List<Author>> observer = new Observer<List<Author>>() {
-                @Override
-                public void onCompleted() {
-                    mView.setAuthorsAdapter(mAllAuthors);
-                }
-
-                @Override
-                public void onError(Throwable e) {
-
-                }
-
-                @Override
-                public void onNext(List<Author> authors) {
-                    mAllAuthors = authors;
-                }
-            };
-            bindObservable(observable, observer);
+//            Observable<List<Author>> observable = mAuthorDao.getUserAuthors();
+//            Observer<List<Author>> observer = new Observer<List<Author>>() {
+//                @Override
+//                public void onCompleted() {
+//                    mView.setAuthorsAdapter(mAllAuthors);
+//                }
+//
+//                @Override
+//                public void onError(Throwable e) {
+//
+//                }
+//
+//                @Override
+//                public void onNext(List<Author> authors) {
+//                    mAllAuthors = authors;
+//                }
+//            };
+//            bindObservable(observable, observer);
+            mAllAuthors = mAuthorDao.getAuthors();
+            mView.setAuthorsAdapter(mAllAuthors);
         }
         if (type.equals(BOOKS)) {
             Observable<List<Book>> observable = mBookDao.getUserBooksFromReadingList(false);

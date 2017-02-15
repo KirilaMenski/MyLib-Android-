@@ -16,7 +16,11 @@ import com.ansgar.mylib.ui.view.fragment.BookCitationsFragmentView;
 import com.ansgar.mylib.util.DateUtils;
 import com.ansgar.mylib.util.MyLibPreference;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by kirill on 30.1.17.
@@ -28,6 +32,7 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     private UserDao mUserDao = UserDaoImpl.getInstance();
     private CitationDao mCitationDao = CitationDaoImpl.getInstance();
     private BookDao mBookDao = BookDaoImpl.getInstance();
+    List<Citation> mCitations = new ArrayList<>();
 
     public BookCitationsFragmentPresenter(BookCitationsFragmentView view) {
         super(view.getContext());
@@ -39,8 +44,27 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     }
 
     public void loadCitation() {
-        List<Citation> citations = mBook.getBookCitations();
-        mView.setAdapter(citations);
+
+
+        Observable<List<Citation>> observable = mCitationDao.getBookCitations(mBook.getId());
+        Observer<List<Citation>> observer = new Observer<List<Citation>>() {
+            @Override
+            public void onCompleted() {
+                mView.setAdapter(mCitations);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Citation> citations) {
+                mCitations = citations;
+            }
+        };
+        bindObservable(observable, observer);
+
     }
 
     public void addNewCitation(String text) {

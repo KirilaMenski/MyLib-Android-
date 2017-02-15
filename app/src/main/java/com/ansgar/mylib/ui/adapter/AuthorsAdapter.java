@@ -6,25 +6,23 @@ import com.ansgar.mylib.ui.listener.EntitySelectedListener;
 import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,7 +40,6 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     private boolean mCreateBook;
     private boolean mLandscape;
     private WeakReference<EntitySelectedListener> mListener;
-    private int mLastPosition = 0;
 
     public AuthorsAdapter(List<Author> authors, FragmentActivity fragmentActivity, boolean isCreateBook, boolean landscape) {
         mAuthors = authors;
@@ -63,7 +60,6 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     public void onBindViewHolder(AuthorsHolder holder, int position) {
         final Author author = mAuthors.get(position);
         holder.bindViews(author);
-//        animateItem(holder, position);
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,14 +84,6 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
                 return true;
             }
         });
-    }
-
-    private void animateItem(AuthorsHolder holder, int position) {
-        Animation animation = AnimationUtils.loadAnimation(mFragmentActivity.get(),
-                (position > mLastPosition) ? R.anim.up_from_bottom
-                        : R.anim.down_from_top);
-        holder.itemView.startAnimation(animation);
-        mLastPosition = position;
     }
 
     @Override
@@ -168,14 +156,17 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         }
 
         public void bindViews(Author author) {
-            setAuthorIcon(author.getBitmap());
+            setAuthorIcon(author.getCoverBytes());
             mAuthorName.setText(author.getFirstName() + " " + author.getLastName());
-            mBooksCount.setText(mFragmentActivity.get()
-                    .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
+//            mBooksCount.setText(mFragmentActivity.get()
+//                    .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
         }
 
-        private void setAuthorIcon(Bitmap bitmap) {
-            mAuthorIconLeft.setImageBitmap(bitmap);
+        private void setAuthorIcon(String icon) {
+            Picasso.with(mFragmentActivity.get())
+                    .load(new File(icon))
+                    .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.spinner_gray_circle))
+                    .into(mAuthorIconLeft);
         }
 
     }

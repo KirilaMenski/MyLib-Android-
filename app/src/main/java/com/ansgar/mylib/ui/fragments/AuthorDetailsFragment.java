@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -9,7 +8,8 @@ import com.ansgar.mylib.ui.presenter.fragment.AuthorDetailsFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AuthorDetailsFragmentView;
 import com.squareup.picasso.Picasso;
 
-import android.graphics.Bitmap;
+import java.io.File;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -103,8 +103,12 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
     }
 
     @Override
-    public void setAuthorImage(Bitmap img) {
-        mAuthorImage.setImageBitmap(img);
+    public void setAuthorImage(File authorIcon) {
+//        mAuthorImage.setImageBitmap(img);
+        Picasso.with(getContext())
+                .load(authorIcon)
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                .into(mAuthorImage);
     }
 
     @Override

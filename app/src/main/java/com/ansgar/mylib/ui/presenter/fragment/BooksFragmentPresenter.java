@@ -38,49 +38,8 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
         Observer<List<Book>> observer = new Observer<List<Book>>() {
             @Override
             public void onCompleted() {
-                switch (pos) {
-                    case 0:
-                        Collections.sort(allBooks, new Book() {
-                            @Override
-                            public int compare(Book o1, Book o2) {
-                                String title1 = o1.getTitle().toLowerCase().trim();
-                                String title2 = o2.getTitle().toLowerCase().trim();
-                                return title1.compareTo(title2);
-                            }
-                        });
-                        break;
-                    case 1:
-                        Collections.sort(allBooks, new Book());
-                        break;
-                    case 2:
-                        Collections.sort(allBooks, new Book() {
-                            @Override
-                            public int compare(Book o1, Book o2) {
-                                return (o2.getRating() - o1.getRating());
-                            }
-                        });
-                        break;
-                    case 3:
-                        Collections.sort(allBooks, new Book() {
-                            @Override
-                            public int compare(Book o1, Book o2) {
-                                String genre1 = o1.getGenre().toLowerCase().trim();
-                                String genre2 = o2.getGenre().toLowerCase().trim();
-                                return genre1.compareTo(genre2);
-                            }
-                        });
-                        break;
-                    case 4:
-                        Collections.sort(allBooks, new Book() {
-                            @Override
-                            public int compare(Book o1, Book o2) {
-                                return (o2.getYear() - o1.getYear());
-                            }
-                        });
-                        break;
-                }
-                mView.setProgressBarVis(false);
                 setVisView();
+                mView.setProgressBarVis(false);
             }
 
             @Override
@@ -91,6 +50,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
             @Override
             public void onNext(List<Book> books) {
                 allBooks = books;
+                sortList(pos);
             }
         };
         bindObservable(observable, observer);
@@ -104,7 +64,8 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     @Override
     public void sortTypePosition(int pos) {
         MyLibPreference.saveBookSortType(pos);
-        loadBooks(mAuthorId, pos);
+//        loadBooks(mAuthorId, pos);
+        sortList(pos);
     }
 
     private void setVisView() {
@@ -113,6 +74,50 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
         } else {
             mView.setLayoutVisibility(false);
             mView.setAdapter(allBooks);
+        }
+    }
+
+    private void sortList(int pos) {
+        switch (pos) {
+            case 0:
+                Collections.sort(allBooks, new Book() {
+                    @Override
+                    public int compare(Book o1, Book o2) {
+                        String title1 = o1.getTitle().toLowerCase().trim();
+                        String title2 = o2.getTitle().toLowerCase().trim();
+                        return title1.compareTo(title2);
+                    }
+                });
+                break;
+            case 1:
+                Collections.sort(allBooks, new Book());
+                break;
+            case 2:
+                Collections.sort(allBooks, new Book() {
+                    @Override
+                    public int compare(Book o1, Book o2) {
+                        return (o2.getRating() - o1.getRating());
+                    }
+                });
+                break;
+            case 3:
+                Collections.sort(allBooks, new Book() {
+                    @Override
+                    public int compare(Book o1, Book o2) {
+                        String genre1 = o1.getGenre().toLowerCase().trim();
+                        String genre2 = o2.getGenre().toLowerCase().trim();
+                        return genre1.compareTo(genre2);
+                    }
+                });
+                break;
+            case 4:
+                Collections.sort(allBooks, new Book() {
+                    @Override
+                    public int compare(Book o1, Book o2) {
+                        return (o2.getYear() - o1.getYear());
+                    }
+                });
+                break;
         }
     }
 }

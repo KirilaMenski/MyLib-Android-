@@ -2,7 +2,6 @@ package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.adapter.AuthorsAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -29,9 +28,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

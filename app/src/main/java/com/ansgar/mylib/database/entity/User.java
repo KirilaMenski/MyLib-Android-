@@ -1,17 +1,12 @@
 package com.ansgar.mylib.database.entity;
 
-import android.graphics.Bitmap;
-
 import com.ansgar.mylib.util.BitmapCover;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import android.graphics.Bitmap;
 
 /**
  * Created by kirill on 24.1.17.
@@ -34,10 +29,10 @@ public class User implements Serializable {
     private String mPassword;
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
-    @ForeignCollectionField
-    ForeignCollection<Author> mAuthors;
-    @ForeignCollectionField
-    ForeignCollection<Book> mBooks;
+//    @ForeignCollectionField
+//    ForeignCollection<Author> mAuthors;
+//    @ForeignCollectionField
+//    ForeignCollection<Book> mBooks;
 
     public User() {
 
@@ -61,27 +56,27 @@ public class User implements Serializable {
         mId = id;
     }
 
-    public List<Author> getAuthors() {
-        List<Author> authors = new ArrayList<>();
-        if (mAuthors == null) {
-            return authors;
-        }
-        for (Author author : mAuthors) {
-            authors.add(author);
-        }
-        return authors;
-    }
-
-    public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
-        if (mBooks == null) {
-            return books;
-        }
-        for (Book book : mBooks) {
-            books.add(book);
-        }
-        return books;
-    }
+//    public List<Author> getAuthors() {
+//        List<Author> authors = new ArrayList<>();
+//        if (mAuthors == null) {
+//            return authors;
+//        }
+//        for (Author author : mAuthors) {
+//            authors.add(author);
+//        }
+//        return authors;
+//    }
+//
+//    public List<Book> getBooks() {
+//        List<Book> books = new ArrayList<>();
+//        if (mBooks == null) {
+//            return books;
+//        }
+//        for (Book book : mBooks) {
+//            books.add(book);
+//        }
+//        return books;
+//    }
 
     public String getFirstName() {
         return mFirstName;

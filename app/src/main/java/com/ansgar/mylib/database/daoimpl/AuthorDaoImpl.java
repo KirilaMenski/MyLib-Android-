@@ -1,12 +1,9 @@
 package com.ansgar.mylib.database.daoimpl;
 
-import android.content.Context;
-
 import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -17,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -82,6 +80,19 @@ public class AuthorDaoImpl implements AuthorDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public List<Author> getAuthors() {
+        List<Author> authors = new ArrayList<>();
+        try {
+            QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("user_id", MyLibPreference.getUserId());
+            authors = queryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return authors;
     }
 
     @Override

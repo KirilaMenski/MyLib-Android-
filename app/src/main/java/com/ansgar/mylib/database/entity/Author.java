@@ -1,18 +1,17 @@
 package com.ansgar.mylib.database.entity;
 
-import android.graphics.Bitmap;
-
 import com.ansgar.mylib.util.BitmapCover;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import android.graphics.Bitmap;
 
 /**
  * Created by kirill on 24.1.17.

@@ -1,5 +1,16 @@
 package com.ansgar.mylib.ui.fragments;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.ui.activities.MainActivity;
+import com.ansgar.mylib.ui.base.BaseFragment;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.PhotoDialog;
+import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
+import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,20 +23,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.ui.activities.MainActivity;
-import com.ansgar.mylib.ui.base.BaseFragment;
-import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.dialog.PhotoDialog;
-import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
-import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
-import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
-import com.ansgar.mylib.util.PictureUtils;
-
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -143,10 +140,14 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     @Override
     public void updatePhotoView(File file) {
         if (!file.exists()) {
-            mAuthorIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
-        } else {
-            Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
-            mAuthorIcon.setImageBitmap(bitmap);
+//            mAuthorIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
+//        } else {
+//            Bitmap bitmap = PictureUtils.getScaleBitmap(file.getPath(), getActivity());
+//            mAuthorIcon.setImageBitmap(bitmap);
+            Picasso.with(getContext())
+                    .load(file)
+                    .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                    .into(mAuthorIcon);
         }
     }
 

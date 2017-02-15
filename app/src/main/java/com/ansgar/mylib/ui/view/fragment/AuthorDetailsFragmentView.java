@@ -1,8 +1,8 @@
 package com.ansgar.mylib.ui.view.fragment;
 
-import android.graphics.Bitmap;
-
 import com.ansgar.mylib.ui.base.BaseContextView;
+
+import java.io.File;
 
 /**
  * Created by kirill on 27.1.17.
@@ -10,7 +10,7 @@ import com.ansgar.mylib.ui.base.BaseContextView;
 public interface AuthorDetailsFragmentView extends BaseContextView {
     void setScreenTitle(String title);
 
-    void setAuthorImage(Bitmap img);
+    void setAuthorImage(File authorIcon);
 
     void setAuthorName(String name);
 

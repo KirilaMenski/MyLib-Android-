@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.ui.adapter.ReadingListAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
@@ -27,9 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -150,7 +147,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new WeakReference<>(new ReadingListAdapter(books, getActivity(), mPresenter));
+        mAdapter = new WeakReference<ReadingListAdapter>(new ReadingListAdapter(books, getActivity(), mPresenter));
         mReadingListRec.setLayoutManager(new LinearLayoutManager(getContext()));
         mReadingListRec.setAdapter(mAdapter.get());
     }
