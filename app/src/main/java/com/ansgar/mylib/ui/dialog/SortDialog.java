@@ -1,16 +1,5 @@
 package com.ansgar.mylib.ui.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.adapter.SortTypeAdapter;
 import com.ansgar.mylib.ui.base.BaseDialog;
@@ -21,8 +10,17 @@ import com.ansgar.mylib.ui.presenter.dialog.SortDialogPresenter;
 import com.ansgar.mylib.ui.view.dialog.SortDialogView;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,7 +35,7 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
 
     private SortDialogPresenter mPresenter;
     private Dialog mDialog;
-    private WeakReference<SortTypeAdapter> mAdapter;
+    private SortTypeAdapter mAdapter;
     private WeakReference<SortDialogListener> mListener;
 
     private String mType;
@@ -91,9 +89,9 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
 
     @Override
     public void setAdapter() {
-        mAdapter = new WeakReference<>(new SortTypeAdapter(mType, this, getActivity()));
+        mAdapter = new SortTypeAdapter(mType, this, getActivity());
         mSortTypesRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mSortTypesRec.setAdapter(mAdapter.get());
+        mSortTypesRec.setAdapter(mAdapter);
     }
 
     @Override

@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
+import rx.Observable;
+import rx.Observer;
 
 /**
  * Created by kirill on 24.1.17.
@@ -33,30 +35,27 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     }
 
     public void loadAuthors(final int pos) {
-//        mView.setProgressBarVis(true);
-//        Observable<List<Author>> observable = mAuthorsDao.getUserAuthors();
-//        Observer<List<Author>> observer = new Observer<List<Author>>() {
-//            @Override
-//            public void onCompleted() {
-//                mView.setProgressBarVis(false);
-//                setViewVis();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(List<Author> authors) {
-//                mAllAuthors = authors;
-//                sortList(pos);
-//            }
-//        };
-//        bindObservable(observable, observer);
-        mAllAuthors = mAuthorsDao.getAuthors();
-        sortList(pos);
-        setViewVis();
+        mView.setProgressBarVis(true);
+        Observable<List<Author>> observable = mAuthorsDao.getUserAuthors();
+        Observer<List<Author>> observer = new Observer<List<Author>>() {
+            @Override
+            public void onCompleted() {
+                mView.setProgressBarVis(false);
+                setViewVis();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Author> authors) {
+                mAllAuthors = authors;
+                sortList(pos);
+            }
+        };
+        bindObservable(observable, observer);
     }
 
     public void replaceFragment(){
@@ -65,7 +64,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     }
 
     public void selectAuthorBooks(int authorId) {
-        FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(authorId, false, true), false);
+        FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(authorId, false, true, true), false);
     }
 
     @Override
@@ -76,8 +75,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     @Override
     public void sortTypePosition(int pos) {
         MyLibPreference.saveAuthorSortType(pos);
-//        loadAuthors(pos);
-        sortList(pos);
+        loadAuthors(pos);
     }
 
     private void setViewVis(){
@@ -105,12 +103,12 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
                 Collections.sort(mAllAuthors, new Author());
                 break;
             case 2:
-//                        Collections.sort(mAllAuthors, new Author() {
-//                            @Override
-//                            public int compare(Author o1, Author o2) {
-//                                return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
-//                            }
-//                        });
+//                Collections.sort(mAllAuthors, new Author() {
+//                    @Override
+//                    public int compare(Author o1, Author o2) {
+//                        return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
+//                    }
+//                });
                 break;
         }
     }

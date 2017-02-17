@@ -1,8 +1,17 @@
 package com.ansgar.mylib.ui.fragments;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Citation;
+import com.ansgar.mylib.ui.adapter.CitationAdapter;
+import com.ansgar.mylib.ui.base.BaseFragment;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.presenter.fragment.BookCitationsFragmentPresenter;
+import com.ansgar.mylib.ui.view.fragment.BookCitationsFragmentView;
+
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,19 +20,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.database.entity.Citation;
-import com.ansgar.mylib.ui.adapter.CitationAdapter;
-import com.ansgar.mylib.ui.base.BaseFragment;
-import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.presenter.fragment.BookCitationsFragmentPresenter;
-import com.ansgar.mylib.ui.view.fragment.BookCitationsFragmentView;
-
-import java.lang.ref.WeakReference;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -37,7 +33,7 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private BookCitationsFragmentPresenter mPresenter;
-    private WeakReference<CitationAdapter> mAdapter;
+    private CitationAdapter mAdapter;
 
     private boolean mCitEditVis;
 
@@ -102,9 +98,9 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
 
     @Override
     public void setAdapter(List<Citation> citations) {
-        mAdapter = new WeakReference<>(new CitationAdapter(citations, getActivity(), mPresenter));
+        mAdapter = new CitationAdapter(citations, getActivity(), mPresenter);
         mCitationRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCitationRec.setAdapter(mAdapter.get());
+        mCitationRec.setAdapter(mAdapter);
         mCitationRec.getAdapter().notifyDataSetChanged();
     }
 

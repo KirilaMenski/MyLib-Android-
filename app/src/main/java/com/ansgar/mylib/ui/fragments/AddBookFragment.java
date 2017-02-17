@@ -1,5 +1,21 @@
 package com.ansgar.mylib.ui.fragments;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.ui.base.BaseFragment;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.FileManagerDialog;
+import com.ansgar.mylib.ui.dialog.PhotoDialog;
+import com.ansgar.mylib.ui.dialog.SelectDialog;
+import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
+import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
+import com.ansgar.mylib.ui.listener.SelectDialogListener;
+import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
+import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
+import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,26 +28,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.ui.base.BaseFragment;
-import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.dialog.FileManagerDialog;
-import com.ansgar.mylib.ui.dialog.PhotoDialog;
-import com.ansgar.mylib.ui.dialog.SelectEntityDialog;
-import com.ansgar.mylib.ui.dialog.SelectDialog;
-import com.ansgar.mylib.ui.listener.EntitySelectedDialogListener;
-import com.ansgar.mylib.ui.listener.SelectDialogListener;
-import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
-import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
-import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
-import com.ansgar.mylib.util.PictureUtils;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -271,14 +267,10 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
 
     @Override
     public void updatePhotoView(File file) {
-        if (!file.exists()) {
-//            mCoverBook.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_images_200dp));
-            Picasso.with(getContext())
-                    .load(file)
-//                    .centerCrop()
-                    .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
-                    .into(mCoverBook);
-        }
+        Picasso.with(getContext())
+                .load(file)
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                .into(mCoverBook);
     }
 
     @Override

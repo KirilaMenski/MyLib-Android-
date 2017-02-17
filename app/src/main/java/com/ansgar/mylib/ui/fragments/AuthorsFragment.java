@@ -12,7 +12,6 @@ import com.ansgar.mylib.ui.view.fragment.AuthorsFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -43,7 +42,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     private static final int LAYOUT = R.layout.fragment_authors;
 
     private AuthorsFragmentPresenter mPresenter;
-    private WeakReference<AuthorsAdapter> mAdapter;
+    private AuthorsAdapter mAdapter;
     private boolean mLandscape;
 
     @BindView(R.id.progress_bar_layout)
@@ -91,12 +90,19 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onStart() {
         super.onStart();
+        getMainActivity().setFooterVis(true, 1);
         if (mSecondFrameLayout != null) {
             mLandscape = true;
             mPresenter.replaceFragment();
         }
         mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getMainActivity().setFooterVis(false, 1);
     }
 
     @Override
@@ -146,7 +152,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
         if (mSearchEt.length() > 0) {
-            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+            mAdapter.getFilter().filter(mSearchEt.getText().toString());
         } else {
             mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
         }
@@ -183,10 +189,10 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
 
     @Override
     public void setAuthorAdapter(List<Author> authors) {
-        mAdapter = new WeakReference<>(new AuthorsAdapter(authors, getActivity(), false, mLandscape));
-        mAdapter.get().setListener(this);
+        mAdapter = new AuthorsAdapter(authors, getActivity(), false, mLandscape);
+        mAdapter.setListener(this);
         mAuthorsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAuthorsRecycler.setAdapter(mAdapter.get());
+        mAuthorsRecycler.setAdapter(mAdapter);
     }
 
     @Override

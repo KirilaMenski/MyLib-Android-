@@ -1,5 +1,7 @@
 package com.ansgar.mylib.ui.base;
 
+import com.ansgar.mylib.ui.activities.MainActivity;
+
 import android.support.v4.app.FragmentActivity;
 
 /**
@@ -9,5 +11,7 @@ import android.support.v4.app.FragmentActivity;
 public interface BaseFragmentView extends BaseContextView {
 
     FragmentActivity getActivity();
+
+    MainActivity getMainActivity();
 
 }

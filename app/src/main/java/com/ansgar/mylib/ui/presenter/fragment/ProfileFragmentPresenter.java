@@ -30,7 +30,6 @@ import com.ansgar.mylib.util.NetWorkUtils;
 import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.widget.Toast;
 import rx.Observable;
 import rx.Observer;
@@ -147,14 +146,12 @@ public class ProfileFragmentPresenter extends BasePresenter {
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
                     R.id.main_fragment_container, AuthorsFragment.newInstance(),
                     false, R.anim.right_out, R.anim.left_out);
-            activity.setFooterVis(true);
         }
         if (fragment.equals(BOOK_FRAGMENT)) {
             MyLibPreference.saveCurrentLibPage(1);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
-                    R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false),
+                    R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false, true),
                     false, R.anim.right_out, R.anim.left_out);
-            activity.setFooterVis(true);
         }
     }
 }

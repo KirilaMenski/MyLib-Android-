@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/footer"
+              xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/footer"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@color/edit_color"
               android:orientation="horizontal"
               android:visibility="gone"
               tools:visibility="visible">
@@ -11,7 +12,7 @@
     <ImageView
         android:id="@+id/authors"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/xw_dimen"
         android:layout_weight="1"
         android:padding="@dimen/m_dimen"
         android:src="@drawable/authors_image_status"/>
@@ -19,17 +20,17 @@
     <ImageView
         android:id="@+id/books"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/xw_dimen"
         android:layout_weight="1"
         android:padding="@dimen/m_dimen"
-        android:src="@drawable/ic_my_lib"/>
+        android:src="@drawable/boos_image_status"/>
 
     <ImageView
         android:id="@+id/reading_list"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/xw_dimen"
         android:layout_weight="1"
         android:padding="@dimen/m_dimen"
-        android:src="@drawable/ic_reading_list"/>
+        android:src="@drawable/reading_list_status"/>
 
 </LinearLayout>

@@ -64,8 +64,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     @Override
     public void sortTypePosition(int pos) {
         MyLibPreference.saveBookSortType(pos);
-//        loadBooks(mAuthorId, pos);
-        sortList(pos);
+        loadBooks(mAuthorId, pos);
     }
 
     private void setVisView() {
@@ -101,14 +100,14 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
                 });
                 break;
             case 3:
-                Collections.sort(allBooks, new Book() {
-                    @Override
-                    public int compare(Book o1, Book o2) {
-                        String genre1 = o1.getGenre().toLowerCase().trim();
-                        String genre2 = o2.getGenre().toLowerCase().trim();
-                        return genre1.compareTo(genre2);
-                    }
-                });
+//                Collections.sort(allBooks, new Book() {
+//                    @Override
+//                    public int compare(Book o1, Book o2) {
+//                        String genre1 = o1.getGenre().toLowerCase().trim();
+//                        String genre2 = o2.getGenre().toLowerCase().trim();
+//                        return genre1.compareTo(genre2);
+//                    }
+//                });
                 break;
             case 4:
                 Collections.sort(allBooks, new Book() {

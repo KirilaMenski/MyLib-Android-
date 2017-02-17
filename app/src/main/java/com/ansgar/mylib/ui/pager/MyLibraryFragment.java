@@ -71,7 +71,7 @@ public class MyLibraryFragment extends BaseFragment implements MyLibraryFragment
                     return AuthorsFragment.newInstance();
                 }
                 if (position == 1) {
-                    return BooksFragment.newInstance(-1, true, false);
+                    return BooksFragment.newInstance(-1, true, false, true);
                 }
                 if (position == 2) {
                     return ReadingListFragment.newInstance();

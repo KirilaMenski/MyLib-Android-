@@ -1,18 +1,14 @@
 package com.ansgar.mylib.ui.base;
 
+import com.ansgar.mylib.ui.activities.MainActivity;
+
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import com.ansgar.mylib.R;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -24,11 +20,13 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentView 
 
     public boolean mKeyboardState = false;
     private Unbinder unbinder;
+    private MainActivity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createPresenter();
+        mActivity = (MainActivity) getActivity();
     }
 
     @Override
@@ -97,4 +95,8 @@ public abstract class BaseFragment extends Fragment implements BaseFragmentView 
         return getActivity();
     }
 
+    @Override
+    public MainActivity getMainActivity() {
+        return mActivity;
+    }
 }

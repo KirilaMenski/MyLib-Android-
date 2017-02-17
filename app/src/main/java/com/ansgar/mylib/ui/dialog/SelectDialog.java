@@ -1,16 +1,5 @@
 package com.ansgar.mylib.ui.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.adapter.SelectAdapter;
 import com.ansgar.mylib.ui.base.BaseDialog;
@@ -23,6 +12,16 @@ import com.ansgar.mylib.ui.view.dialog.SelectDialogView;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -39,7 +38,7 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
 
     private WeakReference<SelectDialogListener> mListener;
     private SelectDialogPresenter mPresenter;
-    private WeakReference<SelectAdapter> mAdapter;
+    private SelectAdapter mAdapter;
     private Dialog mDialog;
     private String mType;
 
@@ -92,9 +91,9 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
 
     @Override
     public void setAdapter(List<String> value) {
-        mAdapter = new WeakReference<>(new SelectAdapter(value, getActivity(), this, mType));
+        mAdapter = new SelectAdapter(value, getActivity(), this, mType);
         mValueRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mValueRec.setAdapter(mAdapter.get());
+        mValueRec.setAdapter(mAdapter);
     }
 
     public void setListener(SelectDialogListener listener) {

@@ -11,7 +11,6 @@ import com.ansgar.mylib.ui.presenter.fragment.ReadingListFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.ReadingListFragmentView;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -41,7 +40,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private static final int LAYOUT = R.layout.fragment_reading_list;
 
     private ReadingListFragmentPresenter mPresenter;
-    private WeakReference<ReadingListAdapter> mAdapter;
+    private ReadingListAdapter mAdapter;
 
     @BindView(R.id.progress_bar_layout)
     LinearLayout mProgressBar;
@@ -82,7 +81,14 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Override
     public void onStart() {
         super.onStart();
+        getMainActivity().setFooterVis(true, 3);
         mPresenter.loadList(true);
+    }
+
+    @Override
+    public void onPause() {
+        getMainActivity().setFooterVis(false, 3);
+        super.onPause();
     }
 
     @Override
@@ -122,7 +128,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
         if (mSearchEt.length() > 0) {
-            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+            mAdapter.getFilter().filter(mSearchEt.getText().toString());
         } else {
             mPresenter.loadList(true);
         }
@@ -147,9 +153,9 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new WeakReference<ReadingListAdapter>(new ReadingListAdapter(books, getActivity(), mPresenter));
+        mAdapter = new ReadingListAdapter(books, getActivity(), mPresenter);
         mReadingListRec.setLayoutManager(new LinearLayoutManager(getContext()));
-        mReadingListRec.setAdapter(mAdapter.get());
+        mReadingListRec.setAdapter(mAdapter);
     }
 
     @Override

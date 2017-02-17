@@ -45,7 +45,6 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
 
     public void loadCitation() {
 
-
         Observable<List<Citation>> observable = mCitationDao.getBookCitations(mBook.getId());
         Observer<List<Citation>> observer = new Observer<List<Citation>>() {
             @Override

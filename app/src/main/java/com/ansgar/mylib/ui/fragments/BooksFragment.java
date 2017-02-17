@@ -12,7 +12,6 @@ import com.ansgar.mylib.ui.view.fragment.BooksFragmentView;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import android.os.Bundle;
@@ -46,13 +45,16 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
     private static final String EXTRA_SET_MENU = "com.ansgar.mylib.ui.fragments.set_menu";
     private static final String EXTRA_AUTHOR_BOOKS = "com.ansgar.mylib.ui.fragments.author_books";
+    private static final String EXTRA_SHOW_FOOTER = "com.ansgar.mylib.ui.fragments.show_footer";
 
     private BooksFragmentPresenter mPresenter;
-    private WeakReference<BooksAdapter> mAdapter;
+    private BooksAdapter mAdapter;
 
     private int mAuthorId;
     private boolean mLandscape;
     private boolean mAuthorBooks;
+    private boolean mShowFooter;
+    private boolean mSetHasOption;
 
     @BindView(R.id.progress_bar_layout)
     LinearLayout mProgressBar;
@@ -77,12 +79,13 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @BindView(R.id.books_screen)
     LinearLayout mBooksScreen;
 
-    public static BooksFragment newInstance(int authorId, boolean setHasOptionMenu, boolean authorBooks) {
+    public static BooksFragment newInstance(int authorId, boolean setHasOptionMenu, boolean authorBooks, boolean showFooter) {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
         args.putInt(EXTRA_AUTHOR, authorId);
         args.putBoolean(EXTRA_SET_MENU, setHasOptionMenu);
         args.putBoolean(EXTRA_AUTHOR_BOOKS, authorBooks);
+        args.putBoolean(EXTRA_SHOW_FOOTER, showFooter);
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,17 +103,26 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         View view = inflater.inflate(mAuthorBooks ? LAYOUT_AUTHOR_BOOKS : LAYOUT_BOOKS, container, false);
         ButterKnife.bind(this, view);
         mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
+        mShowFooter = getArguments().getBoolean(EXTRA_SHOW_FOOTER);
+        mSetHasOption = getArguments().getBoolean(EXTRA_SET_MENU);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        getMainActivity().setFooterVis(mShowFooter, mSetHasOption ? 2 : 1);
         if (mBookCitations != null) {
             mLandscape = true;
             showBookCitations(-1);
         }
         mPresenter.loadBooks(mAuthorId, MyLibPreference.getBookSortType());
+    }
+
+    @Override
+    public void onPause() {
+        getMainActivity().setFooterVis(false, mSetHasOption ? 2 : 1);
+        super.onPause();
     }
 
     @Override
@@ -159,7 +171,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @OnTextChanged(R.id.search)
     public void onTextChanged() {
         if (mSearchEt.length() > 0) {
-            mAdapter.get().getFilter().filter(mSearchEt.getText().toString());
+            mAdapter.getFilter().filter(mSearchEt.getText().toString());
         } else {
             mPresenter.loadBooks(mAuthorId, MyLibPreference.getBookSortType());
         }
@@ -177,12 +189,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @Override
     public void setAdapter(List<Book> books) {
-        mAdapter = new WeakReference<>(new BooksAdapter(books, getActivity(), false, mLandscape));
-        mAdapter.get().setListener(this);
-        if (mBooksRecycler != null) {
-            mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
-            mBooksRecycler.setAdapter(mAdapter.get());
-        }
+        mAdapter = new BooksAdapter(books, getActivity(), false, mLandscape);
+        mAdapter.setListener(this);
+        mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
+        mBooksRecycler.setAdapter(mAdapter);
     }
 
     @Override

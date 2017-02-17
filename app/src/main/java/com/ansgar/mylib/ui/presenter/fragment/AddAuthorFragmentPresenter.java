@@ -47,7 +47,6 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
     public void initializeView(int authorId) {
         mAuthor = mAuthorDao.getAuthorById(authorId);
         mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
-//        mView.setAuthorImage(mAuthor.getBitmap());
         mView.updatePhotoView(new File(mAuthor.getCoverBytes()));
         mView.setAuthorBiography(mAuthor.getBiography());
         mView.setAuthorFirstName(mAuthor.getFirstName());
@@ -67,11 +66,8 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         author.setBiography(biography);
         author.setUser(user);
         if (mPhoto != null) {
-//            author.setCoverBytes(BitmapCover.getStringBytes(mPhoto));
             author.setCoverBytes(FileManagerUtil.saveFile(mPhoto, author.getFirstName() + author.getLastName(), FileManagerUtil.SD_AUTHORS));
         } else {
-//            author.setCoverBytes(BitmapCover.getStringBytes
-//                    (BitmapFactory.decodeResource(mView.getContext().getResources(),R.drawable.ic_default_user_image_200dp)));
             author.setCoverBytes("");
         }
         if (isEdit) {
@@ -97,7 +93,6 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         mPhotoFile = new File(path);
         mPhoto = PictureUtils.getScaleBitmap(mPhotoFile.getPath(), mView.getActivity());
         mView.setAuthorImage(mPhoto);
-//        mView.updatePhotoView(mPhotoFile);
     }
 
     @Override
@@ -115,7 +110,6 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
 
     public void updatePhoto(Bitmap photo) {
         mPhoto = photo;
-//        mView.updatePhotoView(mPhotoFile);
         mView.setAuthorImage(photo);
     }
 }
