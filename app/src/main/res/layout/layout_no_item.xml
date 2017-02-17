@@ -6,32 +6,10 @@
               android:gravity="center">
 
         <LinearLayout
-            android:id="@+id/synchronize_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/m_dimen"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/xw_dimen"
-                android:layout_height="@dimen/xw_dimen"
-                android:src="@drawable/ic_synchronize"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/synchronize_data"
-                android:gravity="center"
-                android:text="@string/synchronize"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/text_size_xsmall"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/add_data"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_toRightOf="@+id/synchronize_data"
             android:orientation="vertical">
 

@@ -1,10 +1,12 @@
 package com.ansgar.mylib.database.entity;
 
 import com.ansgar.mylib.util.BitmapCover;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -15,30 +17,39 @@ import android.graphics.Bitmap;
 @DatabaseTable(tableName = "users")
 public class User implements Serializable {
 
+    @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private int mId;
+    @SerializedName("firstName")
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
+    @SerializedName("lastName")
     @DatabaseField(columnName = "last_name")
     private String mLastName;
+    @SerializedName("coverBytes")
     @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
+    @SerializedName("email")
     @DatabaseField(columnName = "email")
     private String mEmail;
+    @SerializedName("password")
     @DatabaseField(columnName = "password")
     private String mPassword;
+    @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
 //    @ForeignCollectionField
 //    ForeignCollection<Author> mAuthors;
 //    @ForeignCollectionField
 //    ForeignCollection<Book> mBooks;
+    @SerializedName("authors")
+    private List<Author> mAuthors;
 
     public User() {
 
     }
 
-    public User(int id, String firstName, String lastName, String cover, String email, String password, boolean hasSynchronized) {
+    public User(int id, String firstName, String lastName, String cover, String email, String password, boolean hasSynchronized, List<Author> authors) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -46,6 +57,7 @@ public class User implements Serializable {
         mEmail = email;
         mPassword = password;
         mHasSynchronized = hasSynchronized;
+        mAuthors = authors;
     }
 
     public int getId() {
@@ -124,6 +136,14 @@ public class User implements Serializable {
 
     public boolean isHasSynchronized() {
         return mHasSynchronized;
+    }
+
+    public List<Author> getAuthors() {
+        return mAuthors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        mAuthors = authors;
     }
 
     public void setHasSynchronized(boolean hasSynchronized) {

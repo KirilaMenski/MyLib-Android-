@@ -26,11 +26,20 @@
                 android:layout_margin="@dimen/m_dimen"
                 tools:src="@drawable/ic_default_avatar"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@id/profile_image">
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="@dimen/xd_size"
+                    android:layout_height="@dimen/xd_size"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/spinner_gray_circle"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/user_name"
@@ -53,7 +62,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/text_size_medium"
                     tools:text="ansgar@tut.by"/>
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <View

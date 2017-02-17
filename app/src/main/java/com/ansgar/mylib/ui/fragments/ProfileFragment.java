@@ -1,23 +1,24 @@
 package com.ansgar.mylib.ui.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.pager.AuthorBooksPager;
 import com.ansgar.mylib.ui.presenter.fragment.ProfileFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.ProfileFragmentView;
-import com.ansgar.mylib.util.FragmentUtil;
 import com.squareup.picasso.Picasso;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,10 +43,18 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
     TextView mBookCount;
     @BindView(R.id.author_count)
     TextView mAuthorCount;
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
 
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -60,6 +69,22 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
     public void onStart() {
         super.onStart();
         mPresenter.initializeView();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.synchronize:
+                mPresenter.synchronizeData();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.author_count)
@@ -80,6 +105,11 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
     @Override
     protected void createPresenter() {
         mPresenter = new ProfileFragmentPresenter(this);
+    }
+
+    @Override
+    public void setProgressBarVis(boolean vis) {
+        mProgressBar.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
     @Override

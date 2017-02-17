@@ -1,6 +1,7 @@
 package com.ansgar.mylib.database.entity;
 
 import com.ansgar.mylib.util.BitmapCover;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -21,18 +22,25 @@ import android.graphics.Bitmap;
 @DatabaseTable(tableName = "authors")
 public class Author implements Serializable, Comparator<Author> {
 
+    @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private int mId;
+    @SerializedName("coverBytes")
     @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
+    @SerializedName("firstName")
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
+    @SerializedName("lastName")
     @DatabaseField(columnName = "last_name")
     private String mLastName;
+    @SerializedName("biography")
     @DatabaseField(columnName = "biography")
     private String mBiography;
+    @SerializedName("date")
     @DatabaseField(columnName = "date")
     private String mDate;
+    @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
     @DatabaseField(columnName = "user_id", foreign = true,
@@ -40,12 +48,14 @@ public class Author implements Serializable, Comparator<Author> {
     private User mUser;
     @ForeignCollectionField
     private ForeignCollection<Book> mBooks;
+    @SerializedName("books")
+    private List<Book> mAuthorBooks;
 
     public Author() {
 
     }
 
-    public Author(int id, String firstName, String lastName, String biography, String date, User user, boolean hasSynchronized) {
+    public Author(int id, String firstName, String lastName, String biography, String date, User user, boolean hasSynchronized, List<Book> authorBooks) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -53,6 +63,7 @@ public class Author implements Serializable, Comparator<Author> {
         mDate = date;
         mUser = user;
         mHasSynchronized = hasSynchronized;
+        mAuthorBooks = authorBooks;
     }
 
     public int getId() {
@@ -63,7 +74,7 @@ public class Author implements Serializable, Comparator<Author> {
         mId = id;
     }
 
-    public List<Book> getAuthorBooks() {
+    public List<Book> getBooks() {
         List<Book> books = new ArrayList<>();
         if (mBooks == null) {
             return books;
@@ -133,6 +144,14 @@ public class Author implements Serializable, Comparator<Author> {
 
     public void setHasSynchronized(boolean hasSynchronized) {
         mHasSynchronized = hasSynchronized;
+    }
+
+    public void setAuthorBooks(List<Book> authorBooks) {
+        mAuthorBooks = authorBooks;
+    }
+
+    public List<Book> getAuthorBooks(){
+        return mAuthorBooks;
     }
 
     @Override

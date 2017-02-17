@@ -7,6 +7,8 @@ import com.ansgar.mylib.ui.base.BaseContextView;
  */
 public interface ProfileFragmentView extends BaseContextView {
 
+    void setProgressBarVis(boolean vis);
+
     void setScreenTitle(String title);
 
     void setUserAvatar(String avatar);

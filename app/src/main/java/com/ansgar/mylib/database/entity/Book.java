@@ -1,11 +1,13 @@
 package com.ansgar.mylib.database.entity;
 
 import com.ansgar.mylib.util.BitmapCover;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.List;
 
 import android.graphics.Bitmap;
 
@@ -16,30 +18,42 @@ import android.graphics.Bitmap;
 @DatabaseTable(tableName = "books")
 public class Book implements Serializable, Comparator<Book> {
 
+    @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private int mId;
+    @SerializedName("title")
     @DatabaseField(columnName = "title")
     private String mTitle;
+    @SerializedName("description")
     @DatabaseField(columnName = "description")
     private String mDescription;
+    @SerializedName("genre")
     @DatabaseField(columnName = "genre")
     private String mGenre;
+    @SerializedName("coverBytes")
     @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
+    @SerializedName("series")
     @DatabaseField(columnName = "series")
     private String mSeries;
+    @SerializedName("numSeries")
     @DatabaseField(columnName = "num_series")
     private int mNumSeries;
+    @SerializedName("year")
     @DatabaseField(columnName = "year")
     private int mYear;
     @DatabaseField(columnName = "resource_path")
     private String mResPath;
+    @SerializedName("inList")
     @DatabaseField(columnName = "in_list")
     private int mInList;
+    @SerializedName("rating")
     @DatabaseField(columnName = "rating")
     private int mRating;
+    @SerializedName("wasRead")
     @DatabaseField(columnName = "was_read")
     private int mWasRead;
+    @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
     @DatabaseField(columnName = "author_id", foreign = true,
@@ -50,6 +64,8 @@ public class Book implements Serializable, Comparator<Book> {
     private User mUser;
 //    @ForeignCollectionField
 //    private ForeignCollection<Citation> mCitations;
+    @SerializedName("citations")
+    private List<Citation> mCitations;
 
 
     public Book() {
@@ -57,7 +73,7 @@ public class Book implements Serializable, Comparator<Book> {
     }
 
     public Book(int id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
-                int inList, int rating, int wasRead, Author author, User user, boolean hasSynchronized) {
+                int inList, int rating, int wasRead, Author author, User user, boolean hasSynchronized, List<Citation> citations) {
         mId = id;
         mTitle = title;
         mDescription = description;
@@ -73,6 +89,7 @@ public class Book implements Serializable, Comparator<Book> {
         mResPath = resPath;
         mUser = user;
         mHasSynchronized = hasSynchronized;
+        mCitations = citations;
     }
 
     public int getId() {
@@ -206,6 +223,14 @@ public class Book implements Serializable, Comparator<Book> {
 
     public boolean isHasSynchronized() {
         return mHasSynchronized;
+    }
+
+    public List<Citation> getCitations() {
+        return mCitations;
+    }
+
+    public void setCitations(List<Citation> citations) {
+        mCitations = citations;
     }
 
     public void setHasSynchronized(boolean hasSynchronized) {

@@ -27,7 +27,7 @@ public class ApiRequest {
     ApiInterface api;
 
 
-    public static final String MAIN_URL = "http://172.16.1.4/MyLib:3001";
+    public static final String MAIN_URL = "http://172.16.1.5:8080/BookNavigation/";
 
 
     public static ApiRequest getInstance() {

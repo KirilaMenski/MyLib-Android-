@@ -1,5 +1,6 @@
 package com.ansgar.mylib.database.entity;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -12,14 +13,19 @@ import java.io.Serializable;
 @DatabaseTable(tableName = "citations")
 public class Citation implements Serializable {
 
+    @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
+    @SerializedName("citation")
     @DatabaseField(columnName = "citation")
     private String mCitation;
+    @SerializedName("liked")
     @DatabaseField(columnName = "liked")
     private int mLiked;
+    @SerializedName("date")
     @DatabaseField(columnName = "date")
     private String mDate;
+    @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
     @DatabaseField(columnName = "user_id", foreign = true,
