@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +47,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     private boolean mLandscape;
 
     @BindView(R.id.progress_bar_layout)
-    LinearLayout mProgressBar;
+    ProgressBar mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -91,18 +92,20 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     public void onStart() {
         super.onStart();
         getMainActivity().setFooterVis(true, 1);
-        if (mSecondFrameLayout != null) {
-            mLandscape = true;
-            mPresenter.replaceFragment();
-        }
-        mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
-
+        mLandscape = mSecondFrameLayout != null;
+        mPresenter.loadAuthors(MyLibPreference.getAuthorSortType(), mLandscape);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         getMainActivity().setFooterVis(false, 1);
+    }
+
+    @Override
+    public void onDestroy() {
+        MyLibPreference.removeAuthorPos();
+        super.onDestroy();
     }
 
     @Override
@@ -134,6 +137,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         super.onActivityCreated(savedInstanceState);
         mDataType.setText(getContext().getResources().getString(R.string.add_data,
                 getContext().getResources().getString(R.string.author).toLowerCase()));
+        getMainActivity().setScreenTitle(getContext().getString(R.string.authors));
     }
 
     @OnClick(R.id.add_data)
@@ -154,7 +158,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         if (mSearchEt.length() > 0) {
             mAdapter.getFilter().filter(mSearchEt.getText().toString());
         } else {
-            mPresenter.loadAuthors(MyLibPreference.getAuthorSortType());
+            mPresenter.loadAuthors(MyLibPreference.getAuthorSortType(), mLandscape);
         }
     }
 
@@ -193,6 +197,12 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
         mAdapter.setListener(this);
         mAuthorsRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mAuthorsRecycler.setAdapter(mAdapter);
+        mAuthorsRecycler.scrollToPosition(MyLibPreference.getAuthorPos());
+    }
+
+    @Override
+    public boolean getLandscape() {
+        return mLandscape;
     }
 
     @Override

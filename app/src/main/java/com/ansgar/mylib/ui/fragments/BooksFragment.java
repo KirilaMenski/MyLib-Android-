@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +58,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private boolean mSetHasOption;
 
     @BindView(R.id.progress_bar_layout)
-    LinearLayout mProgressBar;
+    ProgressBar mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -126,6 +127,12 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     }
 
     @Override
+    public void onDestroy() {
+        MyLibPreference.removeBookPos();
+        super.onDestroy();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
@@ -154,6 +161,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         super.onActivityCreated(savedInstanceState);
         mDataType.setText(getContext().getResources().getString(R.string.add_data,
                 getContext().getResources().getString(R.string.book).toLowerCase()));
+        if (mShowFooter) getMainActivity().setScreenTitle(getContext().getString(R.string.books));
     }
 
     @OnClick(R.id.add_data)
@@ -193,6 +201,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         mAdapter.setListener(this);
         mBooksRecycler.setLayoutManager((mLandscape) ? new LinearLayoutManager(getContext()) : new GridLayoutManager(getContext(), 4));
         mBooksRecycler.setAdapter(mAdapter);
+        mBooksRecycler.scrollToPosition(MyLibPreference.getBookPos());
     }
 
     @Override

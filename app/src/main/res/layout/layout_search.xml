@@ -10,7 +10,7 @@
     <EditText
         android:id="@+id/search"
         android:layout_width="0dp"
-        android:layout_height="@dimen/xxh_size"
+        android:layout_height="@dimen/xd_size"
         android:layout_marginRight="@dimen/m_dimen"
         android:layout_weight="1"
         android:background="@drawable/background_edit"

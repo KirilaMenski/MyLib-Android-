@@ -68,15 +68,7 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
 
         @Override
         public void onNext(String s) {
-            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.BEL_LANG)) {
-                LanguageUtil.setLanguage(getContext(), LanguageUtil.BEL);
-            }
-            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.RUS_LANG)) {
-                LanguageUtil.setLanguage(getContext(), LanguageUtil.RUS);
-            }
-            if (MyLibPreference.getCurrentLang().equals(MyLibPreference.ENG_LANG)) {
-                LanguageUtil.setLanguage(getContext(), LanguageUtil.ENG);
-            }
+
         }
     };
 }

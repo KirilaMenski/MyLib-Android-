@@ -1,5 +1,15 @@
 package com.ansgar.mylib.ui.fragments;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.ui.base.BaseFragment;
+import com.ansgar.mylib.ui.base.BasePresenter;
+import com.ansgar.mylib.ui.dialog.LocaleDialog;
+import com.ansgar.mylib.ui.listener.LocaleDialogListener;
+import com.ansgar.mylib.ui.presenter.fragment.SettingsFragmentPresenter;
+import com.ansgar.mylib.ui.view.fragment.SettingsFragmentView;
+import com.ansgar.mylib.util.LanguageUtil;
+import com.ansgar.mylib.util.MyLibPreference;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -7,19 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.activities.MainActivity;
-import com.ansgar.mylib.ui.base.BaseFragment;
-import com.ansgar.mylib.ui.base.BasePresenter;
-import com.ansgar.mylib.ui.dialog.LocaleDialog;
-import com.ansgar.mylib.ui.listener.LocaleDialogListener;
-import com.ansgar.mylib.ui.presenter.fragment.SettingsFragmentPresenter;
-import com.ansgar.mylib.ui.view.fragment.SettingsFragmentView;
-import com.ansgar.mylib.util.FragmentUtil;
-import com.ansgar.mylib.util.LanguageUtil;
-import com.ansgar.mylib.util.MyLibPreference;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -59,8 +56,7 @@ public class SettingsFragment extends BaseFragment implements SettingsFragmentVi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity activity = (MainActivity) getActivity();
-        activity.setScreenTitle(getString(R.string.settings));
+        getMainActivity().setScreenTitle(getString(R.string.settings));
     }
 
     @Override

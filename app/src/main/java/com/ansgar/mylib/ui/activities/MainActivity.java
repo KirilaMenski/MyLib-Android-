@@ -12,6 +12,7 @@ import com.ansgar.mylib.ui.fragments.SettingsFragment;
 import com.ansgar.mylib.ui.presenter.activity.MainActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.MainActivityView;
 import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.NetWorkUtils;
 import com.squareup.picasso.Picasso;
@@ -94,12 +95,27 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             FragmentUtil.replaceFragment(this, R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         } else {
             mBackStackSize = savedInstanceState.getInt(BACK_STACK_SIZE);
+            setFooterVis(false, 1);
         }
 //        if(mBackStackSize > 1) {
 //            mToggle.setDrawerIndicatorEnabled(false);
 //            mToolbar.setNavigationOnClickListener(this);
 //        }
         mPresenter.initializeView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.BEL_LANG)) {
+            LanguageUtil.setLanguage(getContext(), LanguageUtil.BEL);
+        }
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.RUS_LANG)) {
+            LanguageUtil.setLanguage(getContext(), LanguageUtil.RUS);
+        }
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.ENG_LANG)) {
+            LanguageUtil.setLanguage(getContext(), LanguageUtil.ENG);
+        }
     }
 
     @OnClick(R.id.tv_logout)

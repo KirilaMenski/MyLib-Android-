@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.adapter.RatingAdapter;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
@@ -115,8 +114,7 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
 
     @Override
     public void setScreenTitle(String title) {
-        MainActivity activity = (MainActivity) getActivity();
-        activity.setScreenTitle(title);
+        getMainActivity().setScreenTitle(title);
     }
 
     @Override

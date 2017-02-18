@@ -30,7 +30,7 @@ public class AuthorDetailsFragmentPresenter extends BasePresenter {
 
     public void initializeViews(int authorId) {
         mAuthor = mAuthorDao.getAuthorById(authorId);
-        mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
+        mView.setScreenTitle(mAuthor.getFirstName() + " " + mAuthor.getLastName());
         mView.setAuthorName(mAuthor.getFirstName() + " " + mAuthor.getLastName());
         mView.setAuthorBiography(mAuthor.getBiography());
         mView.setAuthorImage(new File(mAuthor.getCoverBytes()));

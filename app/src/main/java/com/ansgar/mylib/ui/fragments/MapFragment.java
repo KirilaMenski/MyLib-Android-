@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.MapFragmentPresenter;
@@ -89,8 +88,7 @@ public class MapFragment extends BaseFragment implements MapFragmentView, OnMapR
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity activity = (MainActivity) getActivity();
-        activity.setScreenTitle(getString(R.string.map));
+        getMainActivity().setScreenTitle(getString(R.string.map));
     }
 
     @Override

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +44,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     private ReadingListAdapter mAdapter;
 
     @BindView(R.id.progress_bar_layout)
-    LinearLayout mProgressBar;
+    ProgressBar mProgressBar;
     @BindView(R.id.ll_search)
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
@@ -139,6 +140,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
         super.onActivityCreated(savedInstanceState);
         mDataType.setText(getContext().getResources().getString(R.string.add_data,
                 getContext().getResources().getString(R.string.book).toLowerCase()));
+        getMainActivity().setScreenTitle(getContext().getString(R.string.reading_list));
     }
 
     @Override

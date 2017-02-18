@@ -34,13 +34,13 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
         mView = view;
     }
 
-    public void loadAuthors(final int pos) {
+    public void loadAuthors(final int pos, final boolean landscape) {
         mView.setProgressBarVis(true);
         Observable<List<Author>> observable = mAuthorsDao.getUserAuthors();
         Observer<List<Author>> observer = new Observer<List<Author>>() {
             @Override
             public void onCompleted() {
-                mView.setProgressBarVis(false);
+                if(landscape) replaceFragment();
                 setViewVis();
             }
 
@@ -58,9 +58,8 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
         bindObservable(observable, observer);
     }
 
-    public void replaceFragment(){
-        if(mAllAuthors.size() != 0) selectAuthorBooks(mAllAuthors.get(0).getId());
-//        selectAuthorBooks(MyLibPreference.getAuthorId() != -1 ? MyLibPreference.getAuthorId() : mAllAuthors.get(0).getId());
+    public void replaceFragment() {
+        if (mAllAuthors.size() != 0) selectAuthorBooks(mAllAuthors.get(0).getId());
     }
 
     public void selectAuthorBooks(int authorId) {
@@ -75,10 +74,11 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
     @Override
     public void sortTypePosition(int pos) {
         MyLibPreference.saveAuthorSortType(pos);
-        loadAuthors(pos);
+        loadAuthors(pos, mView.getLandscape());
     }
 
-    private void setViewVis(){
+    private void setViewVis() {
+        mView.setProgressBarVis(false);
         if (mAllAuthors.size() == 0) {
             mView.setLayoutVisibility(true);
         } else {
@@ -87,7 +87,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
         }
     }
 
-    private void sortList(int pos){
+    private void sortList(int pos) {
         switch (pos) {
             case 0:
                 Collections.sort(mAllAuthors, new Author() {
@@ -103,12 +103,12 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
                 Collections.sort(mAllAuthors, new Author());
                 break;
             case 2:
-//                Collections.sort(mAllAuthors, new Author() {
-//                    @Override
-//                    public int compare(Author o1, Author o2) {
-//                        return (o2.getAuthorBooks().size() - o1.getAuthorBooks().size());
-//                    }
-//                });
+                Collections.sort(mAllAuthors, new Author() {
+                    @Override
+                    public int compare(Author o1, Author o2) {
+                        return (o2.getBooks().size() - o1.getBooks().size());
+                    }
+                });
                 break;
         }
     }

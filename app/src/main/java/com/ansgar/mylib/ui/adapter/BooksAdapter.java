@@ -1,7 +1,19 @@
 package com.ansgar.mylib.ui.adapter;
 
+import com.ansgar.mylib.R;
+import com.ansgar.mylib.database.entity.Book;
+import com.ansgar.mylib.ui.listener.EntitySelectedListener;
+import com.ansgar.mylib.ui.pager.BookCitationsPager;
+import com.ansgar.mylib.util.FragmentUtil;
+import com.ansgar.mylib.util.MyLibPreference;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -12,22 +24,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import com.ansgar.mylib.R;
-import com.ansgar.mylib.database.entity.Author;
-import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.ui.fragments.BookDetailsFragment;
-import com.ansgar.mylib.ui.listener.EntitySelectedListener;
-import com.ansgar.mylib.ui.pager.BookCitationsPager;
-import com.ansgar.mylib.util.FragmentUtil;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -61,7 +57,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
     }
 
     @Override
-    public void onBindViewHolder(BooksAdapter.BooksHolder holder, int position) {
+    public void onBindViewHolder(BooksAdapter.BooksHolder holder, final int position) {
         final Book book = mBooks.get(position);
         holder.bindViews(book);
         holder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -74,11 +70,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
                             R.id.main_fragment_container, BookCitationsPager.newInstance(book.getId()),
                             true, R.anim.right_out, R.anim.left_out);
                 }
+                MyLibPreference.saveBookPos(position);
             }
         });
         holder.mRelativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                MyLibPreference.saveBookPos(position);
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                         R.id.main_fragment_container, BookCitationsPager.newInstance(book.getId()),
                         true, R.anim.right_out, R.anim.left_out);

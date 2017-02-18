@@ -1,11 +1,11 @@
 package com.ansgar.mylib.util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import static android.content.Context.MODE_PRIVATE;
 
 import java.lang.ref.WeakReference;
 
-import static android.content.Context.MODE_PRIVATE;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 /**
  * Created by kirill on 24.1.17.
@@ -29,7 +29,8 @@ public class MyLibPreference {
     private static final String CURRENT_USER = "current_user";
     private static final String CURRENT_LANG = "current_language";
     private static final String CURRENT_PAGE = "current_library_page";
-    private static final String AUTHOR_ID = "author_id";
+    private static final String AUTHOR_POS = "author_pos";
+    private static final String BOOK_POS = "book_pos";
 
     private static SharedPreferences mPreference;
     private static MyLibPreference mInstance;
@@ -139,20 +140,36 @@ public class MyLibPreference {
         return mPreference.getInt(CURRENT_PAGE, DEFAULT_INT);
     }
 
-    public static void saveAuthorId(int id) {
+    public static void saveAuthorPos(int id) {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putInt(AUTHOR_ID, id);
+        ed.putInt(AUTHOR_POS, id);
         ed.commit();
     }
 
-    public static void removeAuthorId() {
+    public static void removeAuthorPos() {
         SharedPreferences.Editor ed = mPreference.edit();
-        ed.putInt(AUTHOR_ID, LAST_ADDED);
+        ed.putInt(AUTHOR_POS, DEFAULT_INT);
         ed.commit();
     }
 
-    public static int getAuthorId() {
-        return mPreference.getInt(AUTHOR_ID, DEFAULT_AUTHOR);
+    public static int getAuthorPos() {
+        return mPreference.getInt(AUTHOR_POS, DEFAULT_INT);
+    }
+
+    public static void saveBookPos(int id) {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(BOOK_POS, id);
+        ed.commit();
+    }
+
+    public static void removeBookPos() {
+        SharedPreferences.Editor ed = mPreference.edit();
+        ed.putInt(BOOK_POS, DEFAULT_INT);
+        ed.commit();
+    }
+
+    public static int getBookPos() {
+        return mPreference.getInt(BOOK_POS, DEFAULT_INT);
     }
 
     public static void clearData() {
@@ -160,6 +177,8 @@ public class MyLibPreference {
         removeAuthorSortType();
         removeBookSortType();
         removeCurrentLibPage();
+        removeAuthorPos();
+        removeBookPos();
     }
 
 }

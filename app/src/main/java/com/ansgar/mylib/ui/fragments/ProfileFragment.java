@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.ProfileFragmentPresenter;
@@ -114,8 +113,7 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
 
     @Override
     public void setScreenTitle(String title) {
-        MainActivity activity = (MainActivity) getActivity();
-        activity.setScreenTitle(title);
+        getMainActivity().setScreenTitle(title);
     }
 
     @Override

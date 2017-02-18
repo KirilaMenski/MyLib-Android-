@@ -39,7 +39,6 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
             @Override
             public void onCompleted() {
                 setVisView();
-                mView.setProgressBarVis(false);
             }
 
             @Override
@@ -68,6 +67,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
     }
 
     private void setVisView() {
+        mView.setProgressBarVis(false);
         if (allBooks.size() == 0) {
             mView.setLayoutVisibility(true);
         } else {

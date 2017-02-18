@@ -60,6 +60,7 @@
     <string name="book_not_support">Sorry, but this book format is not supporting</string>
     <string name="connection_failed">Connection failed</string>
     <string name="check_connection">Check your connection</string>
+    <string name="reading_list">Reading list</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>

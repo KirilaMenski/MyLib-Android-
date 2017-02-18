@@ -57,7 +57,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     }
 
     @Override
-    public void onBindViewHolder(AuthorsHolder holder, int position) {
+    public void onBindViewHolder(AuthorsHolder holder, final int position) {
         final Author author = mAuthors.get(position);
         holder.bindViews(author);
         holder.mLayout.setOnClickListener(new View.OnClickListener() {
@@ -65,19 +65,19 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
             public void onClick(View v) {
                 //TODO
                 if (mCreateBook || mLandscape) {
-                    MyLibPreference.saveAuthorId(author.getId());
                     mListener.get().authorSelected(author.getId(), author.getFirstName(), author.getLastName());
                 } else {
                     FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                             R.id.main_fragment_container, AuthorBooksPager.newInstance(author.getId()),
                             true, R.anim.right_out, R.anim.left_out);
                 }
+                MyLibPreference.saveAuthorPos(position);
             }
         });
         holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                MyLibPreference.saveAuthorId(author.getId());
+                MyLibPreference.saveAuthorPos(position);
                 FragmentUtil.replaceAnimFragment(mFragmentActivity.get(),
                         R.id.main_fragment_container, AuthorBooksPager.newInstance(author.getId()),
                         true, R.anim.right_out, R.anim.left_out);
@@ -157,9 +157,9 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
 
         public void bindViews(Author author) {
             setAuthorIcon(author.getCoverBytes());
-            mAuthorName.setText(author.getFirstName() + " " + author.getLastName());
-//            mBooksCount.setText(mFragmentActivity.get()
-//                    .getResources().getString(R.string.books_count, author.getAuthorBooks().size()));
+            mAuthorName.setText(author.getLastName() + " " + author.getFirstName());
+            mBooksCount.setText(mFragmentActivity.get()
+                    .getResources().getString(R.string.books_count, author.getBooks().size()));
         }
 
         private void setAuthorIcon(String icon) {

@@ -1,7 +1,6 @@
 package com.ansgar.mylib.ui.fragments;
 
 import com.ansgar.mylib.R;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseFragment;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.fragment.AuthorDetailsFragmentPresenter;
@@ -98,13 +97,11 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
 
     @Override
     public void setScreenTitle(String title) {
-        MainActivity activity = (MainActivity) getActivity();
-        activity.setScreenTitle(title);
+        getMainActivity().setScreenTitle(title);
     }
 
     @Override
     public void setAuthorImage(File authorIcon) {
-//        mAuthorImage.setImageBitmap(img);
         Picasso.with(getContext())
                 .load(authorIcon)
                 .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))

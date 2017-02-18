@@ -1,7 +1,5 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
-import android.util.Log;
-
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.entity.Book;
@@ -36,13 +34,7 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
         Observer<List<Book>> observer = new Observer<List<Book>>() {
             @Override
             public void onCompleted() {
-                mView.setProgressBarVis(false);
-                if (mAllBooks.size() == 0) {
-                    mView.setLayoutVisibility(true);
-                } else {
-                    mView.setLayoutVisibility(false);
-                    mView.setAdapter(mAllBooks);
-                }
+                setViewVis();
             }
 
             @Override
@@ -63,6 +55,16 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
         book.setInList(1);
         mBookDao.updateBook(book);
         loadList(true);
+    }
+
+    private void setViewVis(){
+        mView.setProgressBarVis(false);
+        if (mAllBooks.size() == 0) {
+            mView.setLayoutVisibility(true);
+        } else {
+            mView.setLayoutVisibility(false);
+            mView.setAdapter(mAllBooks);
+        }
     }
 
     @Override

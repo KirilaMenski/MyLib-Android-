@@ -13,4 +13,6 @@ public interface AuthorsFragmentView extends BaseContextView, NoItemLayoutView {
 
     void setAuthorAdapter(List<Author> authors);
 
+    boolean getLandscape();
+
 }
