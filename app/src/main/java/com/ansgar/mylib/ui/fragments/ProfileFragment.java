@@ -82,6 +82,9 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
             case R.id.synchronize:
                 mPresenter.synchronizeData();
                 break;
+            case R.id.save:
+                mPresenter.save();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

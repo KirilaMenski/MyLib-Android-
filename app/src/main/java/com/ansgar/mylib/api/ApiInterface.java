@@ -1,7 +1,9 @@
 package com.ansgar.mylib.api;
 
+import com.ansgar.mylib.api.response.ServerResponse;
 import com.ansgar.mylib.database.entity.User;
 
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,5 +23,8 @@ public interface ApiInterface {
 
     @GET("api/{userId}/synchronize")
     Observable<User> synchronizeData(@Path("userId") int userId);
+
+    @POST("api/save")
+    Observable<ServerResponse> saveData(@Body User user);
 
 }

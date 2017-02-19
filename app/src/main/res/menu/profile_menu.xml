@@ -14,6 +14,11 @@
                 android:id="@+id/synchronize"
                 android:icon="@drawable/ic_synchronize"
                 android:title="@string/synchronize"/>
+
+            <item
+                android:id="@+id/save"
+                android:icon="@drawable/ic_default_avatar"
+                android:title="@string/save"/>
         </menu>
     </item>
 

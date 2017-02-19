@@ -2,6 +2,7 @@ package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.api.ApiRequest;
+import com.ansgar.mylib.api.response.ServerResponse;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.CitationDao;
@@ -30,6 +31,7 @@ import com.ansgar.mylib.util.NetWorkUtils;
 import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.widget.Toast;
 import rx.Observable;
 import rx.Observer;
@@ -68,7 +70,6 @@ public class ProfileFragmentPresenter extends BasePresenter {
     public void synchronizeData() {
 
         if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
-            final User user = mUserDao.getUserById(MyLibPreference.getUserId());
             mView.setProgressBarVis(true);
             Observable<User> observable = ApiRequest.getInstance().getApi().synchronizeData(MyLibPreference.getUserId());
             Observer<User> observer = new Observer<User>() {
@@ -127,6 +128,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                 }
             };
             bindObservable(observable, observer);
+
         } else {
             Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
         }
@@ -152,6 +154,32 @@ public class ProfileFragmentPresenter extends BasePresenter {
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),
                     R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false, true),
                     false, R.anim.right_out, R.anim.left_out);
+        }
+    }
+
+    public void save() {
+        if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
+            User user = mUserDao.getUserById(MyLibPreference.getUserId());
+            Observable<ServerResponse> observable = ApiRequest.getInstance().getApi().saveData(user);
+            Observer<ServerResponse> observer = new Observer<ServerResponse>() {
+                @Override
+                public void onCompleted() {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onNext(ServerResponse serverResponse) {
+                    Log.i(TAG, serverResponse.getMessage());
+                }
+            };
+            bindObservable(observable, observer);
+        } else {
+            Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
         }
     }
 }

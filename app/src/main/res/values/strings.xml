@@ -61,6 +61,7 @@
     <string name="connection_failed">Connection failed</string>
     <string name="check_connection">Check your connection</string>
     <string name="reading_list">Reading list</string>
+    <string name="save">Save</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>
