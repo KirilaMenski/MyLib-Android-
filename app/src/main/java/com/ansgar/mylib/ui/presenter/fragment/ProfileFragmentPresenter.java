@@ -52,6 +52,9 @@ public class ProfileFragmentPresenter extends BasePresenter {
     private BookDao mBookDao = BookDaoImpl.getInstance();
     private CitationDao mCitationDao = CitationDaoImpl.getInstance();
     private User mUser;
+    private List<Author> mAuthors;
+    private List<Book> mBooks;
+    private List<Citation> mCitations;
 
     public ProfileFragmentPresenter(ProfileFragmentView view) {
         super(view.getContext());
@@ -160,6 +163,20 @@ public class ProfileFragmentPresenter extends BasePresenter {
     public void save() {
         if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
             User user = mUserDao.getUserById(MyLibPreference.getUserId());
+//            mAuthors = user.getAuthorsList();
+//            for (int i = 0; i < mAuthors.size(); i++) {
+//                mBooks = mAuthors.get(i).getBooks();
+//                for (int j = 0; j < mBooks.size(); j++) {
+//                    mCitations = mBooks.get(j).getBookCitations();
+//                    mBooks.get(j).setCitations(mBooks.get(j).getBookCitations());
+////
+//                }
+//                mAuthors.get(i).setAuthorBooks(mBooks);
+//            }
+//            user.setAuthors(mAuthors);
+//            Gson gson = new Gson();
+//            String str = gson.toJson(user);
+//            Log.i(TAG, "Final json: " + str);
             Observable<ServerResponse> observable = ApiRequest.getInstance().getApi().saveData(user);
             Observer<ServerResponse> observer = new Observer<ServerResponse>() {
                 @Override
@@ -178,8 +195,80 @@ public class ProfileFragmentPresenter extends BasePresenter {
                 }
             };
             bindObservable(observable, observer);
+
         } else {
             Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void getUserAuthors() {
+        Observable<List<Author>> observable = mAuthorDao.getUserAuthors();
+        Observer<List<Author>> observer = new Observer<List<Author>>() {
+            @Override
+            public void onCompleted() {
+                setBooks();
+//                save();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Author> authors) {
+                mAuthors = authors;
+            }
+        };
+        bindObservable(observable, observer);
+    }
+
+    private void setBooks() {
+        for (int i = 0; i < mAuthors.size(); i++) {
+            getAuthorBooks(mAuthors.get(i));
+        }
+    }
+
+    public void getAuthorBooks(Author author) {
+        Observable<List<Book>> observable = mBookDao.getUserBooksByAuthorId(author.getId());
+        Observer<List<Book>> observer = new Observer<List<Book>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Book> books) {
+                mBooks = books;
+            }
+        };
+        bindObservable(observable, observer);
+    }
+
+    public void getBooksCitations(int bookId) {
+        Observable<List<Citation>> observable = mCitationDao.getBookCitations(bookId);
+        Observer<List<Citation>> observer = new Observer<List<Citation>>() {
+            @Override
+            public void onCompleted() {
+                save();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(List<Citation> citations) {
+                mCitations = citations;
+            }
+        };
+        bindObservable(observable, observer);
+    }
+
 }

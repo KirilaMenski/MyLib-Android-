@@ -2,10 +2,13 @@ package com.ansgar.mylib.database.entity;
 
 import com.ansgar.mylib.util.BitmapCover;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -62,8 +65,8 @@ public class Book implements Serializable, Comparator<Book> {
     @DatabaseField(columnName = "user_id", foreign = true,
             foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
     private User mUser;
-//    @ForeignCollectionField
-//    private ForeignCollection<Citation> mCitations;
+    @ForeignCollectionField
+    private ForeignCollection<Citation> mCitationsList;
     @SerializedName("citations")
     private List<Citation> mCitations;
 
@@ -100,14 +103,14 @@ public class Book implements Serializable, Comparator<Book> {
         mId = id;
     }
 
-//    public List<Citation> getBookCitations() {
-//        List<Citation> citations = new ArrayList<>();
-//        if (mCitations == null) return citations;
-//        for (Citation citation : mCitations) {
-//            citations.add(citation);
-//        }
-//        return citations;
-//    }
+    public List<Citation> getBookCitations() {
+        List<Citation> citations = new ArrayList<>();
+        if (mCitations == null) return citations;
+        for (Citation citation : mCitations) {
+            citations.add(citation);
+        }
+        return citations;
+    }
 
     public String getTitle() {
         return mTitle;

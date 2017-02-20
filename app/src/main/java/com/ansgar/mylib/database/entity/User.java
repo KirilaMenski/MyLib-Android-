@@ -2,10 +2,13 @@ package com.ansgar.mylib.database.entity;
 
 import com.ansgar.mylib.util.BitmapCover;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -38,9 +41,10 @@ public class User implements Serializable {
     @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private boolean mHasSynchronized;
-//    @ForeignCollectionField
-//    ForeignCollection<Author> mAuthors;
-//    @ForeignCollectionField
+
+    @ForeignCollectionField
+    ForeignCollection<Author> mAuthorsList;
+    //    @ForeignCollectionField
 //    ForeignCollection<Book> mBooks;
     @SerializedName("authors")
     private List<Author> mAuthors;
@@ -68,16 +72,16 @@ public class User implements Serializable {
         mId = id;
     }
 
-//    public List<Author> getAuthors() {
-//        List<Author> authors = new ArrayList<>();
-//        if (mAuthors == null) {
-//            return authors;
-//        }
-//        for (Author author : mAuthors) {
-//            authors.add(author);
-//        }
-//        return authors;
-//    }
+    public List<Author> getAuthorsList() {
+        List<Author> authors = new ArrayList<>();
+        if (mAuthorsList == null) {
+            return authors;
+        }
+        for (Author author : mAuthorsList) {
+            authors.add(author);
+        }
+        return authors;
+    }
 //
 //    public List<Book> getBooks() {
 //        List<Book> books = new ArrayList<>();
