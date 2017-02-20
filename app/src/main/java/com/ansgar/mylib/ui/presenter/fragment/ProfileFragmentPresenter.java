@@ -2,7 +2,11 @@ package com.ansgar.mylib.ui.presenter.fragment;
 
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.api.ApiRequest;
+import com.ansgar.mylib.api.response.AuthorResponse;
+import com.ansgar.mylib.api.response.BookResponse;
+import com.ansgar.mylib.api.response.CitationResponse;
 import com.ansgar.mylib.api.response.ServerResponse;
+import com.ansgar.mylib.api.response.UserResponse;
 import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.CitationDao;
@@ -28,6 +32,7 @@ import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.NetWorkUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
@@ -163,21 +168,58 @@ public class ProfileFragmentPresenter extends BasePresenter {
     public void save() {
         if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
             User user = mUserDao.getUserById(MyLibPreference.getUserId());
-//            mAuthors = user.getAuthorsList();
-//            for (int i = 0; i < mAuthors.size(); i++) {
-//                mBooks = mAuthors.get(i).getBooks();
-//                for (int j = 0; j < mBooks.size(); j++) {
-//                    mCitations = mBooks.get(j).getBookCitations();
-//                    mBooks.get(j).setCitations(mBooks.get(j).getBookCitations());
-////
-//                }
-//                mAuthors.get(i).setAuthorBooks(mBooks);
-//            }
-//            user.setAuthors(mAuthors);
-//            Gson gson = new Gson();
-//            String str = gson.toJson(user);
-//            Log.i(TAG, "Final json: " + str);
-            Observable<ServerResponse> observable = ApiRequest.getInstance().getApi().saveData(user);
+            UserResponse userResponse = new UserResponse();
+            userResponse.setId(user.getId());
+            userResponse.setFirstName(user.getFirstName());
+            userResponse.setLastName(user.getLastName());
+            userResponse.setCoverBytes(user.getCoverBytes());
+            userResponse.setHasSynchronized(user.getHasSynchronized());
+            userResponse.setEmail(user.getEmail());
+            userResponse.setPassword(user.getPassword());
+            List<AuthorResponse> authorResponses = new ArrayList<>();
+            for (int i = 0; i < user.getAuthorsList().size(); i++) {
+                AuthorResponse authorResponse = new AuthorResponse();
+                authorResponse.setId(user.getAuthorsList().get(i).getId());
+                authorResponse.setFirstName(user.getAuthorsList().get(i).getFirstName());
+                authorResponse.setLastName(user.getAuthorsList().get(i).getLastName());
+                authorResponse.setCoverBytes(user.getAuthorsList().get(i).getCoverBytes());
+                authorResponse.setHasSynchronized(user.getAuthorsList().get(i).getHasSynchronized());
+                authorResponse.setBiography(user.getAuthorsList().get(i).getBiography());
+                authorResponse.setDate(user.getAuthorsList().get(i).getDate());
+                List<BookResponse> bookResponses = new ArrayList<>();
+                for (int j = 0; j < user.getAuthorsList().get(i).getBooks().size(); j++) {
+                    BookResponse bookResponse = new BookResponse();
+                    bookResponse.setId(user.getAuthorsList().get(i).getBooks().get(j).getId());
+                    bookResponse.setTitle(user.getAuthorsList().get(i).getBooks().get(j).getTitle());
+                    bookResponse.setDescription(user.getAuthorsList().get(i).getBooks().get(j).getDescription());
+                    bookResponse.setCoverBytes(user.getAuthorsList().get(i).getBooks().get(j).getCoverBytes());
+                    bookResponse.setGenre(user.getAuthorsList().get(i).getBooks().get(j).getGenre());
+                    bookResponse.setSeries(user.getAuthorsList().get(i).getBooks().get(j).getSeries());
+                    bookResponse.setNumSeries(user.getAuthorsList().get(i).getBooks().get(j).getNumSeries());
+                    bookResponse.setInList(user.getAuthorsList().get(i).getBooks().get(j).getInList());
+                    bookResponse.setWasRead(user.getAuthorsList().get(i).getBooks().get(j).getWasRead());
+                    bookResponse.setHasSynchronized(user.getAuthorsList().get(i).getBooks().get(j).getHasSynchronized());
+                    bookResponse.setYear(user.getAuthorsList().get(i).getBooks().get(j).getYear());
+                    bookResponse.setRating(user.getAuthorsList().get(i).getBooks().get(j).getRating());
+                    List<CitationResponse> citationResponses = new ArrayList<>();
+                    for (int z = 0; z < user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().size(); z++) {
+                        CitationResponse citationResponse = new CitationResponse();
+                        citationResponse.setId(user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().get(z).getId());
+                        citationResponse.setCitation(user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().get(z).getCitation());
+                        citationResponse.setDate(user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().get(z).getDate());
+                        citationResponse.setLiked(user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().get(z).getLiked());
+                        citationResponse.setHasSynchronized(user.getAuthorsList().get(i).getBooks().get(j).getBookCitations().get(z).getHasSynchronized());
+                        citationResponses.add(citationResponse);
+                    }
+                    bookResponse.setCitations(citationResponses);
+                    bookResponses.add(bookResponse);
+                }
+                authorResponse.setAuthorBooks(bookResponses);
+                authorResponses.add(authorResponse);
+            }
+            userResponse.setAuthors(authorResponses);
+
+            Observable<ServerResponse> observable = ApiRequest.getInstance().getApi().saveData(userResponse);
             Observer<ServerResponse> observer = new Observer<ServerResponse>() {
                 @Override
                 public void onCompleted() {

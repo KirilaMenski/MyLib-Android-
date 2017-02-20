@@ -3,6 +3,7 @@ package com.ansgar.mylib.api.response;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by kirill on 24.1.17.
@@ -11,30 +12,42 @@ import java.io.Serializable;
 public class UserResponse implements Serializable {
 
     @SerializedName("id")
-    private long mId;
-    @SerializedName("first_name")
+    private int mId;
+    @SerializedName("firstName")
     private String mFirstName;
-    @SerializedName("last_name")
+    @SerializedName("lastName")
     private String mLastName;
-    @SerializedName("cover")
-    private String mCover;
+    @SerializedName("coverBytes")
+    private String mCoverBytes;
+    @SerializedName("email")
+    private String mEmail;
+    @SerializedName("password")
+    private String mPassword;
+    @SerializedName("hasSynchronized")
+    private int mHasSynchronized;
+    @SerializedName("authors")
+    private List<AuthorResponse> mAuthors;
 
     public UserResponse() {
 
     }
 
-    public UserResponse(long id, String firstName, String lastName, String cover) {
+    public UserResponse(int id, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<AuthorResponse> authors) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
-        mCover = cover;
+        mCoverBytes = cover;
+        mEmail = email;
+        mPassword = password;
+        mHasSynchronized = hasSynchronized;
+        mAuthors = authors;
     }
 
-    public long getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         mId = id;
     }
 
@@ -54,11 +67,43 @@ public class UserResponse implements Serializable {
         mLastName = lastName;
     }
 
-    public String getCover() {
-        return mCover;
+    public String getCoverBytes() {
+        return mCoverBytes;
     }
 
-    public void setCover(String cover) {
-        mCover = cover;
+    public void setCoverBytes(String coverBytes) {
+        mCoverBytes = coverBytes;
+    }
+
+    public String getEmail() {
+        return mEmail;
+    }
+
+    public void setEmail(String email) {
+        mEmail = email;
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
+    }
+
+    public int isHasSynchronized() {
+        return mHasSynchronized;
+    }
+
+    public List<AuthorResponse> getAuthors() {
+        return mAuthors;
+    }
+
+    public void setAuthors(List<AuthorResponse> authors) {
+        mAuthors = authors;
+    }
+
+    public void setHasSynchronized(int hasSynchronized) {
+        mHasSynchronized = hasSynchronized;
     }
 }

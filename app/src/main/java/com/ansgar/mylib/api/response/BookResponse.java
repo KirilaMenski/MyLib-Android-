@@ -1,82 +1,53 @@
-package com.ansgar.mylib.database.entity;
+package com.ansgar.mylib.api.response;
 
 import com.ansgar.mylib.util.BitmapCover;
 import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import android.graphics.Bitmap;
 
 /**
- * Created by kirill on 24.1.17.
+ * Created by kirila on 20.2.17.
  */
 
-@DatabaseTable(tableName = "books")
-public class Book implements Serializable, Comparator<Book> {
+public class BookResponse implements Serializable{
 
     @SerializedName("id")
-    @DatabaseField(generatedId = true, columnName = "id")
     private int mId;
     @SerializedName("title")
-    @DatabaseField(columnName = "title")
     private String mTitle;
     @SerializedName("description")
-    @DatabaseField(columnName = "description")
     private String mDescription;
     @SerializedName("genre")
-    @DatabaseField(columnName = "genre")
     private String mGenre;
     @SerializedName("coverBytes")
-    @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
     @SerializedName("series")
-    @DatabaseField(columnName = "series")
     private String mSeries;
     @SerializedName("numSeries")
-    @DatabaseField(columnName = "num_series")
     private int mNumSeries;
     @SerializedName("year")
-    @DatabaseField(columnName = "year")
     private int mYear;
-    @DatabaseField(columnName = "resource_path")
-    private String mResPath;
     @SerializedName("inList")
-    @DatabaseField(columnName = "in_list")
     private int mInList;
     @SerializedName("rating")
-    @DatabaseField(columnName = "rating")
     private int mRating;
     @SerializedName("wasRead")
-    @DatabaseField(columnName = "was_read")
     private int mWasRead;
     @SerializedName("hasSynchronized")
-    @DatabaseField(columnName = "synchronized")
     private int mHasSynchronized;
-    @DatabaseField(columnName = "author_id", foreign = true,
-            foreignAutoRefresh = true, columnDefinition = "integer references authors(id) on delete cascade")
-    private Author mAuthor;
-    @DatabaseField(columnName = "user_id", foreign = true,
-            foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
-    private User mUser;
-    @ForeignCollectionField
-    private ForeignCollection<Citation> mCitationsList;
     @SerializedName("citations")
-    private List<Citation> mCitations;
+    private List<CitationResponse> mCitations;
 
 
-    public Book() {
+    public BookResponse() {
 
     }
 
-    public Book(int id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
-                int inList, int rating, int wasRead, Author author, User user, int hasSynchronized, List<Citation> citations) {
+    public BookResponse(int id, String title, String description, String genre, String cover, String series, int numSeries, int year,
+                int inList, int rating, int wasRead, int hasSynchronized, List<CitationResponse> citations) {
         mId = id;
         mTitle = title;
         mDescription = description;
@@ -85,12 +56,9 @@ public class Book implements Serializable, Comparator<Book> {
         mSeries = series;
         mNumSeries = numSeries;
         mYear = year;
-        mAuthor = author;
         mInList = inList;
         mRating = rating;
         mWasRead = wasRead;
-        mResPath = resPath;
-        mUser = user;
         mHasSynchronized = hasSynchronized;
         mCitations = citations;
     }
@@ -101,15 +69,6 @@ public class Book implements Serializable, Comparator<Book> {
 
     public void setId(int id) {
         mId = id;
-    }
-
-    public List<Citation> getBookCitations() {
-        List<Citation> citations = new ArrayList<>();
-        if (mCitationsList == null) return citations;
-        for (Citation citation : mCitationsList) {
-            citations.add(citation);
-        }
-        return citations;
     }
 
     public String getTitle() {
@@ -156,30 +115,6 @@ public class Book implements Serializable, Comparator<Book> {
         mYear = year;
     }
 
-    public Author getAuthor() {
-        return mAuthor;
-    }
-
-    public void setAuthor(Author author) {
-        mAuthor = author;
-    }
-
-    public String getResPath() {
-        return mResPath;
-    }
-
-    public void setResPath(String resPath) {
-        mResPath = resPath;
-    }
-
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
-    }
-
     public int getInList() {
         return mInList;
     }
@@ -220,19 +155,15 @@ public class Book implements Serializable, Comparator<Book> {
         mNumSeries = numSeries;
     }
 
-    public String getPhotoFileName() {
-        return "IMG_" + String.valueOf(getId()) + ".jpg";
-    }
-
-    public int getHasSynchronized() {
+    public int isHasSynchronized() {
         return mHasSynchronized;
     }
 
-    public List<Citation> getCitations() {
+    public List<CitationResponse> getCitations() {
         return mCitations;
     }
 
-    public void setCitations(List<Citation> citations) {
+    public void setCitations(List<CitationResponse> citations) {
         mCitations = citations;
     }
 
@@ -240,9 +171,4 @@ public class Book implements Serializable, Comparator<Book> {
         mHasSynchronized = hasSynchronized;
     }
 
-    @Override
-    public int compare(Book o1, Book o2) {
-        return o2.getId() - o1.getId();
-    }
 }
-

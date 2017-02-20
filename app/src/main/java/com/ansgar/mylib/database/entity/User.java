@@ -40,7 +40,7 @@ public class User implements Serializable {
     private String mPassword;
     @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
-    private boolean mHasSynchronized;
+    private int mHasSynchronized;
 
     @ForeignCollectionField
     ForeignCollection<Author> mAuthorsList;
@@ -53,7 +53,7 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String firstName, String lastName, String cover, String email, String password, boolean hasSynchronized, List<Author> authors) {
+    public User(int id, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<Author> authors) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -138,7 +138,7 @@ public class User implements Serializable {
         return BitmapCover.getBitmapCover(mCoverBytes);
     }
 
-    public boolean isHasSynchronized() {
+    public int getHasSynchronized() {
         return mHasSynchronized;
     }
 
@@ -150,7 +150,7 @@ public class User implements Serializable {
         mAuthors = authors;
     }
 
-    public void setHasSynchronized(boolean hasSynchronized) {
+    public void setHasSynchronized(int hasSynchronized) {
         mHasSynchronized = hasSynchronized;
     }
 }

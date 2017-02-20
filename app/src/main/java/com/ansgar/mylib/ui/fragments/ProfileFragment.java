@@ -83,7 +83,6 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
                 mPresenter.synchronizeData();
                 break;
             case R.id.save:
-//                mPresenter.save();
                 mPresenter.save();
                 break;
         }

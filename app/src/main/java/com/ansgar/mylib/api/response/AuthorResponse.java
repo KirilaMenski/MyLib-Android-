@@ -1,67 +1,47 @@
-package com.ansgar.mylib.database.entity;
+package com.ansgar.mylib.api.response;
 
 import com.ansgar.mylib.util.BitmapCover;
 import com.google.gson.annotations.SerializedName;
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
-import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import android.graphics.Bitmap;
 
 /**
- * Created by kirill on 24.1.17.
+ * Created by kirila on 20.2.17.
  */
 
-
-@DatabaseTable(tableName = "authors")
-public class Author implements Serializable, Comparator<Author> {
+public class AuthorResponse implements Serializable {
 
     @SerializedName("id")
-    @DatabaseField(generatedId = true, columnName = "id")
     private int mId;
     @SerializedName("coverBytes")
-    @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
     @SerializedName("firstName")
-    @DatabaseField(columnName = "first_name")
     private String mFirstName;
     @SerializedName("lastName")
-    @DatabaseField(columnName = "last_name")
     private String mLastName;
     @SerializedName("biography")
-    @DatabaseField(columnName = "biography")
     private String mBiography;
     @SerializedName("date")
-    @DatabaseField(columnName = "date")
     private String mDate;
     @SerializedName("hasSynchronized")
-    @DatabaseField(columnName = "synchronized")
     private int mHasSynchronized;
-    @DatabaseField(columnName = "user_id", foreign = true,
-            foreignAutoRefresh = true, columnDefinition = "integer references users(id) on delete cascade")
-    private User mUser;
-    @ForeignCollectionField
-    private ForeignCollection<Book> mBooks;
     @SerializedName("books")
-    private List<Book> mAuthorBooks;
+    private List<BookResponse> mAuthorBooks;
 
-    public Author() {
+    public AuthorResponse() {
 
     }
 
-    public Author(int id, String firstName, String lastName, String biography, String date, User user, int hasSynchronized, List<Book> authorBooks) {
+    public AuthorResponse(int id, String firstName, String lastName, String biography, String date,
+                          int hasSynchronized, List<BookResponse> authorBooks) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
         mBiography = biography;
         mDate = date;
-        mUser = user;
         mHasSynchronized = hasSynchronized;
         mAuthorBooks = authorBooks;
     }
@@ -72,18 +52,6 @@ public class Author implements Serializable, Comparator<Author> {
 
     public void setId(int id) {
         mId = id;
-    }
-
-    public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
-        if (mBooks == null) {
-            return books;
-        }
-
-        for (Book book : mBooks) {
-            books.add(book);
-        }
-        return books;
     }
 
     public String getFirstName() {
@@ -118,14 +86,6 @@ public class Author implements Serializable, Comparator<Author> {
         mDate = date;
     }
 
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
-    }
-
     public String getCoverBytes() {
         return mCoverBytes;
     }
@@ -138,7 +98,7 @@ public class Author implements Serializable, Comparator<Author> {
         return BitmapCover.getBitmapCover(mCoverBytes);
     }
 
-    public int getHasSynchronized() {
+    public int isHasSynchronized() {
         return mHasSynchronized;
     }
 
@@ -146,16 +106,11 @@ public class Author implements Serializable, Comparator<Author> {
         mHasSynchronized = hasSynchronized;
     }
 
-    public void setAuthorBooks(List<Book> authorBooks) {
-        mAuthorBooks = authorBooks;
-    }
-
-    public List<Book> getAuthorBooks(){
+    public List<BookResponse> getAuthorBooks() {
         return mAuthorBooks;
     }
 
-    @Override
-    public int compare(Author o1, Author o2) {
-        return (int) (o2.getId() - o1.getId());
+    public void setAuthorBooks(List<BookResponse> authorBooks) {
+        mAuthorBooks = authorBooks;
     }
 }
