@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -118,6 +119,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     @OnClick(R.id.profile)
     public void openProfile() {
+        FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ProfileFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
@@ -125,17 +127,20 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @OnClick(R.id.tv_users)
     public void openUsers() {
 //        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
         mDrawer.closeDrawers();
     }
 
     @OnClick(R.id.tv_my_lib)
     public void openMyLib(){
+        FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
 
     @OnClick(R.id.tv_settings)
     public void openSettings() {
+        FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, SettingsFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
@@ -143,6 +148,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @OnClick(R.id.tv_map)
     public void openMap() {
         if (NetWorkUtils.isNetworkConnected(getContext())) {
+            FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
             FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
             mDrawer.closeDrawers();
         } else {
@@ -154,6 +160,25 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(BACK_STACK_SIZE, this.getSupportFragmentManager().getFragments().size());
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+//        Locale locale = null;
+//        switch (MyLibPreference.getCurrentLang()){
+//            case MyLibPreference.ENG_LANG:
+//                locale = LanguageUtil.ENG;
+//                break;
+//            case MyLibPreference.BEL_LANG:
+//                locale = LanguageUtil.BEL;
+//                break;
+//            case MyLibPreference.RUS_LANG:
+//                locale = LanguageUtil.RUS;
+//                break;
+//        }
+//        newConfig.setLocale(locale);
+
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
