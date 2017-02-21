@@ -82,13 +82,13 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Override
     public void onStart() {
         super.onStart();
-        getMainActivity().setFooterVis(true, 3);
+        getMainActivity().setFooterVis(true);
         mPresenter.loadList(true);
     }
 
     @Override
     public void onPause() {
-        getMainActivity().setFooterVis(false, 3);
+        getMainActivity().setFooterVis(false);
         super.onPause();
     }
 

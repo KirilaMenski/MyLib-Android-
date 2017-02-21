@@ -11,6 +11,6 @@ public interface MainActivityView extends BaseContextView {
 
     void setUserAvatar(String avatar);
 
-    void setFooterVis(boolean vis, int pos);
+    void setFooterVis(boolean vis);
 
 }

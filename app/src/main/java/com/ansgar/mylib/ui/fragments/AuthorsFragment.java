@@ -91,7 +91,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onStart() {
         super.onStart();
-        getMainActivity().setFooterVis(true, 1);
+        getMainActivity().setFooterVis(true);
         mLandscape = mSecondFrameLayout != null;
         mPresenter.loadAuthors(MyLibPreference.getAuthorSortType(), mLandscape);
     }
@@ -99,7 +99,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Override
     public void onPause() {
         super.onPause();
-        getMainActivity().setFooterVis(false, 1);
+        getMainActivity().setFooterVis(false);
     }
 
     @Override

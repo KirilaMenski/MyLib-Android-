@@ -112,7 +112,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @Override
     public void onStart() {
         super.onStart();
-        getMainActivity().setFooterVis(mShowFooter, mSetHasOption ? 2 : 1);
+        getMainActivity().setFooterVis(mShowFooter);
         if (mBookCitations != null) {
             mLandscape = true;
             showBookCitations(-1);
@@ -122,7 +122,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     @Override
     public void onPause() {
-        getMainActivity().setFooterVis(false, mSetHasOption ? 2 : 1);
+        getMainActivity().setFooterVis(false);
         super.onPause();
     }
 

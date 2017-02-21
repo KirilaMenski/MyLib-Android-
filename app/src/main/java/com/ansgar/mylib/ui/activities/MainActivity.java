@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -27,10 +29,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,14 +40,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final int LAYOUT = R.layout.activity_main;
     private final String BACK_STACK_SIZE = "CHANGED_SETTING";
 
     private MainActivityPresenter mPresenter;
-
-    private int mBackStackSize = 0;
 
     @BindView(R.id.profile_image)
     ImageView mAvatar;
@@ -61,14 +61,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     RelativeLayout mProfileRl;
     @BindView(R.id.main_fragment_container)
     FrameLayout mFrameLayout;
-    @BindView(R.id.footer)
-    LinearLayout mFooter;
-    @BindView(R.id.authors)
-    ImageView mAuthorsScreen;
-    @BindView(R.id.books)
-    ImageView mBooksScreen;
-    @BindView(R.id.reading_list)
-    ImageView mReadingListScreen;
+
+    BottomNavigationView mBottomNavigationView;
 
     ActionBarDrawerToggle mToggle;
 
@@ -86,6 +80,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(this);
         mToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(mToggle);
         mToggle.syncState();
@@ -94,13 +90,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         if (savedInstanceState == null) {
             FragmentUtil.replaceFragment(this, R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         } else {
-            mBackStackSize = savedInstanceState.getInt(BACK_STACK_SIZE);
-            setFooterVis(false, 1);
+            setFooterVis(false);
         }
-//        if(mBackStackSize > 1) {
-//            mToggle.setDrawerIndicatorEnabled(false);
-//            mToolbar.setNavigationOnClickListener(this);
-//        }
         mPresenter.initializeView();
     }
 
@@ -131,25 +122,15 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         mDrawer.closeDrawers();
     }
 
-    @OnClick({R.id.tv_my_lib, R.id.authors})
-    public void openMyLib() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
-        mDrawer.closeDrawers();
-    }
-
-    @OnClick(R.id.books)
-    public void openBooksFragment() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false, true), false);
-    }
-
-    @OnClick(R.id.reading_list)
-    public void openReadingList() {
-        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ReadingListFragment.newInstance(), false);
-    }
-
     @OnClick(R.id.tv_users)
     public void openUsers() {
 //        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MyLibraryFragment.newInstance(0), false);
+        mDrawer.closeDrawers();
+    }
+
+    @OnClick(R.id.tv_my_lib)
+    public void openMyLib(){
+        FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         mDrawer.closeDrawers();
     }
 
@@ -219,29 +200,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     }
 
     @Override
-    public void setFooterVis(boolean vis, int pos) {
-        if (mFooter != null) mFooter.setVisibility(vis ? View.VISIBLE : View.GONE);
-        setImage(pos);
-    }
-
-    private void setImage(int pos){
-        switch (pos){
-            case 1:
-                mAuthorsScreen.setActivated(true);
-                mBooksScreen.setActivated(false);
-                mReadingListScreen.setActivated(false);
-                break;
-            case 2:
-                mAuthorsScreen.setActivated(false);
-                mBooksScreen.setActivated(true);
-                mReadingListScreen.setActivated(false);
-                break;
-            case 3:
-                mAuthorsScreen.setActivated(false);
-                mBooksScreen.setActivated(false);
-                mReadingListScreen.setActivated(true);
-                break;
-        }
+    public void setFooterVis(boolean vis) {
+        if (mBottomNavigationView != null)
+            mBottomNavigationView.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -254,5 +215,21 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         trans.commit();
         manager.popBackStack();
         hideKeyBoard();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.authors:
+                FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
+                break;
+            case R.id.books:
+                FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, BooksFragment.newInstance(-1, true, false, true), false);
+                break;
+            case R.id.reading_list:
+                FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, ReadingListFragment.newInstance(), false);
+                break;
+        }
+        return true;
     }
 }
