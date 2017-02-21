@@ -75,15 +75,15 @@ public class Author implements Serializable, Comparator<Author> {
     }
 
     public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
+        mAuthorBooks = new ArrayList<>();
         if (mBooks == null) {
-            return books;
+            return mAuthorBooks;
         }
 
         for (Book book : mBooks) {
-            books.add(book);
+            mAuthorBooks.add(book);
         }
-        return books;
+        return mAuthorBooks;
     }
 
     public String getFirstName() {

@@ -104,12 +104,12 @@ public class Book implements Serializable, Comparator<Book> {
     }
 
     public List<Citation> getBookCitations() {
-        List<Citation> citations = new ArrayList<>();
-        if (mCitationsList == null) return citations;
+        mCitations = new ArrayList<>();
+        if (mCitationsList == null) return mCitations;
         for (Citation citation : mCitationsList) {
-            citations.add(citation);
+            mCitations.add(citation);
         }
-        return citations;
+        return mCitations;
     }
 
     public String getTitle() {

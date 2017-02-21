@@ -73,14 +73,14 @@ public class User implements Serializable {
     }
 
     public List<Author> getAuthorsList() {
-        List<Author> authors = new ArrayList<>();
+        mAuthors = new ArrayList<>();
         if (mAuthorsList == null) {
-            return authors;
+            return mAuthors;
         }
         for (Author author : mAuthorsList) {
-            authors.add(author);
+            mAuthors.add(author);
         }
-        return authors;
+        return mAuthors;
     }
 //
 //    public List<Book> getBooks() {
