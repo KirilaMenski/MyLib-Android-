@@ -29,7 +29,6 @@
         </activity>
         <activity
             android:name=".ui.activities.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity

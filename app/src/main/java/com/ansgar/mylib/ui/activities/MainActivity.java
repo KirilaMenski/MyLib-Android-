@@ -19,7 +19,6 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -99,15 +98,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     protected void onStart() {
         super.onStart();
-        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.BEL_LANG)) {
-            LanguageUtil.setLanguage(getContext(), LanguageUtil.BEL);
-        }
-        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.RUS_LANG)) {
-            LanguageUtil.setLanguage(getContext(), LanguageUtil.RUS);
-        }
-        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.ENG_LANG)) {
-            LanguageUtil.setLanguage(getContext(), LanguageUtil.ENG);
-        }
+        LanguageUtil.setCurrentLang(getContext());
     }
 
     @OnClick(R.id.tv_logout)
@@ -162,24 +153,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         outState.putInt(BACK_STACK_SIZE, this.getSupportFragmentManager().getFragments().size());
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-//        Locale locale = null;
-//        switch (MyLibPreference.getCurrentLang()){
-//            case MyLibPreference.ENG_LANG:
-//                locale = LanguageUtil.ENG;
-//                break;
-//            case MyLibPreference.BEL_LANG:
-//                locale = LanguageUtil.BEL;
-//                break;
-//            case MyLibPreference.RUS_LANG:
-//                locale = LanguageUtil.RUS;
-//                break;
-//        }
-//        newConfig.setLocale(locale);
-
-        super.onConfigurationChanged(newConfig);
-    }
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//    }
 
     @Override
     protected BasePresenter getPresenter() {

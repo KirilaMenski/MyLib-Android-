@@ -1,10 +1,10 @@
 package com.ansgar.mylib.util;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
-
-import java.util.Locale;
 
 /**
  * Created by kirill on 2.2.17.
@@ -29,6 +29,18 @@ public class LanguageUtil {
         Locale.setDefault(locale);
         context = context.createConfigurationContext(conf);
         return new ContextWrapper(context);
+    }
+
+    public static void setCurrentLang(Context context) {
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.BEL_LANG)) {
+            LanguageUtil.setLanguage(context, LanguageUtil.BEL);
+        }
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.RUS_LANG)) {
+            LanguageUtil.setLanguage(context, LanguageUtil.RUS);
+        }
+        if (MyLibPreference.getCurrentLang().equals(MyLibPreference.ENG_LANG)) {
+            LanguageUtil.setLanguage(context, LanguageUtil.ENG);
+        }
     }
 
 }

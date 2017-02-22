@@ -1,19 +1,16 @@
 package com.ansgar.mylib.ui.activities;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.ui.base.BaseActivity;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.presenter.activity.SplashActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.SplashActivityView;
-import com.ansgar.mylib.util.DateUtils;
 import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.concurrent.TimeUnit;
 
+import android.os.Bundle;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
@@ -68,7 +65,7 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
 
         @Override
         public void onNext(String s) {
-
+            LanguageUtil.setCurrentLang(getContext());
         }
     };
 }
