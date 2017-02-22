@@ -27,6 +27,7 @@ import com.ansgar.mylib.util.FileManagerUtil;
 import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.NetWorkUtils;
+import com.ansgar.mylib.util.PictureUtils;
 
 import java.util.List;
 
@@ -97,6 +98,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                                 authors.get(i).getFirstName() + authors.get(i).getLastName() + DateUtils.getNewFileDate(), FileManagerUtil.SD_AUTHORS));
                         author.setBiography(authors.get(i).getBiography());
                         author.setDate(authors.get(i).getDate());
+                        author.setHasSynchronized(1);
                         author.setUser(user);
                         mAuthorDao.addAuthor(author);
                         List<Book> books = user.getAuthors().get(i).getAuthorBooks();
@@ -114,6 +116,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                             book.setSeries(books.get(j).getSeries());
                             book.setNumSeries(books.get(j).getNumSeries());
                             book.setRating(books.get(j).getRating());
+                            book.setHasSynchronized(1);
                             book.setYear(books.get(j).getYear());
                             mBookDao.addBook(book);
                             List<Citation> citations = user.getAuthors().get(i).getAuthorBooks().get(j).getCitations();
@@ -124,6 +127,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                                 citation.setCitation(citations.get(z).getCitation());
                                 citation.setDate(citations.get(z).getDate());
                                 citation.setLiked(citations.get(z).getLiked());
+                                citation.setHasSynchronized(1);
                                 mCitationDao.addCitation(citation);
                             }
                         }
@@ -163,14 +167,26 @@ public class ProfileFragmentPresenter extends BasePresenter {
     public void save() {
         if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
             User user = mUserDao.getUserById(MyLibPreference.getUserId());
-            mAuthors = user.getAuthorsList();
+            mAuthors = user.getUnSynchronizedAuthorList();
+            if(mAuthors.size() == 0) {
+                Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.no_data), Toast.LENGTH_SHORT).show();
+                return;
+            }
             for (int i = 0; i < mAuthors.size(); i++) {
-                mBooks = mAuthors.get(i).getBooks();
+                Author author = mAuthors.get(i);
+                author.setHasSynchronized(1);
+                mAuthorDao.updateAuthor(author);
+                author.setCoverBytes(BitmapCover.getStringBytes(PictureUtils.getBitmapFromPath(mAuthors.get(i).getCoverBytes())));
+                mBooks = author.getUnSynchronizedBooks();
                 for (int j = 0; j < mBooks.size(); j++) {
-                    mCitations = mBooks.get(j).getBookCitations();
-                    mBooks.get(j).setCitations(mCitations);
+                    Book book = mBooks.get(j);
+                    book.setHasSynchronized(1);
+                    mBookDao.updateBook(book);
+                    book.setCoverBytes(BitmapCover.getStringBytes(PictureUtils.getBitmapFromPath(mBooks.get(j).getCoverBytes())));
+                    mCitations = book.getUnSynchronizedCitations();
+                    book.setCitations(mCitations);
                 }
-                mAuthors.get(i).setAuthorBooks(mBooks);
+                author.setAuthorBooks(mBooks);
             }
             user.setAuthors(mAuthors);
 

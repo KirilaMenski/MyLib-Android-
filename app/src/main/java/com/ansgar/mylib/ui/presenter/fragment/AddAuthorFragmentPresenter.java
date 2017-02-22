@@ -64,6 +64,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         author.setLastName(lastName);
         author.setDate(date);
         author.setBiography(biography);
+        author.setHasSynchronized(0);
         author.setUser(user);
         if (mPhoto != null) {
             author.setCoverBytes(FileManagerUtil.saveFile(mPhoto, author.getFirstName() + author.getLastName(), FileManagerUtil.SD_AUTHORS));

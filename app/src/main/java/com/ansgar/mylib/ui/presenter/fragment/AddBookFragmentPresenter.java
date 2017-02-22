@@ -91,6 +91,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setSeries(series);
         book.setNumSeries(seriesNum);
         book.setYear(year);
+        book.setHasSynchronized(0);
         book.setDescription(description);
         book.setUser(user);
         if (mPhoto != null) {

@@ -40,4 +40,12 @@ public class PictureUtils {
         return getScaleBitmap(path, size.x, size.y);
     }
 
+    public static Bitmap getBitmapFromPath(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        options = new BitmapFactory.Options();
+        return BitmapFactory.decodeFile(path, options);
+    }
+
 }

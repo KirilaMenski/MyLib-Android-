@@ -76,14 +76,20 @@ public class Author implements Serializable, Comparator<Author> {
 
     public List<Book> getBooks() {
         mAuthorBooks = new ArrayList<>();
-        if (mBooks == null) {
-            return mAuthorBooks;
-        }
-
         for (Book book : mBooks) {
             mAuthorBooks.add(book);
         }
         return mAuthorBooks;
+    }
+
+    public List<Book> getUnSynchronizedBooks() {
+        List<Book> books = new ArrayList<>();
+        for (Book book : mBooks) {
+            if (book.getHasSynchronized() == 0) {
+                books.add(book);
+            }
+        }
+        return books;
     }
 
     public String getFirstName() {
@@ -150,7 +156,7 @@ public class Author implements Serializable, Comparator<Author> {
         mAuthorBooks = authorBooks;
     }
 
-    public List<Book> getAuthorBooks(){
+    public List<Book> getAuthorBooks() {
         return mAuthorBooks;
     }
 
