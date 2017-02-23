@@ -184,6 +184,10 @@ public class ProfileFragmentPresenter extends BasePresenter {
                     mBookDao.updateBook(book);
                     book.setCoverBytes(BitmapCover.getStringBytes(PictureUtils.getBitmapFromPath(mBooks.get(j).getCoverBytes())));
                     mCitations = book.getUnSynchronizedCitations();
+                    for(int z = 0; z < mCitations.size(); z++){
+                        mCitations.get(z).setHasSynchronized(1);
+                        mCitationDao.updateCitation(mCitations.get(z));
+                    }
                     book.setCitations(mCitations);
                 }
                 author.setAuthorBooks(mBooks);

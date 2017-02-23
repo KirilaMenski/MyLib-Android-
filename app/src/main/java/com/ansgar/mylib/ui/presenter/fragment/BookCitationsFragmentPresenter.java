@@ -1,11 +1,14 @@
 package com.ansgar.mylib.ui.presenter.fragment;
 
+import com.ansgar.mylib.database.dao.AuthorDao;
 import com.ansgar.mylib.database.dao.BookDao;
 import com.ansgar.mylib.database.dao.CitationDao;
 import com.ansgar.mylib.database.dao.UserDao;
+import com.ansgar.mylib.database.daoimpl.AuthorDaoImpl;
 import com.ansgar.mylib.database.daoimpl.BookDaoImpl;
 import com.ansgar.mylib.database.daoimpl.CitationDaoImpl;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
+import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.database.entity.Citation;
 import com.ansgar.mylib.database.entity.User;
@@ -30,6 +33,7 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
     private BookCitationsFragmentView mView;
     private Book mBook;
     private UserDao mUserDao = UserDaoImpl.getInstance();
+    private AuthorDao mAuthorDao = AuthorDaoImpl.getInstance();
     private CitationDao mCitationDao = CitationDaoImpl.getInstance();
     private BookDao mBookDao = BookDaoImpl.getInstance();
     List<Citation> mCitations = new ArrayList<>();
@@ -74,6 +78,11 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
         citation.setCitation(text);
         citation.setDate(DateUtils.getDate());
         mCitationDao.addCitation(citation);
+        mBook.setHasSynchronized(0);
+        mBookDao.updateBook(mBook);
+        Author author = mBook.getAuthor();
+        author.setHasSynchronized(0);
+        mAuthorDao.updateAuthor(author);
         loadCitation();
     }
 

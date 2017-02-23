@@ -69,7 +69,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         if (mPhoto != null) {
             author.setCoverBytes(FileManagerUtil.saveFile(mPhoto, author.getFirstName() + author.getLastName(), FileManagerUtil.SD_AUTHORS));
         } else {
-            author.setCoverBytes("");
+//            author.setCoverBytes("");
         }
         if (isEdit) {
             mAuthorDao.updateAuthor(author);

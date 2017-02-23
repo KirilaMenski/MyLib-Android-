@@ -13,7 +13,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -143,16 +142,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         }
 
         public void bindViews(Book book) {
-//            setBookCover(book.getBitmap());
             Picasso.with(mFragmentActivity.get())
                     .load(new File(book.getCoverBytes()))
-//                    .centerCrop()
                     .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.spinner_gray_circle))
                     .into(mBookCover);
-        }
-
-        private void setBookCover(Bitmap bitmap) {
-            mBookCover.setImageBitmap(bitmap);
         }
     }
 }
