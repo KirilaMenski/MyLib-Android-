@@ -96,10 +96,12 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         book.setUser(user);
         if (mPhoto != null) {
             book.setCoverBytes(FileManagerUtil.saveFile(mPhoto, bookTitle + DateUtils.getNewFileDate(), FileManagerUtil.SD_BOOKS));
-        } else if (coverBookPath != null) {
-            book.setCoverBytes(FileManagerUtil.saveFile(BitmapCover.getBitmapCover(coverBookPath), bookTitle + DateUtils.getNewFileDate(), FileManagerUtil.SD_BOOKS));
-        } else {
-//            book.setCoverBytes("");
+        }
+//        else if (coverBookPath != null) {
+//            book.setCoverBytes(FileManagerUtil.saveFile(BitmapCover.getBitmapCover(coverBookPath), bookTitle + DateUtils.getNewFileDate(), FileManagerUtil.SD_BOOKS));
+//        }
+        else {
+            book.setCoverBytes(coverBookPath);
         }
         if (isEdit) {
             mBookDao.updateBook(book);
@@ -121,7 +123,8 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         Description description = new DescriptionImpl(inputStream);
         String coverBytes = (description.getCover().size() > 0) ? description.getCover().get(0)
                 : BitmapCover.getStringBytes(BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image));
-        mView.setCoverBytes(coverBytes);
+        String coverPath = FileManagerUtil.saveFile(BitmapCover.getBitmapCover(coverBytes), description.getTitle() + DateUtils.getNewFileDate(), FileManagerUtil.SD_BOOKS);
+        mView.setCoverBytes(coverPath);
         mView.setCoverBook(BitmapCover.getBitmapCover(coverBytes));
 //        mView.setAuthorName(book.getAuthor().getFirstName() + "\n" + book.getAuthor().getLastName()); // TODO ???
         mView.setBookResPath(path);

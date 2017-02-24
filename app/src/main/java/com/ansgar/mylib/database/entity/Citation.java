@@ -21,7 +21,7 @@ public class Citation implements Serializable {
     private String mCitation;
     @SerializedName("liked")
     @DatabaseField(columnName = "liked")
-    private int mLiked;
+    private int mLiked = 0;
     @SerializedName("date")
     @DatabaseField(columnName = "date")
     private String mDate;

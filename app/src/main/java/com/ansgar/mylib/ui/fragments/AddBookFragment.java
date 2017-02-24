@@ -12,12 +12,14 @@ import com.ansgar.mylib.ui.listener.SelectDialogListener;
 import com.ansgar.mylib.ui.presenter.fragment.AddBookFragmentPresenter;
 import com.ansgar.mylib.ui.presenter.fragment.SelectEntityDialogPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddBookFragmentView;
+import com.ansgar.mylib.util.FileManagerUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -95,6 +97,11 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
             mPresenter.initializeView(mAuthorId, bookId);
             mAdd.setText(getString(R.string.edit));
             mIsEdit = true;
+        } else {
+            Bitmap image = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.default_book_image);
+            setCoverBytes(FileManagerUtil.defaultImage(image, FileManagerUtil.SD_BOOKS));
+            File file = new File(mCoverBookBytes);
+            updatePhotoView(file);
         }
         return view;
     }
