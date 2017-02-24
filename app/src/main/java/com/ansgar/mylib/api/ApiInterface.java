@@ -22,7 +22,7 @@ public interface ApiInterface {
     void login();
 
     @GET("api/{userId}/synchronize")
-    Observable<User> synchronizeData(@Path("userId") int userId);
+    Observable<User> synchronizeData(@Path("userId") long userId);
 
     @POST("api/save")
     Observable<ServerResponse> saveData(@Body User user);

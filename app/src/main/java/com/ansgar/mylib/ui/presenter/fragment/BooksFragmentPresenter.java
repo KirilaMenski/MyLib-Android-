@@ -23,7 +23,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
 
     private BooksFragmentView mView;
     private BookDao mBookDao = BookDaoImpl.getInstance();
-    private int mAuthorId;
+    private long mAuthorId;
     private List<Book> allBooks = new ArrayList<>();
 
     public BooksFragmentPresenter(BooksFragmentView view) {
@@ -31,7 +31,7 @@ public class BooksFragmentPresenter extends BasePresenter implements SortDialogL
         mView = view;
     }
 
-    public void loadBooks(int authorId, final int pos) {
+    public void loadBooks(long authorId, final int pos) {
         mAuthorId = authorId;
         mView.setProgressBarVis(true);
         Observable<List<Book>> observable = (authorId == -1) ? mBookDao.getUserBooks() : mBookDao.getUserBooksByAuthorId(authorId);

@@ -6,7 +6,6 @@ import java.io.OutputStream;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.util.Log;
 
 /**
  * Created by kirill on 13.2.17.
@@ -41,11 +40,44 @@ public class FileManagerUtil {
 
         try {
             os = new FileOutputStream(file);
-            image.compress(Bitmap.CompressFormat.JPEG, 30, os);
+            image.compress(Bitmap.CompressFormat.JPEG, 100, os);
             os.flush();
             os.close();
         } catch (Exception e) {
 
+        }
+        path = file.getPath();
+        return path;
+    }
+
+    public static String defaultImage(Bitmap image, String type) {
+        String path;
+        OutputStream os;
+
+        File filepath = Environment.getExternalStorageDirectory();
+        String fileDir = "";
+        if (type.equals(SD_BOOKS)) {
+            fileDir = SD_PATH + SD_BOOKS;
+        }
+        if (type.equals(SD_AUTHORS)) {
+            fileDir = SD_PATH + SD_AUTHORS;
+        }
+        if (type.equals(SD_USERS)) {
+            fileDir = SD_PATH + SD_USERS;
+        }
+        File dir = new File(filepath + fileDir);
+        dir.mkdirs();
+        File file = new File(dir, "default" + DateUtils.getNewFileDate() + ".jpg");
+
+        if (!file.exists()) {
+            try {
+                os = new FileOutputStream(file);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, os);
+                os.flush();
+                os.close();
+            } catch (Exception e) {
+
+            }
         }
         path = file.getPath();
         return path;

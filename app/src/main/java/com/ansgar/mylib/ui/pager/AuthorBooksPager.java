@@ -29,17 +29,17 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.pager.author";
 
     private AuthorBooksPagerPresenter mPresenter;
-    private int mAuthorId;
+    private long mAuthorId;
 
     private int mPosition;
 
     @BindView(R.id.author_books_pager)
     ViewPager mAuthorBooksPager;
 
-    public static AuthorBooksPager newInstance(int authorId) {
+    public static AuthorBooksPager newInstance(long authorId) {
         AuthorBooksPager pager = new AuthorBooksPager();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_AUTHOR, authorId);
+        args.putLong(EXTRA_AUTHOR, authorId);
         pager.setArguments(args);
         return pager;
     }
@@ -49,7 +49,7 @@ public class AuthorBooksPager extends BaseFragment implements AuthorBooksPagerVi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
+        mAuthorId = getArguments().getLong(EXTRA_AUTHOR);
         return view;
     }
 

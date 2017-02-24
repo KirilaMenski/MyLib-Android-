@@ -45,7 +45,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     private AddBookFragmentPresenter mPresenter;
 
     private String mCoverBookBytes;
-    private int mAuthorId;
+    private long mAuthorId;
     private String mType;
     private boolean mOtherGenre;
     private boolean mIsEdit;
@@ -75,11 +75,11 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @BindView(R.id.add_book)
     TextView mAdd;
 
-    public static AddBookFragment newInstance(int authorId, int bookId) {
+    public static AddBookFragment newInstance(long authorId, long bookId) {
         AddBookFragment fragment = new AddBookFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_AUTHOR, authorId);
-        args.putInt(EXTRA_BOOK, bookId);
+        args.putLong(EXTRA_AUTHOR, authorId);
+        args.putLong(EXTRA_BOOK, bookId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,8 +89,8 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
-        int bookId = getArguments().getInt(EXTRA_BOOK);
+        mAuthorId = getArguments().getLong(EXTRA_AUTHOR);
+        long bookId = getArguments().getLong(EXTRA_BOOK);
         if (bookId != -1) {
             mPresenter.initializeView(mAuthorId, bookId);
             mAdd.setText(getString(R.string.edit));
@@ -171,13 +171,13 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     }
 
     @Override
-    public void authorSelected(int authorId, String firstName, String lastName) {
+    public void authorSelected(long authorId, String firstName, String lastName) {
         mAuthorId = authorId;
         mAuthorName.setText(firstName + " " + lastName);
     }
 
     @Override
-    public void bookSelected(int bookId) {
+    public void bookSelected(long bookId) {
 
     }
 

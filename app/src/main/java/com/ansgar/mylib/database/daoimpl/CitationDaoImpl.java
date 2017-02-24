@@ -81,7 +81,7 @@ public class CitationDaoImpl implements CitationDao {
     }
 
     @Override
-    public Observable<List<Citation>> getBookCitations(final int bookId) {
+    public Observable<List<Citation>> getBookCitations(final long bookId) {
         return Observable.create(new Observable.OnSubscribe<List<Citation>>() {
             @Override
             public void call(Subscriber<? super List<Citation>> subscriber) {

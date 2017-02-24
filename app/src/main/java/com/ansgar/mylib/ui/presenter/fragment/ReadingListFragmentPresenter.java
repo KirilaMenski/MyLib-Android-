@@ -50,7 +50,7 @@ public class ReadingListFragmentPresenter extends BasePresenter implements Readi
         bindObservable(observable, observer);
     }
 
-    public void addBookToList(int bookId) {
+    public void addBookToList(long bookId) {
         Book book = mBookDao.getBookById(bookId);
         book.setInList(1);
         mBookDao.updateBook(book);

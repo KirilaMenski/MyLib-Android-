@@ -62,7 +62,7 @@ public class AuthorsFragmentPresenter extends BasePresenter implements SortDialo
         if (mAllAuthors.size() != 0) selectAuthorBooks(mAllAuthors.get(0).getId());
     }
 
-    public void selectAuthorBooks(int authorId) {
+    public void selectAuthorBooks(long authorId) {
         FragmentUtil.replaceFragment((FragmentActivity) mView.getActivity(), R.id.author_book_container_layout, BooksFragment.newInstance(authorId, false, true, true), false);
     }
 

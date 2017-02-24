@@ -44,17 +44,18 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         mView = view;
     }
 
-    public void initializeView(int authorId) {
+    public void initializeView(long authorId) {
         mAuthor = mAuthorDao.getAuthorById(authorId);
         mView.setScreenTitle(mAuthor.getFirstName() + "\n" + mAuthor.getLastName());
         mView.updatePhotoView(new File(mAuthor.getCoverBytes()));
+        mView.setCoverPath(mAuthor.getCoverBytes());
         mView.setAuthorBiography(mAuthor.getBiography());
         mView.setAuthorFirstName(mAuthor.getFirstName());
         mView.setAuthorLastName(mAuthor.getLastName());
         mView.setAuthorDate(mAuthor.getDate());
     }
 
-    public void handleAuthor(boolean isEdit, String firstName, String lastName, String date, String biography) {
+    public void handleAuthor(boolean isEdit, String firstName, String lastName, String date, String biography, String coverPath) {
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         Author author = new Author();
         if (mAuthor != null) {
@@ -69,7 +70,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
         if (mPhoto != null) {
             author.setCoverBytes(FileManagerUtil.saveFile(mPhoto, author.getFirstName() + author.getLastName(), FileManagerUtil.SD_AUTHORS));
         } else {
-//            author.setCoverBytes("");
+            author.setCoverBytes(coverPath);
         }
         if (isEdit) {
             mAuthorDao.updateAuthor(author);

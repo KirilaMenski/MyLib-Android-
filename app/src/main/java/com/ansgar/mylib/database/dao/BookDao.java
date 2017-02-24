@@ -28,6 +28,6 @@ public interface BookDao {
 
     Observable<List<Book>> getUserBooksByReadValue(int read);
 
-    Observable<List<Book>> getUserBooksByAuthorId(int authorId);
+    Observable<List<Book>> getUserBooksByAuthorId(long authorId);
 
 }

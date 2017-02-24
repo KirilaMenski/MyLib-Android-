@@ -206,12 +206,12 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     }
 
     @Override
-    public void authorSelected(int authorId, String firstName, String lastName) {
+    public void authorSelected(long authorId, String firstName, String lastName) {
         mPresenter.selectAuthorBooks(authorId);
     }
 
     @Override
-    public void bookSelected(int bookId) {
+    public void bookSelected(long bookId) {
 
     }
 }

@@ -55,10 +55,10 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     @BindView(R.id.recycler_rating)
     RecyclerView mRatingRec;
 
-    public static BookDetailsFragment newInstance(int bookId) {
+    public static BookDetailsFragment newInstance(long bookId) {
         BookDetailsFragment fragment = new BookDetailsFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_BOOK, bookId);
+        args.putLong(EXTRA_BOOK, bookId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,7 +74,7 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        int bookId = getArguments().getInt(EXTRA_BOOK);
+        long bookId = getArguments().getLong(EXTRA_BOOK);
         mPresenter.initializeView(bookId);
         return view;
     }

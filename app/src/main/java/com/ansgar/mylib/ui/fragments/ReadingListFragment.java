@@ -181,12 +181,12 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     }
 
     @Override
-    public void authorSelected(int authorId, String firstName, String lastName) {
+    public void authorSelected(long authorId, String firstName, String lastName) {
 
     }
 
     @Override
-    public void bookSelected(int bookId) {
+    public void bookSelected(long bookId) {
         mPresenter.addBookToList(bookId);
     }
 }

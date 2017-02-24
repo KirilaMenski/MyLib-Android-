@@ -1,26 +1,19 @@
 package com.ansgar.mylib.database.daoimpl;
 
-import android.content.Context;
-import android.os.Environment;
-
 import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.BookDao;
-import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
-import com.ansgar.mylib.database.entity.User;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
+import android.content.Context;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -178,7 +171,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Observable<List<Book>> getUserBooksByAuthorId(final int authorId) {
+    public Observable<List<Book>> getUserBooksByAuthorId(final long authorId) {
         return Observable.create(new Observable.OnSubscribe<List<Book>>() {
             @Override
             public void call(Subscriber<? super List<Book>> subscriber) {

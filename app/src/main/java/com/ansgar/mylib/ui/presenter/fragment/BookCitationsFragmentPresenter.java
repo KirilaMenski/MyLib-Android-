@@ -43,7 +43,7 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
         mView = view;
     }
 
-    public void initializeView(int bookId) {
+    public void initializeView(long bookId) {
         mBook = (bookId != -1) ? mBookDao.getBookById(bookId) : new Book();
     }
 

@@ -44,10 +44,10 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     @BindView(R.id.recycler_citation)
     RecyclerView mCitationRec;
 
-    public static BookCitationsFragment newInstance(int bookId) {
+    public static BookCitationsFragment newInstance(Long bookId) {
         BookCitationsFragment fragment = new BookCitationsFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_BOOK, bookId);
+        args.putLong(EXTRA_BOOK, bookId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +57,7 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        int bookId = getArguments().getInt(EXTRA_BOOK);
+        long bookId = getArguments().getLong(EXTRA_BOOK);
         mPresenter.initializeView(bookId);
         return view;
     }

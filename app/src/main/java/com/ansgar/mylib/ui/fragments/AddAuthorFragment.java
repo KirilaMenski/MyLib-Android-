@@ -7,12 +7,14 @@ import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.dialog.PhotoDialog;
 import com.ansgar.mylib.ui.presenter.fragment.AddAuthorFragmentPresenter;
 import com.ansgar.mylib.ui.view.fragment.AddAuthorFragmentView;
+import com.ansgar.mylib.util.FileManagerUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -39,6 +41,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     private AddAuthorFragmentPresenter mPresenter;
 
     private boolean mEdit;
+    private String mCoverPath;
 
     @BindView(R.id.author_icon)
     ImageView mAuthorIcon;
@@ -53,10 +56,10 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     @BindView(R.id.handle_author)
     TextView mAdd;
 
-    public static AddAuthorFragment newInstance(int authorId) {
+    public static AddAuthorFragment newInstance(long authorId) {
         AddAuthorFragment fragment = new AddAuthorFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_AUTHOR, authorId);
+        args.putLong(EXTRA_AUTHOR, authorId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,11 +69,16 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
         ButterKnife.bind(this, view);
-        int author = getArguments().getInt(EXTRA_AUTHOR);
+        long author = getArguments().getLong(EXTRA_AUTHOR);
         if (author != -1) {
             mPresenter.initializeView(author);
             mAdd.setText(getString(R.string.edit));
             mEdit = true;
+        } else {
+            Bitmap image = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.ic_default_avatar);
+            setCoverPath(FileManagerUtil.defaultImage(image, FileManagerUtil.SD_AUTHORS));
+            File file = new File(mCoverPath);
+            updatePhotoView(file);
         }
         return view;
     }
@@ -86,7 +94,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     @OnClick(R.id.handle_author)
     public void handleAuthor() {
         mPresenter.handleAuthor(mEdit, mFirstName.getText().toString(),
-                mLastName.getText().toString(), mDate.getText().toString(), mBiography.getText().toString());
+                mLastName.getText().toString(), mDate.getText().toString(), mBiography.getText().toString(), mCoverPath);
     }
 
     @OnClick(R.id.author_icon)
@@ -133,16 +141,21 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     }
 
     @Override
+    public void setCoverPath(String path) {
+        mCoverPath = path;
+    }
+
+    @Override
     public void setAuthorDate(String date) {
         mDate.setText(date);
     }
 
     @Override
     public void updatePhotoView(File file) {
-            Picasso.with(getContext())
-                    .load(file)
-                    .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
-                    .into(mAuthorIcon);
+        Picasso.with(getContext())
+                .load(file)
+                .placeholder(ContextCompat.getDrawable(getContext(), R.drawable.spinner_gray_circle))
+                .into(mAuthorIcon);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     private BooksFragmentPresenter mPresenter;
     private BooksAdapter mAdapter;
 
-    private int mAuthorId;
+    private long mAuthorId;
     private boolean mLandscape;
     private boolean mAuthorBooks;
     private boolean mShowFooter;
@@ -80,10 +80,10 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @BindView(R.id.books_screen)
     LinearLayout mBooksScreen;
 
-    public static BooksFragment newInstance(int authorId, boolean setHasOptionMenu, boolean authorBooks, boolean showFooter) {
+    public static BooksFragment newInstance(long authorId, boolean setHasOptionMenu, boolean authorBooks, boolean showFooter) {
         BooksFragment fragment = new BooksFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_AUTHOR, authorId);
+        args.putLong(EXTRA_AUTHOR, authorId);
         args.putBoolean(EXTRA_SET_MENU, setHasOptionMenu);
         args.putBoolean(EXTRA_AUTHOR_BOOKS, authorBooks);
         args.putBoolean(EXTRA_SHOW_FOOTER, showFooter);
@@ -103,7 +103,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
         mAuthorBooks = getArguments().getBoolean(EXTRA_AUTHOR_BOOKS);
         View view = inflater.inflate(mAuthorBooks ? LAYOUT_AUTHOR_BOOKS : LAYOUT_BOOKS, container, false);
         ButterKnife.bind(this, view);
-        mAuthorId = getArguments().getInt(EXTRA_AUTHOR);
+        mAuthorId = getArguments().getLong(EXTRA_AUTHOR);
         mShowFooter = getArguments().getBoolean(EXTRA_SHOW_FOOTER);
         mSetHasOption = getArguments().getBoolean(EXTRA_SET_MENU);
         return view;
@@ -222,16 +222,16 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     }
 
     @Override
-    public void authorSelected(int authorId, String firstName, String lastName) {
+    public void authorSelected(long authorId, String firstName, String lastName) {
 
     }
 
     @Override
-    public void bookSelected(int bookId) {
+    public void bookSelected(long bookId) {
         showBookCitations(bookId);
     }
 
-    private void showBookCitations(int bookId) {
+    private void showBookCitations(long bookId) {
         FragmentUtil.replaceFragment(getActivity(), R.id.book_citations_container_layout, BookCitationsFragment.newInstance(bookId), false);
     }
 

@@ -42,10 +42,10 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
     TextView mAuthorBiography;
 
 
-    public static AuthorDetailsFragment newInstance(int authorId) {
+    public static AuthorDetailsFragment newInstance(long authorId) {
         AuthorDetailsFragment fragment = new AuthorDetailsFragment();
         Bundle args = new Bundle();
-        args.putInt(EXTRA_AUTHOR, authorId);
+        args.putLong(EXTRA_AUTHOR, authorId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,7 +61,7 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-        int authorId = getArguments().getInt(EXTRA_AUTHOR);
+        long authorId = getArguments().getLong(EXTRA_AUTHOR);
         mPresenter.initializeViews(authorId);
         return view;
     }

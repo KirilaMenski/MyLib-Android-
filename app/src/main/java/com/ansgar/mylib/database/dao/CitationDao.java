@@ -20,6 +20,6 @@ public interface CitationDao {
 
     List<Citation> getAllCitations();
 
-    Observable<List<Citation>> getBookCitations(int bookId);
+    Observable<List<Citation>> getBookCitations(long bookId);
 
 }

@@ -27,7 +27,7 @@ public class BookDetailsFragmentPresenter extends BasePresenter implements Ratin
         mView = view;
     }
 
-    public void initializeView(int bookId) {
+    public void initializeView(long bookId) {
         mBook = mBookDao.getBookById(bookId);
         mView.setScreenTitle(mBook.getTitle());
         mView.setAuthorName(mBook.getAuthor().getFirstName() + "\n" + mBook.getAuthor().getLastName());

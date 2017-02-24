@@ -22,7 +22,7 @@ public class User implements Serializable {
 
     @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
-    private int mId;
+    private long mId;
     @SerializedName("firstName")
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
@@ -53,7 +53,7 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<Author> authors) {
+    public User(long id, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<Author> authors) {
         mId = id;
         mFirstName = firstName;
         mLastName = lastName;
@@ -64,11 +64,11 @@ public class User implements Serializable {
         mAuthors = authors;
     }
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         mId = id;
     }
 

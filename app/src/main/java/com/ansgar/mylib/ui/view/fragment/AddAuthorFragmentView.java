@@ -1,11 +1,11 @@
 package com.ansgar.mylib.ui.view.fragment;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-
 import com.ansgar.mylib.ui.base.BaseContextView;
 
 import java.io.File;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
 
 /**
  * Created by kirill on 25.1.17.
@@ -20,6 +20,8 @@ public interface AddAuthorFragmentView extends BaseContextView {
     void setAuthorLastName(String lastName);
 
     void setAuthorBiography(String biography);
+
+    void setCoverPath(String path);
 
     void setAuthorDate(String date);
 

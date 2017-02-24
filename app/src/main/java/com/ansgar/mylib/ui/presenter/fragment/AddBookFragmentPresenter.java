@@ -55,7 +55,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         mView = view;
     }
 
-    public void initializeView(int authorId, int bookId) {
+    public void initializeView(long authorId, long bookId) {
         mBook = mBookDao.getBookById(bookId);
 
         mView.setCoverBytes(mBook.getCoverBytes());
@@ -75,7 +75,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
         mView.setDescription(mBook.getDescription());
     }
 
-    public void addBook(boolean isEdit, String coverBookPath, int authorId, String bookResPath,
+    public void addBook(boolean isEdit, String coverBookPath, long authorId, String bookResPath,
                         String bookTitle, String genre, String series, int seriesNum,
                         int year, String description) {
         Author author = mAuthorDao.getAuthorById(authorId);
