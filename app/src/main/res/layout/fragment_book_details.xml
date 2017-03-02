@@ -16,10 +16,8 @@
 
         <ImageView
             android:id="@+id/book_cover"
-            android:layout_width="@dimen/xxb_size"
-            android:layout_height="@dimen/xxxxb_size"
-            android:paddingLeft="@dimen/x_dimen"
-            android:paddingRight="@dimen/x_dimen"
+            android:layout_width="@dimen/xxxb_size"
+            android:layout_height="@dimen/xxxxbb_size"
             tools:src="@drawable/default_book_image"/>
 
         <android.support.v7.widget.RecyclerView
