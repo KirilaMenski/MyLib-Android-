@@ -21,6 +21,7 @@ import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import rx.Observable;
 import rx.Observer;
@@ -74,6 +75,7 @@ public class BookCitationsFragmentPresenter extends BasePresenter implements Cit
         Citation citation = new Citation();
         User user = mUserDao.getUserById(MyLibPreference.getUserId());
         citation.setBook(mBook);
+        citation.setUuid(UUID.randomUUID().toString());
         citation.setUser(user);
         citation.setCitation(text);
         citation.setDate(DateUtils.getDate());

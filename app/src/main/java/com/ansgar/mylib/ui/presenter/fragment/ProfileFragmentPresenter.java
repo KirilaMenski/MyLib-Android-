@@ -15,7 +15,6 @@ import com.ansgar.mylib.database.entity.Author;
 import com.ansgar.mylib.database.entity.Book;
 import com.ansgar.mylib.database.entity.Citation;
 import com.ansgar.mylib.database.entity.User;
-import com.ansgar.mylib.ui.activities.MainActivity;
 import com.ansgar.mylib.ui.base.BaseContextView;
 import com.ansgar.mylib.ui.base.BasePresenter;
 import com.ansgar.mylib.ui.fragments.AuthorsFragment;
@@ -30,6 +29,7 @@ import com.ansgar.mylib.util.NetWorkUtils;
 import com.ansgar.mylib.util.PictureUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -67,8 +67,8 @@ public class ProfileFragmentPresenter extends BasePresenter {
         mView.setScreenTitle(mUser.getFirstName() + "\n" + mUser.getLastName());
         mView.setUserAvatar(mUser.getCoverBytes());
         mView.setUserEmail(mUser.getEmail());
-//        mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthors().size()));
-//        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
+        mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthorsList().size()));
+        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
     }
 
     public void synchronizeData() {
@@ -93,6 +93,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                     for (int i = 0; i < authors.size(); i++) {
                         Author author = new Author();
                         author.setFirstName(authors.get(i).getFirstName());
+                        author.setUuid(UUID.randomUUID().toString());
                         author.setLastName(authors.get(i).getLastName());
                         author.setCoverBytes(FileManagerUtil.saveFile(BitmapCover.getBitmapCover(authors.get(i).getCoverBytes()),
                                 authors.get(i).getFirstName() + authors.get(i).getLastName() + DateUtils.getNewFileDate(), FileManagerUtil.SD_AUTHORS));
@@ -105,6 +106,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                         for (int j = 0; j < books.size(); j++) {
                             Book book = new Book();
                             book.setUser(user);
+                            book.setUuid(UUID.randomUUID().toString());
                             book.setAuthor(author);
                             book.setTitle(books.get(j).getTitle());
                             book.setDescription(books.get(j).getDescription());
@@ -123,6 +125,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                             for (int z = 0; z < citations.size(); z++) {
                                 Citation citation = new Citation();
                                 citation.setUser(user);
+                                citation.setUuid(UUID.randomUUID().toString());
                                 citation.setBook(book);
                                 citation.setCitation(citations.get(z).getCitation());
                                 citation.setDate(citations.get(z).getDate());
@@ -148,8 +151,6 @@ public class ProfileFragmentPresenter extends BasePresenter {
     }
 
     public void openFragment(String fragment) {
-        //TODO
-        MainActivity activity = (MainActivity) mView.getActivity();
         if (fragment.equals(AUTHOR_FRAGMENT)) {
             MyLibPreference.saveCurrentLibPage(0);
             FragmentUtil.replaceAnimFragment((FragmentActivity) mView.getActivity(),

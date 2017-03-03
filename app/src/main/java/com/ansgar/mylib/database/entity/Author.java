@@ -25,6 +25,9 @@ public class Author implements Serializable, Comparator<Author> {
     @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
+    @SerializedName("uuid")
+    @DatabaseField(columnName = "uuid")
+    private String mUuid;
     @SerializedName("coverBytes")
     @DatabaseField(columnName = "cover_bytes")
     private String mCoverBytes;
@@ -55,9 +58,10 @@ public class Author implements Serializable, Comparator<Author> {
 
     }
 
-    public Author(long id, String firstName, String lastName, String biography, String date, User user, int hasSynchronized, List<Book> authorBooks) {
+    public Author(long id, String uuid, String firstName, String lastName, String biography, String date, User user, int hasSynchronized, List<Book> authorBooks) {
         mId = id;
         mFirstName = firstName;
+        mUuid = uuid;
         mLastName = lastName;
         mBiography = biography;
         mDate = date;
@@ -98,6 +102,14 @@ public class Author implements Serializable, Comparator<Author> {
 
     public void setFirstName(String firstName) {
         mFirstName = firstName;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        mUuid = uuid;
     }
 
     public String getLastName() {

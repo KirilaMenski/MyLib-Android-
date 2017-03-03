@@ -1,7 +1,5 @@
 package com.ansgar.mylib.ui.presenter.dialog;
 
-import android.widget.Toast;
-
 import com.ansgar.mylib.R;
 import com.ansgar.mylib.database.dao.UserDao;
 import com.ansgar.mylib.database.daoimpl.UserDaoImpl;
@@ -13,8 +11,9 @@ import com.ansgar.mylib.ui.view.dialog.RegistrationDialogView;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.RegularExtentionUtil;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.UUID;
+
+import android.widget.Toast;
 
 /**
  * Created by kirill on 24.1.17.
@@ -38,6 +37,7 @@ public class RegistrationDialogPresenter extends BasePresenter {
         }
         if (password.equals(confirmPas)) {
             User user = new User();
+            user.setUuid(UUID.randomUUID().toString());
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setEmail(email);

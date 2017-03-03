@@ -24,6 +24,9 @@ public class Book implements Serializable, Comparator<Book> {
     @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
+    @SerializedName("uuid")
+    @DatabaseField(columnName = "uuid")
+    private String mUuid;
     @SerializedName("title")
     @DatabaseField(columnName = "title")
     private String mTitle;
@@ -75,9 +78,10 @@ public class Book implements Serializable, Comparator<Book> {
 
     }
 
-    public Book(long id, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
+    public Book(long id, String uuid, String title, String description, String genre, String cover, String series, int numSeries, int year, String resPath,
                 int inList, int rating, int wasRead, Author author, User user, int hasSynchronized, List<Citation> citations) {
         mId = id;
+        mUuid = uuid;
         mTitle = title;
         mDescription = description;
         mGenre = genre;
@@ -127,6 +131,14 @@ public class Book implements Serializable, Comparator<Book> {
 
     public void setTitle(String title) {
         mTitle = title;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        mUuid = uuid;
     }
 
     public String getDescription() {

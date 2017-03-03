@@ -28,6 +28,7 @@ import com.ansgar.mylib.util.PictureUtils;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -104,6 +105,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
             book.setCoverBytes(coverBookPath);
         }
         if (isEdit) {
+            book.setUuid(UUID.randomUUID().toString());
             mBookDao.updateBook(book);
         } else {
             mBookDao.addBook(book);

@@ -16,6 +16,9 @@ public class Citation implements Serializable {
     @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
+    @SerializedName("uuid")
+    @DatabaseField(columnName = "uuid")
+    private String mUuid;
     @SerializedName("citation")
     @DatabaseField(columnName = "citation")
     private String mCitation;
@@ -39,9 +42,10 @@ public class Citation implements Serializable {
 
     }
 
-    public Citation(long id, String citation, int liked, String date, Book book, User user, int hasSynchronized) {
+    public Citation(long id, String uuid, String citation, int liked, String date, Book book, User user, int hasSynchronized) {
         mId = id;
         mCitation = citation;
+        mUuid = uuid;
         mLiked = liked;
         mDate = date;
         mUser = user;
@@ -63,6 +67,14 @@ public class Citation implements Serializable {
 
     public void setCitation(String citation) {
         mCitation = citation;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        mUuid = uuid;
     }
 
     public int getLiked() {

@@ -19,6 +19,7 @@ import com.ansgar.mylib.util.PictureUtils;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.UUID;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -73,6 +74,7 @@ public class AddAuthorFragmentPresenter extends BasePresenter implements FileMan
             author.setCoverBytes(coverPath);
         }
         if (isEdit) {
+            author.setUuid(UUID.randomUUID().toString());
             mAuthorDao.updateAuthor(author);
         } else {
             mAuthorDao.addAuthor(author);

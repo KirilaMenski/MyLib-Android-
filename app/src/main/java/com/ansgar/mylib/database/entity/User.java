@@ -23,6 +23,9 @@ public class User implements Serializable {
     @SerializedName("id")
     @DatabaseField(generatedId = true, columnName = "id")
     private long mId;
+    @SerializedName("uuid")
+    @DatabaseField(columnName = "uuid")
+    private String mUuid;
     @SerializedName("firstName")
     @DatabaseField(columnName = "first_name")
     private String mFirstName;
@@ -41,11 +44,10 @@ public class User implements Serializable {
     @SerializedName("hasSynchronized")
     @DatabaseField(columnName = "synchronized")
     private int mHasSynchronized;
-
     @ForeignCollectionField
     ForeignCollection<Author> mAuthorsList;
-    //    @ForeignCollectionField
-//    ForeignCollection<Book> mBooks;
+    @ForeignCollectionField
+    ForeignCollection<Book> mBooks;
     @SerializedName("authors")
     private List<Author> mAuthors;
 
@@ -53,8 +55,9 @@ public class User implements Serializable {
 
     }
 
-    public User(long id, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<Author> authors) {
+    public User(long id, String uuid, String firstName, String lastName, String cover, String email, String password, int hasSynchronized, List<Author> authors) {
         mId = id;
+        mUuid = uuid;
         mFirstName = firstName;
         mLastName = lastName;
         mCoverBytes = cover;
@@ -90,17 +93,16 @@ public class User implements Serializable {
         return authors;
     }
 
-//
-//    public List<Book> getBooks() {
-//        List<Book> books = new ArrayList<>();
-//        if (mBooks == null) {
-//            return books;
-//        }
-//        for (Book book : mBooks) {
-//            books.add(book);
-//        }
-//        return books;
-//    }
+    public List<Book> getBooks() {
+        List<Book> books = new ArrayList<>();
+        if (mBooks == null) {
+            return books;
+        }
+        for (Book book : mBooks) {
+            books.add(book);
+        }
+        return books;
+    }
 
     public String getFirstName() {
         return mFirstName;
@@ -108,6 +110,14 @@ public class User implements Serializable {
 
     public void setFirstName(String firstName) {
         mFirstName = firstName;
+    }
+
+    public String getUuid() {
+        return mUuid;
+    }
+
+    public void setUuid(String uuid) {
+        mUuid = uuid;
     }
 
     public String getLastName() {
