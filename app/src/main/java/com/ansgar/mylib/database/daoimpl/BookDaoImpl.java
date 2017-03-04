@@ -82,6 +82,19 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
+    public Book getBookByUuid(String uuid) {
+        try {
+            QueryBuilder<Book, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("uuid", uuid);
+            List<Book> books = queryBuilder.query();
+            return (books.size() > 0) ? books.get(0) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public Observable<List<Book>> getUserBooks() {
         return Observable.create(new Observable.OnSubscribe<List<Book>>() {
             @Override

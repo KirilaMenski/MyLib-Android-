@@ -20,6 +20,8 @@ public interface BookDao {
 
     Book getBookById(long id);
 
+    Book getBookByUuid(String uuid);
+
     Observable<List<Book>> getUserBooks();
 
     Observable<List<Book>> getUserBooksByGenre(String genre);

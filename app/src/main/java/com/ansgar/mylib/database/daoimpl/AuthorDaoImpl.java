@@ -83,6 +83,19 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
+    public Author getAuthorByUuid(String uuid) {
+        try {
+            QueryBuilder<Author, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("uuid", uuid);
+            List<Author> authors = queryBuilder.query();
+            return (authors.size() > 0) ? authors.get(0) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Author> getAuthors() {
         List<Author> authors = new ArrayList<>();
         try {

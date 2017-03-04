@@ -20,6 +20,8 @@ public interface AuthorDao {
 
     Author getAuthorById(long id);
 
+    Author getAuthorByUuid(String uuid);
+
     List<Author> getAuthors();
 
     Observable<List<Author>> getUserAuthors();

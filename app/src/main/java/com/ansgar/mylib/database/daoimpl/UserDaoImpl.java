@@ -1,7 +1,5 @@
 package com.ansgar.mylib.database.daoimpl;
 
-import android.content.Context;
-
 import com.ansgar.mylib.MyLibApp;
 import com.ansgar.mylib.database.DatabaseHelper;
 import com.ansgar.mylib.database.dao.UserDao;
@@ -13,6 +11,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import java.lang.ref.WeakReference;
 import java.sql.SQLException;
 import java.util.List;
+
+import android.content.Context;
 
 /**
  * Created by kirill on 24.1.17.
@@ -83,6 +83,19 @@ public class UserDaoImpl implements UserDao {
         try {
             QueryBuilder<User, Integer> queryBuilder = mDao.queryBuilder();
             queryBuilder.where().eq("email", email);
+            List<User> users = queryBuilder.query();
+            return (users.size() > 0) ? users.get(0) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public User getUserByUuid(String uuid) {
+        try {
+            QueryBuilder<User, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("uuid", uuid);
             List<User> users = queryBuilder.query();
             return (users.size() > 0) ? users.get(0) : null;
         } catch (SQLException e) {

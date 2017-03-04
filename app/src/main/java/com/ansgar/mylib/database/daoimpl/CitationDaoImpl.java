@@ -70,6 +70,19 @@ public class CitationDaoImpl implements CitationDao {
     }
 
     @Override
+    public Citation getcitationByUuid(String uuid) {
+        try {
+            QueryBuilder<Citation, Integer> queryBuilder = mDao.queryBuilder();
+            queryBuilder.where().eq("uuid", uuid);
+            List<Citation> citations = queryBuilder.query();
+            return (citations.size() > 0) ? citations.get(0) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public List<Citation> getAllCitations() {
         List<Citation> citations = new ArrayList<>();
         try {

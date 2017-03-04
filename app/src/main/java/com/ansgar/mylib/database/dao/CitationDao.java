@@ -18,6 +18,8 @@ public interface CitationDao {
 
     void deleteCitation(Citation citation);
 
+    Citation getcitationByUuid(String uuid);
+
     List<Citation> getAllCitations();
 
     Observable<List<Citation>> getBookCitations(long bookId);
