@@ -137,10 +137,8 @@ public class ProfileFragmentPresenter extends BasePresenter {
                             book.setYear(books.get(j).getYear());
                             if (currentBook != null) {
                                 mBookDao.updateBook(book);
-                                Log.i(TAG, "Update book");
                             } else {
                                 mBookDao.addBook(book);
-                                Log.i(TAG, "Add book");
                             }
                             List<Citation> citations = user.getAuthors().get(i).getAuthorBooks().get(j).getCitations();
                             for (int z = 0; z < citations.size(); z++) {
