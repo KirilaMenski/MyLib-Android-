@@ -107,10 +107,8 @@ public class ProfileFragmentPresenter extends BasePresenter {
                         author.setUser(user);
                         if (currentAuthor != null) {
                             mAuthorDao.updateAuthor(author);
-                            Log.i(TAG, "Update author");
                         } else {
                             mAuthorDao.addAuthor(author);
-                            Log.i(TAG, "Add author");
                         }
                         List<Book> books = user.getAuthors().get(i).getAuthorBooks();
                         for (int j = 0; j < books.size(); j++) {
