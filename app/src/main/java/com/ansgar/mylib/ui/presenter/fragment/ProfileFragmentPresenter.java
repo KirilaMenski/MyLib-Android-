@@ -67,7 +67,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
         mView.setUserAvatar(mUser.getCoverBytes());
         mView.setUserEmail(mUser.getEmail());
         mView.setAuthorCount(mView.getActivity().getString(R.string.authors_count, mUser.getAuthorsList().size()));
-        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
+//        mView.setBookCount(mView.getActivity().getString(R.string.books_count, mUser.getBooks().size()));
     }
 
     public void synchronizeData() {
@@ -89,6 +89,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                 @Override
                 public void onNext(User user) {
                     List<Author> authors = user.getAuthors();
+                    Log.i(TAG, "size: " + authors.size());
                     for (int i = 0; i < authors.size(); i++) {
                         Author currentAuthor = mAuthorDao.getAuthorByUuid(authors.get(i).getUuid());
 
@@ -98,6 +99,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                         }
                         author.setFirstName(authors.get(i).getFirstName());
                         author.setUuid(authors.get(i).getUuid());
+//                        author.setUuid(UUID.randomUUID().toString());
                         author.setLastName(authors.get(i).getLastName());
                         author.setCoverBytes(FileManagerUtil.saveFile(BitmapCover.getBitmapCover(authors.get(i).getCoverBytes()),
                                 authors.get(i).getFirstName() + authors.get(i).getLastName() + DateUtils.getNewFileDate(), FileManagerUtil.SD_AUTHORS));
@@ -120,6 +122,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                             }
                             book.setUser(user);
                             book.setUuid(books.get(j).getUuid());
+//                            book.setUuid(UUID.randomUUID().toString());
                             book.setAuthor(author);
                             book.setTitle(books.get(j).getTitle());
                             book.setDescription(books.get(j).getDescription());
@@ -146,6 +149,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
                                 Citation citation = new Citation();
                                 citation.setUser(user);
                                 citation.setUuid(citations.get(z).getUuid());
+//                                citation.setUuid(UUID.randomUUID().toString());
                                 citation.setBook(book);
                                 citation.setCitation(citations.get(z).getCitation());
                                 citation.setDate(citations.get(z).getDate());
@@ -189,6 +193,7 @@ public class ProfileFragmentPresenter extends BasePresenter {
         if (NetWorkUtils.isNetworkConnected(mView.getContext())) {
             User user = mUserDao.getUserById(MyLibPreference.getUserId());
             mAuthors = user.getUnSynchronizedAuthorList();
+//            mAuthors = user.getAuthorsList();
             if (mAuthors.size() == 0) {
                 Toast.makeText(mView.getContext(), mView.getContext().getString(R.string.no_data), Toast.LENGTH_SHORT).show();
                 return;
@@ -199,12 +204,14 @@ public class ProfileFragmentPresenter extends BasePresenter {
                 mAuthorDao.updateAuthor(author);
                 author.setCoverBytes(BitmapCover.getStringBytes(PictureUtils.getBitmapFromPath(mAuthors.get(i).getCoverBytes())));
                 mBooks = author.getUnSynchronizedBooks();
+//                mBooks = author.getBooks();
                 for (int j = 0; j < mBooks.size(); j++) {
                     Book book = mBooks.get(j);
                     book.setHasSynchronized(1);
                     mBookDao.updateBook(book);
                     book.setCoverBytes(BitmapCover.getStringBytes(PictureUtils.getBitmapFromPath(mBooks.get(j).getCoverBytes())));
                     mCitations = book.getUnSynchronizedCitations();
+//                    mCitations = book.getBookCitations();
                     for (int z = 0; z < mCitations.size(); z++) {
                         mCitations.get(z).setHasSynchronized(1);
                         mCitationDao.updateCitation(mCitations.get(z));

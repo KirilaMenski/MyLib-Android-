@@ -46,8 +46,8 @@ public class User implements Serializable {
     private int mHasSynchronized;
     @ForeignCollectionField
     ForeignCollection<Author> mAuthorsList;
-    @ForeignCollectionField
-    ForeignCollection<Book> mBooks;
+//    @ForeignCollectionField
+//    ForeignCollection<Book> mBooks;
     @SerializedName("authors")
     private List<Author> mAuthors;
 
@@ -92,17 +92,17 @@ public class User implements Serializable {
         }
         return authors;
     }
-
-    public List<Book> getBooks() {
-        List<Book> books = new ArrayList<>();
-        if (mBooks == null) {
-            return books;
-        }
-        for (Book book : mBooks) {
-            books.add(book);
-        }
-        return books;
-    }
+//
+//    public List<Book> getBooks() {
+//        List<Book> books = new ArrayList<>();
+//        if (mBooks == null) {
+//            return books;
+//        }
+//        for (Book book : mBooks) {
+//            books.add(book);
+//        }
+//        return books;
+//    }
 
     public String getFirstName() {
         return mFirstName;
