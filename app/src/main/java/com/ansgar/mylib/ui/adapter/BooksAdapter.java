@@ -144,6 +144,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
         public void bindViews(Book book) {
             Picasso.with(mFragmentActivity.get())
                     .load(new File(book.getCoverBytes()))
+                    .resize(100, 140)
                     .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.spinner_gray_circle))
                     .into(mBookCover);
         }

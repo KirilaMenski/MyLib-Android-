@@ -165,6 +165,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
         private void setAuthorIcon(String icon) {
             Picasso.with(mFragmentActivity.get())
                     .load(new File(icon))
+                    .resize(150, 150)
                     .placeholder(ContextCompat.getDrawable(mFragmentActivity.get(), R.drawable.spinner_gray_circle))
                     .into(mAuthorIconLeft);
         }
