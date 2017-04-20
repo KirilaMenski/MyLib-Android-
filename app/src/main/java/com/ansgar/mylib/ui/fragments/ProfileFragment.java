@@ -28,8 +28,6 @@ import butterknife.OnClick;
 
 public class ProfileFragment extends BaseFragment implements ProfileFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_profile;
-
     private ProfileFragmentPresenter mPresenter;
 
     @BindView(R.id.profile_image)
@@ -59,7 +57,7 @@ public class ProfileFragment extends BaseFragment implements ProfileFragmentView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

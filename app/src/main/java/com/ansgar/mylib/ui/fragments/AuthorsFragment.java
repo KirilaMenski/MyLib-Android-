@@ -40,8 +40,6 @@ import butterknife.OnTextChanged;
 
 public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView, EntitySelectedListener {
 
-    private static final int LAYOUT = R.layout.fragment_authors;
-
     private AuthorsFragmentPresenter mPresenter;
     private AuthorsAdapter mAdapter;
     private boolean mLandscape;
@@ -83,7 +81,7 @@ public class AuthorsFragment extends BaseFragment implements AuthorsFragmentView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_authors, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

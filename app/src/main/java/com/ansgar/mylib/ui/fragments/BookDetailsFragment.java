@@ -32,7 +32,6 @@ import butterknife.ButterKnife;
 
 public class BookDetailsFragment extends BaseFragment implements BookDetailsFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_book_details;
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private BookDetailsFragmentPresenter mPresenter;
@@ -72,7 +71,7 @@ public class BookDetailsFragment extends BaseFragment implements BookDetailsFrag
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_details, container, false);
         ButterKnife.bind(this, view);
         long bookId = getArguments().getLong(EXTRA_BOOK);
         mPresenter.initializeView(bookId);

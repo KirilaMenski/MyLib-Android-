@@ -24,8 +24,6 @@ import butterknife.OnClick;
 
 public class LogInActivity extends BaseActivity implements LogInActivityView {
 
-    private static final int LAYOUT = R.layout.activity_login;
-
     private LogInActivityPresenter mPresenter;
 
     @BindView(R.id.email)
@@ -47,7 +45,7 @@ public class LogInActivity extends BaseActivity implements LogInActivityView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LAYOUT);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
 

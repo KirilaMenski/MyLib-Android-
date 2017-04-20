@@ -42,9 +42,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private static final int LAYOUT = R.layout.activity_main;
-    private final String BACK_STACK_SIZE = "CHANGED_SETTING";
-
     private MainActivityPresenter mPresenter;
 
     @BindView(R.id.profile_image)
@@ -57,10 +54,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     DrawerLayout mDrawer;
     @BindView(R.id.tv_screen_title)
     TextView mScreenTitle;
-    @BindView(R.id.profile)
-    RelativeLayout mProfileRl;
-    @BindView(R.id.main_fragment_container)
-    FrameLayout mFrameLayout;
 
     BottomNavigationView mBottomNavigationView;
 
@@ -74,7 +67,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LAYOUT);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -145,12 +138,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         } else {
             Toast.makeText(getContext(), getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(BACK_STACK_SIZE, this.getSupportFragmentManager().getFragments().size());
     }
 
 //    @Override
