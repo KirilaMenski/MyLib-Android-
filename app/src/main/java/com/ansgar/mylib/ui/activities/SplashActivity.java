@@ -7,16 +7,12 @@ import com.ansgar.mylib.ui.presenter.activity.SplashActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.SplashActivityView;
 import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.ansgar.mylib.util.PermissionsUtil;
 
 import java.util.concurrent.TimeUnit;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -28,8 +24,6 @@ import rx.Observer;
 
 public class SplashActivity extends BaseActivity implements SplashActivityView {
 
-    private final int PERMISSION_REQUEST_CODE = 1;
-
     private SplashActivityPresenter mPresenter;
 
     @Override
@@ -37,7 +31,10 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        createPermissions();
+        new PermissionsUtil(this).requestPermission(new String[]{PermissionsUtil.WRITE_EXTERNAL_STORAGE,
+                        PermissionsUtil.READ_EXTERNAL_STORAGE,
+                        PermissionsUtil.INTERNET, PermissionsUtil.ACCESS_NETWORK_STATE},
+                PermissionsUtil.MAIN_PERMISSION_REQUEST_CODE);
     }
 
     @Override
@@ -66,7 +63,6 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
         @Override
         public void onError(Throwable e) {
             e.printStackTrace();
-
         }
 
         @Override
@@ -75,36 +71,16 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
         }
     };
 
-    private void createPermissions() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
-            if (!checkIfAlreadyPermission()) {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-            }
-        }
-    }
-
-    private boolean checkIfAlreadyPermission() {
-        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS);
-        if (result == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
+        if (requestCode == PermissionsUtil.MAIN_PERMISSION_REQUEST_CODE) {
 //                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                    mPermissionsEnabled = true;
 //                } else {
 //
 //                }
-                Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
-                createAndAddSubscription(observable, observer);
-                return;
+            Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
+            createAndAddSubscription(observable, observer);
         }
     }
 }
