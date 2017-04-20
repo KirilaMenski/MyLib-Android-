@@ -32,8 +32,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsHolder> implements Filterable {
 
-    private static final int LAYOUT = R.layout.item_author;
-
     private List<Author> mAuthors;
     private List<Author> mAuthorsCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
@@ -52,7 +50,7 @@ public class AuthorsAdapter extends RecyclerView.Adapter<AuthorsAdapter.AuthorsH
     @Override
     public AuthorsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_author, parent, false);
         return new AuthorsHolder(view);
     }
 

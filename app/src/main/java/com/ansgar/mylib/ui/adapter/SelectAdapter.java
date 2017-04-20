@@ -22,8 +22,6 @@ import butterknife.ButterKnife;
  */
 public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.SelectHolder> {
 
-    private static final int LAYOUT = R.layout.item_value;
-
     private List<String> mValues;
     private WeakReference<SelectAdapterListener> mListener;
     private WeakReference<FragmentActivity> mFragmentActivity;
@@ -39,7 +37,7 @@ public class SelectAdapter extends RecyclerView.Adapter<SelectAdapter.SelectHold
     @Override
     public SelectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_value, parent, false);
         return new SelectHolder(view);
     }
 
