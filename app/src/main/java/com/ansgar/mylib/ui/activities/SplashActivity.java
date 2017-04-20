@@ -10,7 +10,14 @@ import com.ansgar.mylib.util.MyLibPreference;
 
 import java.util.concurrent.TimeUnit;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
@@ -21,17 +28,16 @@ import rx.Observer;
 
 public class SplashActivity extends BaseActivity implements SplashActivityView {
 
-    private static final int LAYOUT = R.layout.activity_splash;
+    private final int PERMISSION_REQUEST_CODE = 1;
 
-    SplashActivityPresenter mPresenter;
+    private SplashActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LAYOUT);
+        setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
-        createAndAddSubscription(observable, observer);
+        createPermissions();
     }
 
     @Override
@@ -68,4 +74,37 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
             LanguageUtil.setCurrentLang(getContext());
         }
     };
+
+    private void createPermissions() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+            if (!checkIfAlreadyPermission()) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
+
+    private boolean checkIfAlreadyPermission() {
+        int result = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    mPermissionsEnabled = true;
+//                } else {
+//
+//                }
+                Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
+                createAndAddSubscription(observable, observer);
+                return;
+        }
+    }
 }
