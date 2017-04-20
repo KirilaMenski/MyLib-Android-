@@ -28,8 +28,6 @@ import butterknife.OnClick;
 
 public class LocaleDialog extends DialogFragment {
 
-    private static final int LAYOUT = R.layout.dialog_locale;
-
     private WeakReference<LocaleDialogListener> mListener;
     private Dialog mDialog;
 
@@ -43,7 +41,7 @@ public class LocaleDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_locale, null);
         ButterKnife.bind(this, view);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {

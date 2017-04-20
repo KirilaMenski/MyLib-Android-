@@ -51,13 +51,13 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTy
     }
 
     @Override
-    public void onBindViewHolder(SortTypeHolder holder, final int position) {
+    public void onBindViewHolder(final SortTypeHolder holder, int position) {
         final String type = mTypes.get(position);
         holder.bindHolder(type, position == mSortPos);
         holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.get().selectedSortType(type, position);
+                mListener.get().selectedSortType(type, holder.getAdapterPosition());
             }
         });
     }
