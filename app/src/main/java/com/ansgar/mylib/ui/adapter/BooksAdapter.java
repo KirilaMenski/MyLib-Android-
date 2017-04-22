@@ -31,8 +31,6 @@ import butterknife.ButterKnife;
  */
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder> implements Filterable {
 
-    private static final int LAYOUT = R.layout.item_books;
-
     private List<Book> mBooks;
     private List<Book> mBooksCopy;
     private WeakReference<FragmentActivity> mFragmentActivity;
@@ -51,7 +49,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BooksHolder>
     @Override
     public BooksAdapter.BooksHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_books, parent, false);
         return new BooksHolder(view);
     }
 

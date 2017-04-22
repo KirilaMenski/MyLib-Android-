@@ -29,7 +29,6 @@ import butterknife.OnClick;
  */
 public class BookCitationsFragment extends BaseFragment implements BookCitationsFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_book_citations;
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
     private BookCitationsFragmentPresenter mPresenter;
@@ -55,7 +54,7 @@ public class BookCitationsFragment extends BaseFragment implements BookCitations
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_citations, container, false);
         ButterKnife.bind(this, view);
         long bookId = getArguments().getLong(EXTRA_BOOK);
         mPresenter.initializeView(bookId);

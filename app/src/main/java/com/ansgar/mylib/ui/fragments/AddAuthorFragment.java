@@ -35,7 +35,6 @@ import butterknife.OnClick;
 
 public class AddAuthorFragment extends BaseFragment implements AddAuthorFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_add_author;
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
 
     private AddAuthorFragmentPresenter mPresenter;
@@ -67,7 +66,7 @@ public class AddAuthorFragment extends BaseFragment implements AddAuthorFragment
     @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_add_author, null);
         ButterKnife.bind(this, view);
         long author = getArguments().getLong(EXTRA_AUTHOR);
         if (author != -1) {

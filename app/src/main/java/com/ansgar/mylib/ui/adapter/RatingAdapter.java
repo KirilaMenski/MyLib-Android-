@@ -22,8 +22,7 @@ import butterknife.ButterKnife;
 
 public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHolder> {
 
-    private static final int LAYOUT = R.layout.item_rating;
-    private static final int COUNT = 5;
+    private final int MAX_STARS = 5;
 
     private WeakReference<FragmentActivity> mFragmentActivity;
     private WeakReference<RatingAdapterListener> mListener;
@@ -38,16 +37,15 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
     @Override
     public RatingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_rating, parent, false);
         return new RatingHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RatingHolder holder, final int position) {
-//        for (int i = 0; i < COUNT; i++) {
-            holder.mRating.setImageDrawable(ContextCompat.getDrawable(mFragmentActivity.get(),
-                    (position + 1) <= mRating ? R.drawable.ic_rating : R.drawable.ic_rating_empty));
-//        }
+        holder.mRating.setImageDrawable(ContextCompat.getDrawable(mFragmentActivity.get(),
+                (position + 1) <= mRating ? R.drawable.ic_rating : R.drawable.ic_rating_empty));
+
         holder.mRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +56,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
 
     @Override
     public int getItemCount() {
-        return COUNT;
+        return MAX_STARS;
     }
 
     public class RatingHolder extends RecyclerView.ViewHolder {

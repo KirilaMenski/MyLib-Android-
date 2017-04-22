@@ -41,8 +41,6 @@ import butterknife.OnTextChanged;
 
 public class BooksFragment extends BaseFragment implements BooksFragmentView, EntitySelectedListener {
 
-    private final int LAYOUT_BOOKS = R.layout.fragment_books;
-    private final int LAYOUT_AUTHOR_BOOKS = R.layout.fragment_author_books;
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
     private static final String EXTRA_SET_MENU = "com.ansgar.mylib.ui.fragments.set_menu";
     private static final String EXTRA_AUTHOR_BOOKS = "com.ansgar.mylib.ui.fragments.author_books";
@@ -53,9 +51,7 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
 
     private long mAuthorId;
     private boolean mLandscape;
-    private boolean mAuthorBooks;
     private boolean mShowFooter;
-    private boolean mSetHasOption;
 
     @BindView(R.id.progress_bar_layout)
     ProgressBar mProgressBar;
@@ -63,12 +59,8 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     LinearLayout mSearchLayout;
     @BindView(R.id.search)
     EditText mSearchEt;
-    @BindView(R.id.cancel)
-    TextView mCancelSearch;
     @BindView(R.id.type)
     TextView mDataType;
-    @BindView(R.id.add_data)
-    LinearLayout mAddAuthor;
     @BindView(R.id.layout_no_item)
     LinearLayout mNoItemLayout;
     @BindView(R.id.recycler_books)
@@ -100,12 +92,11 @@ public class BooksFragment extends BaseFragment implements BooksFragmentView, En
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mAuthorBooks = getArguments().getBoolean(EXTRA_AUTHOR_BOOKS);
-        View view = inflater.inflate(mAuthorBooks ? LAYOUT_AUTHOR_BOOKS : LAYOUT_BOOKS, container, false);
+        boolean authorBooks = getArguments().getBoolean(EXTRA_AUTHOR_BOOKS);
+        View view = inflater.inflate(authorBooks ? R.layout.fragment_author_books : R.layout.fragment_books, container, false);
         ButterKnife.bind(this, view);
         mAuthorId = getArguments().getLong(EXTRA_AUTHOR);
         mShowFooter = getArguments().getBoolean(EXTRA_SHOW_FOOTER);
-        mSetHasOption = getArguments().getBoolean(EXTRA_SET_MENU);
         return view;
     }
 

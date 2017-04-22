@@ -34,7 +34,6 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
     public static final String GENRE_TYPE = "genre_value";
     public static final String INT_TYPE = "int_value";
     private static final String EXTRA_TYPE = "com.ansgar.mylib.ui.dialog.type";
-    private static final int LAYOUT = R.layout.dialog_select;
 
     private WeakReference<SelectDialogListener> mListener;
     private SelectDialogPresenter mPresenter;
@@ -56,7 +55,7 @@ public class SelectDialog extends BaseDialog implements SelectDialogView, Select
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_select, null);
         ButterKnife.bind(this, view);
         mType = getArguments().getString(EXTRA_TYPE);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();

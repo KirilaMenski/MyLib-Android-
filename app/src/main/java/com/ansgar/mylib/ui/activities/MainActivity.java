@@ -15,6 +15,7 @@ import com.ansgar.mylib.util.FragmentUtil;
 import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
 import com.ansgar.mylib.util.NetWorkUtils;
+import com.ansgar.mylib.util.PermissionsUtil;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -36,14 +37,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragmentManager.OnBackStackChangedListener, View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private static final int LAYOUT = R.layout.activity_main;
-    private final String BACK_STACK_SIZE = "CHANGED_SETTING";
 
     private MainActivityPresenter mPresenter;
 
@@ -57,10 +56,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     DrawerLayout mDrawer;
     @BindView(R.id.tv_screen_title)
     TextView mScreenTitle;
-    @BindView(R.id.profile)
-    RelativeLayout mProfileRl;
-    @BindView(R.id.main_fragment_container)
-    FrameLayout mFrameLayout;
 
     BottomNavigationView mBottomNavigationView;
 
@@ -74,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LAYOUT);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -123,7 +118,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     }
 
     @OnClick(R.id.tv_my_lib)
-    public void openMyLib(){
+    public void openMyLib() {
         FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
         FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, AuthorsFragment.newInstance(), false);
         mDrawer.closeDrawers();
@@ -138,25 +133,28 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     @OnClick(R.id.tv_map)
     public void openMap() {
-        if (NetWorkUtils.isNetworkConnected(getContext())) {
-            FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
-            FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
-            mDrawer.closeDrawers();
-        } else {
-            Toast.makeText(getContext(), getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(BACK_STACK_SIZE, this.getSupportFragmentManager().getFragments().size());
+        new PermissionsUtil(this).requestPermission(new String[]{PermissionsUtil.ACCESS_FINE_LOCATION, PermissionsUtil.ACCESS_COARSE_LOCATION},
+                PermissionsUtil.LOCATION_REQUEST_CODE);
     }
 
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);
 //    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PermissionsUtil.LOCATION_REQUEST_CODE) {
+            if (NetWorkUtils.isNetworkConnected(getContext())) {
+                FragmentUtil.clearBackStack((FragmentActivity) getActivity(), ((FragmentActivity) getActivity()).getSupportFragmentManager().getBackStackEntryCount());
+                FragmentUtil.replaceFragment((FragmentActivity) getActivity(), R.id.main_fragment_container, MapFragment.newInstance(), false);
+                mDrawer.closeDrawers();
+            } else {
+                Toast.makeText(getContext(), getString(R.string.connection_failed), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     protected BasePresenter getPresenter() {

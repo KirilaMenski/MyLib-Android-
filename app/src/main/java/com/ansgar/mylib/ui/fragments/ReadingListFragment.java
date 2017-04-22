@@ -38,8 +38,6 @@ import butterknife.OnTextChanged;
 
 public class ReadingListFragment extends BaseFragment implements ReadingListFragmentView, EntitySelectedDialogListener {
 
-    private static final int LAYOUT = R.layout.fragment_reading_list;
-
     private ReadingListFragmentPresenter mPresenter;
     private ReadingListAdapter mAdapter;
 
@@ -74,7 +72,7 @@ public class ReadingListFragment extends BaseFragment implements ReadingListFrag
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_reading_list, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

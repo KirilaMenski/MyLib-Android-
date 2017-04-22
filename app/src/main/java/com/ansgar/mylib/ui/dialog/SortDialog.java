@@ -30,7 +30,6 @@ import butterknife.ButterKnife;
 
 public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAdapterListener{
 
-    private static final int LAYOUT = R.layout.dialog_sort;
     private static final String EXTRA_TYPE = "com.ansgar.mylib.ui.dialog.type";
 
     private SortDialogPresenter mPresenter;
@@ -54,7 +53,7 @@ public class SortDialog extends BaseDialog implements SortDialogView, SortTypeAd
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_sort, null);
         ButterKnife.bind(this, view);
         mType = getArguments().getString(EXTRA_TYPE);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();

@@ -29,7 +29,6 @@ import butterknife.ButterKnife;
 
 public class AuthorDetailsFragment extends BaseFragment implements AuthorDetailsFragmentView {
 
-    private static final int LAYOUT = R.layout.fragment_author_details;
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
 
     private AuthorDetailsFragmentPresenter mPresenter;
@@ -59,7 +58,7 @@ public class AuthorDetailsFragment extends BaseFragment implements AuthorDetails
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_author_details, container, false);
         ButterKnife.bind(this, view);
         long authorId = getArguments().getLong(EXTRA_AUTHOR);
         mPresenter.initializeViews(authorId);

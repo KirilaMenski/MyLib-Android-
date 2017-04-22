@@ -25,8 +25,6 @@ import butterknife.ButterKnife;
  */
 public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTypeHolder> {
 
-    private static final int LAYOUT = R.layout.item_sort_type;
-
     private List<String> mTypes;
     private WeakReference<SortTypeAdapterListener> mListener;
     private WeakReference<FragmentActivity> mFragmentActivity;
@@ -48,18 +46,18 @@ public class SortTypeAdapter extends RecyclerView.Adapter<SortTypeAdapter.SortTy
     @Override
     public SortTypeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_sort_type, parent, false);
         return new SortTypeHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SortTypeHolder holder, final int position) {
+    public void onBindViewHolder(final SortTypeHolder holder, int position) {
         final String type = mTypes.get(position);
         holder.bindHolder(type, position == mSortPos);
         holder.mLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.get().selectedSortType(type, position);
+                mListener.get().selectedSortType(type, holder.getAdapterPosition());
             }
         });
     }

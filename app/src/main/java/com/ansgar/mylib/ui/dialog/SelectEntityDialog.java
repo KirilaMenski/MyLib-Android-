@@ -34,7 +34,6 @@ import butterknife.ButterKnife;
 
 public class SelectEntityDialog extends BaseDialog implements SelectEntityDialogView, EntitySelectedListener {
 
-    private static final int LAYOUT = R.layout.dialog_select_object;
     private static final String EXTRA_ENTITY = "com.ansgar.mylib.ui.dialog.entity";
 
     private SelectEntityDialogPresenter mPresenter;
@@ -59,7 +58,7 @@ public class SelectEntityDialog extends BaseDialog implements SelectEntityDialog
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_select_object, null);
         ButterKnife.bind(this, view);
         mEntityType = getArguments().getString(EXTRA_ENTITY);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();

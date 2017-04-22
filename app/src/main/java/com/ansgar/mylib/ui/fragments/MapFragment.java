@@ -40,7 +40,6 @@ import butterknife.ButterKnife;
 public class MapFragment extends BaseFragment implements MapFragmentView, OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
-    private static final int LAYOUT = R.layout.fragment_map;
     private static final long INTERVAL = 5000;
     private static final long FASTEST_INTERVAL = 3000;
 
@@ -62,7 +61,7 @@ public class MapFragment extends BaseFragment implements MapFragmentView, OnMapR
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
         ButterKnife.bind(this, view);
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.setClickable(true);

@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
  */
 public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.CitationHolder> {
 
-    private static final int LAYOUT = R.layout.item_citation;
-
     private List<Citation> mCitations;
     private WeakReference<FragmentActivity> mFragmentActivity;
     private WeakReference<CitationAdapterListener> mListener;
@@ -39,7 +37,7 @@ public class CitationAdapter extends RecyclerView.Adapter<CitationAdapter.Citati
     @Override
     public CitationHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mFragmentActivity.get());
-        View view = inflater.inflate(LAYOUT, parent, false);
+        View view = inflater.inflate(R.layout.item_citation, parent, false);
         return new CitationHolder(view);
     }
 

@@ -27,8 +27,6 @@ import butterknife.OnClick;
 
 public class RegistrationDialog extends BaseDialog implements RegistrationDialogView {
 
-    private static final int LAYOUT = R.layout.dialog_registration;
-
     private RegistrationDialogPresenter mPresenter;
 
     private Dialog mDialog;
@@ -54,7 +52,7 @@ public class RegistrationDialog extends BaseDialog implements RegistrationDialog
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_registration, null);
         ButterKnife.bind(this, view);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {

@@ -37,7 +37,7 @@ public class MyLibPreference {
 
     WeakReference<Context> mContext;
 
-    public MyLibPreference(Context context) {
+    private MyLibPreference(Context context) {
         this.mContext = new WeakReference<>(context);
         this.mPreference = getPrefs(mContext.get());
     }

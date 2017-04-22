@@ -7,10 +7,13 @@ import com.ansgar.mylib.ui.presenter.activity.SplashActivityPresenter;
 import com.ansgar.mylib.ui.view.activity.SplashActivityView;
 import com.ansgar.mylib.util.LanguageUtil;
 import com.ansgar.mylib.util.MyLibPreference;
+import com.ansgar.mylib.util.PermissionsUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Observer;
@@ -21,17 +24,17 @@ import rx.Observer;
 
 public class SplashActivity extends BaseActivity implements SplashActivityView {
 
-    private static final int LAYOUT = R.layout.activity_splash;
-
-    SplashActivityPresenter mPresenter;
+    private SplashActivityPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(LAYOUT);
+        setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
-        createAndAddSubscription(observable, observer);
+        new PermissionsUtil(this).requestPermission(new String[]{PermissionsUtil.WRITE_EXTERNAL_STORAGE,
+                        PermissionsUtil.READ_EXTERNAL_STORAGE,
+                        PermissionsUtil.INTERNET, PermissionsUtil.ACCESS_NETWORK_STATE},
+                PermissionsUtil.MAIN_PERMISSION_REQUEST_CODE);
     }
 
     @Override
@@ -60,7 +63,6 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
         @Override
         public void onError(Throwable e) {
             e.printStackTrace();
-
         }
 
         @Override
@@ -68,4 +70,17 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
             LanguageUtil.setCurrentLang(getContext());
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PermissionsUtil.MAIN_PERMISSION_REQUEST_CODE) {
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    mPermissionsEnabled = true;
+//                } else {
+//
+//                }
+            Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
+            createAndAddSubscription(observable, observer);
+        }
+    }
 }

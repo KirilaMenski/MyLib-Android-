@@ -40,7 +40,6 @@ import butterknife.OnClick;
 
 public class AddBookFragment extends BaseFragment implements AddBookFragmentView, EntitySelectedDialogListener, SelectDialogListener {
 
-    private static final int LAYOUT = R.layout.fragment_add_book;
     private static final String EXTRA_AUTHOR = "com.ansgar.mylib.ui.fragments.author";
     private static final String EXTRA_BOOK = "com.ansgar.mylib.ui.fragments.book";
 
@@ -89,7 +88,7 @@ public class AddBookFragment extends BaseFragment implements AddBookFragmentView
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_book, container, false);
         ButterKnife.bind(this, view);
         mAuthorId = getArguments().getLong(EXTRA_AUTHOR);
         long bookId = getArguments().getLong(EXTRA_BOOK);

@@ -26,8 +26,6 @@ import butterknife.OnClick;
 
 public class PhotoDialog extends DialogFragment {
 
-    private static final int LAYOUT = R.layout.dialog_photo;
-
     private Dialog mDialog;
     private WeakReference<PhotoDialogListener> mListener;
 
@@ -39,7 +37,7 @@ public class PhotoDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = LayoutInflater.from(getActivity()).inflate(LAYOUT, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_photo, null);
         ButterKnife.bind(this, view);
         mDialog = new AlertDialog.Builder(getActivity()).setView(view).create();
         mDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
