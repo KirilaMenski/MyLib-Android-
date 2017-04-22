@@ -29,8 +29,8 @@ android {
         applicationId "com.ansgar.mylib"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.8"
+        versionCode 1002
+        versionName "1.2"
         multiDexEnabled true
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
@@ -54,7 +54,7 @@ android {
 
     buildTypes {
         debug {
-            versionNameSuffix "-debug"
+            versionNameSuffix "-debug1"
             debuggable true
             zipAlignEnabled true
             signingConfig signingConfigs.release
