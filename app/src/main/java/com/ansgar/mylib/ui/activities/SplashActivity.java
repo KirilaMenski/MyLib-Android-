@@ -31,10 +31,11 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        new PermissionsUtil(this).requestPermission(new String[]{PermissionsUtil.WRITE_EXTERNAL_STORAGE,
+        boolean isMVersion = new PermissionsUtil(this).requestPermission(new String[]{PermissionsUtil.WRITE_EXTERNAL_STORAGE,
                         PermissionsUtil.READ_EXTERNAL_STORAGE,
                         PermissionsUtil.INTERNET, PermissionsUtil.ACCESS_NETWORK_STATE},
                 PermissionsUtil.MAIN_PERMISSION_REQUEST_CODE);
+        if (!isMVersion) startObservable();
     }
 
     @Override
@@ -79,8 +80,13 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
 //                } else {
 //
 //                }
-            Observable<String> observable = Observable.just("0").delay(1500, TimeUnit.MILLISECONDS);
-            createAndAddSubscription(observable, observer);
+            startObservable();
         }
     }
+
+    private void startObservable() {
+        Observable<String> observable = Observable.just("0").delay(500, TimeUnit.MILLISECONDS);
+        createAndAddSubscription(observable, observer);
+    }
+
 }

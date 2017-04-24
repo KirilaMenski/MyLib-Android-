@@ -1,13 +1,13 @@
 package com.ansgar.mylib.util;
 
+import java.lang.ref.WeakReference;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-
-import java.lang.ref.WeakReference;
 
 /**
  * Created by admin on 20.04.2017.
@@ -40,12 +40,14 @@ public class PermissionsUtil {
         }
     }
 
-    public void requestPermission(String[] permissions, int requestCode) {
+    public boolean requestPermission(String[] permissions, int requestCode) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             if (!checkIfAlreadyPermission()) {
                 ActivityCompat.requestPermissions(mActivity.get(), permissions, requestCode);
             }
+            return true;
         }
+        return false;
     }
 
 }

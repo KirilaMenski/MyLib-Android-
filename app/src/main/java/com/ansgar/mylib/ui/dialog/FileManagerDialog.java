@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +46,14 @@ import android.widget.Toast;
 public class FileManagerDialog extends AlertDialog.Builder {
 
     public static final String TYPE = "just_photo";
+    private final String FORMAT_PNG = "png";
+    private final String FORMAT_JPG = "jpg";
+    private final String FORMAT_JPEG = "jpeg";
+
+    private final String FORMAT_FB_2 = "fb2";
+
+    private final String FORMAT_ZIP = "zip";
+    private final String FORMAT_RAR = "rar";
 
     private int mSelectedIndex = -1;
 
@@ -52,7 +63,9 @@ public class FileManagerDialog extends AlertDialog.Builder {
 
     private FilenameFilter mFileNameFilter;
 
-//    private String mCurrentPath = Environment.getRootDirectory().getAbsolutePath();
+    private WeakReference<Context> mContext;
+
+    //    private String mCurrentPath = Environment.getRootDirectory().getAbsolutePath();
     private String mCurrentPath = Environment.getExternalStorageDirectory().toString();
     private String mFile;
 
@@ -61,6 +74,7 @@ public class FileManagerDialog extends AlertDialog.Builder {
 
     public FileManagerDialog(final Context context, final String type) {
         super(context);
+        mContext = new WeakReference<>(context);
         mTitle = createTitle(context);
         LinearLayout linearLayout = createMainLayout(context);
         linearLayout.addView(createBackItem(context));
@@ -76,35 +90,68 @@ public class FileManagerDialog extends AlertDialog.Builder {
                         String path = mTitle.getText() + "/" + mFile;
                         String[] file = mFile.split("\\.");
                         if (type.equals(TYPE)) {
-                            if (file[file.length - 1].equals("png") ||
-                                    file[file.length - 1].equals("jpg") ||
-                                    file[file.length - 1].equals("ipeg")) {
+                            if (file[file.length - 1].equals(FORMAT_PNG) ||
+                                    file[file.length - 1].equals(FORMAT_JPG) ||
+                                    file[file.length - 1].equals(FORMAT_JPEG)) {
                                 mListener.get().photoSelected(path);
                             } else {
                                 Toast.makeText(getContext(), getContext().getString(R.string.image_not_support), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            addBook(context, path);
+                            if (file[file.length - 1].equals(FORMAT_ZIP)) {
+                                openArchive(path);
+                            } else {
+                                addBook(path);
+                            }
                         }
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null);
     }
 
-    private void addBook(Context context, String path) {
+    private void openArchive(String path) {
+
+        try {
+
+            ZipInputStream zis = new ZipInputStream(new FileInputStream(path));
+
+            ZipEntry ze = zis.getNextEntry();
+            String[] fileName;
+            while (ze != null) {
+                fileName = ze.getName().split("\\.");
+                ZipFile zip = new ZipFile(path);
+                if (fileName[fileName.length - 1].equals(FORMAT_FB_2))
+                    addBook(zip.getInputStream(ze), path);
+                ze = zis.getNextEntry();
+            }
+            zis.closeEntry();
+            zis.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void addBook(String path) {
 
         String[] file = mFile.split("\\.");
-        if (file[file.length - 1].equals("fb2")) {
+        if (file[file.length - 1].equals(FORMAT_FB_2)) {
             try {
                 InputStream is = new FileInputStream(path);
                 mListener.get().fileSelected(is, path);
             } catch (IOException e) {
                 e.printStackTrace();
-                Toast.makeText(context, "File not found ", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext.get(), mContext.get().getString(R.string.file_not_found), Toast.LENGTH_LONG).show();
             }
         } else {
             Toast.makeText(getContext(), getContext().getString(R.string.book_not_support), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void addBook(InputStream inputStream, String path) {
+        InputStream is = inputStream;
+        mListener.get().fileSelected(is, path);
     }
 
     @Override
@@ -202,6 +249,7 @@ public class FileManagerDialog extends AlertDialog.Builder {
             }
             return mCurrentFile;
         }
+
     }
 
     private List<File> getFiles(String directoryPath) {

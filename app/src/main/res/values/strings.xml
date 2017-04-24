@@ -64,6 +64,7 @@
     <string name="save">Save</string>
     <string name="no_data">The new data was not detected</string>
     <string name="congrad">Поздравляю!</string>
+    <string name="file_not_found">File not found</string>
     <string-array name="genre_list">
         <item>Fantasy</item>
         <item>Science fiction</item>
