@@ -123,7 +123,7 @@ public class AddBookFragmentPresenter extends BasePresenter implements FileManag
     @Override
     public void fileSelected(InputStream inputStream, String path) {
         Description description = new DescriptionImpl(inputStream);
-        String coverBytes = (description.getCover().size() > 0) ? description.getCover().get(0)
+        String coverBytes = (description.getCover().size() > 0) ? description.getCover().get(description.getCover().size() - 1)
                 : BitmapCover.getStringBytes(BitmapFactory.decodeResource(mView.getContext().getResources(), R.drawable.default_book_image));
         String coverPath = FileManagerUtil.saveFile(BitmapCover.getBitmapCover(coverBytes), description.getTitle() + DateUtils.getNewFileDate(), FileManagerUtil.SD_BOOKS);
         mView.setCoverBytes(coverPath);

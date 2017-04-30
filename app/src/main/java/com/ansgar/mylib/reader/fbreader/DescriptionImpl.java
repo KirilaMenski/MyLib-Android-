@@ -2,13 +2,16 @@ package com.ansgar.mylib.reader.fbreader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -76,19 +79,36 @@ public class DescriptionImpl implements Description {
     //TODO
     @Override
     public List<String> getCover() {
-        NodeList nodeList = mDocument.getElementsByTagName("binary");
+        NodeList nodeList = mDocument.getElementsByTagName("coverpage");
         List<String> covers = new ArrayList<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element element = (Element) nodeList.item(i);
             try {
-//                cover = element.getElementsByTagName("image").item(0)
-//                        .getAttributes().getNamedItem("l:href").getNodeValue();
-                covers.add(element.getChildNodes().item(0).getNodeValue());
+                String cover = element.getElementsByTagName("image").item(0)
+                        .getAttributes().getNamedItem("l:href").getNodeValue();
+                covers.add(getImage(cover));
             } catch (Exception e) {
                 continue;
             }
         }
         return covers;
+    }
+
+    private String getImage(String cover) {
+        Map<String, String> map = new HashMap<>();
+        NodeList nodeList = mDocument.getElementsByTagName("binary");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                map.put(element.getAttribute("id"), element.getChildNodes().item(0).getNodeValue());
+            }
+
+        }
+
+        return map.get(cover.replace("#", ""));
     }
 
     @Override
